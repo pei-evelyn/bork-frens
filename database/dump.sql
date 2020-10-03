@@ -279,6 +279,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN "userId" SET DEFAULT nextval('public.
 --
 
 COPY public."frenRequests" ("requestId", "senderId", "recipientId", "isAccepted") FROM stdin;
+2	6	7	f
 \.
 
 
@@ -287,6 +288,10 @@ COPY public."frenRequests" ("requestId", "senderId", "recipientId", "isAccepted"
 --
 
 COPY public."frenlinessLevels" ("levelId", level) FROM stdin;
+1	Petential
+2	Looking Quite Fetching
+3	Pawsitively Pawsome 
+4	One Classy Mother Pupper
 \.
 
 
@@ -295,6 +300,8 @@ COPY public."frenlinessLevels" ("levelId", level) FROM stdin;
 --
 
 COPY public.genders ("genderId", identity) FROM stdin;
+1	male
+2	female
 \.
 
 
@@ -303,6 +310,7 @@ COPY public.genders ("genderId", identity) FROM stdin;
 --
 
 COPY public.messages ("messageId", "messageContent", "senderId", "recipientId", "sentAt") FROM stdin;
+2	Borkdrive blep heckin borkdrive, wow very biscit. Porgo fat boi shoob puggo corgo, blop super chub.	6	7	2020-10-03 12:37:15.057653-07
 \.
 
 
@@ -311,6 +319,8 @@ COPY public.messages ("messageId", "messageContent", "senderId", "recipientId", 
 --
 
 COPY public.users ("userId", "dogName", location, "userName", breed, "DOB", "levelId", tagline, "imageUrl", "genderId") FROM stdin;
+6	Kaydo	Irvine	kaydoborkz	husky	1978-10-23	4	happy all the time	www.url.com	1
+7	Pupperino	Tustin	pupps54	cyberBorks	1979-01-15	4	machines rule	www.url.com	1
 \.
 
 
@@ -318,35 +328,35 @@ COPY public.users ("userId", "dogName", location, "userName", breed, "DOB", "lev
 -- Name: frenRequests_requestId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."frenRequests_requestId_seq"', 1, false);
+SELECT pg_catalog.setval('public."frenRequests_requestId_seq"', 2, true);
 
 
 --
 -- Name: frenlinessLevels_levelId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."frenlinessLevels_levelId_seq"', 1, false);
+SELECT pg_catalog.setval('public."frenlinessLevels_levelId_seq"', 4, true);
 
 
 --
 -- Name: genders_genderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."genders_genderId_seq"', 1, false);
+SELECT pg_catalog.setval('public."genders_genderId_seq"', 2, true);
 
 
 --
 -- Name: messages_messageId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."messages_messageId_seq"', 1, false);
+SELECT pg_catalog.setval('public."messages_messageId_seq"', 2, true);
 
 
 --
 -- Name: users_userId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."users_userId_seq"', 1, false);
+SELECT pg_catalog.setval('public."users_userId_seq"', 7, true);
 
 
 --
