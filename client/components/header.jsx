@@ -10,7 +10,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="col-12 text-whit d-flex flex-wrap justify-content-between container mt-3">
+      <div className="header col-12 text-white d-flex flex-wrap justify-content-between container pt-3">
         <i className="fas fa-angle-left fa-2x"></i>
         <h5 className="mt-1">Frens List</h5>
         <i className="fa fa-bars fa-2x" ></i>
@@ -18,4 +18,5 @@ class Header extends React.Component {
     );
   }
 }
+
 export default Header;
