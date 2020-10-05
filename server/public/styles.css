@@ -2,6 +2,11 @@
 footer {
   bottom: 0;
   width: 100%;
+}
+
+.header {
+  background-color: #69b0ab;
+}
 
 .bg-container {
   background: linear-gradient(#69b0ab,#ffffff);
