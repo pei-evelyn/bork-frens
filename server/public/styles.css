@@ -1,21 +1,18 @@
+body {
+  background: linear-gradient(#69b0ab, #ffffff);
+  height: 100vh;
+}
 
 footer {
   bottom: 0;
   width: 100%;
 }
 
-.header {
-  background-color: #69b0ab;
-}
-
-.bg-container {
-  background: linear-gradient(#69b0ab,#ffffff);
-  height: 100vh;
-}
 
 .content-container {
   height: 80vh;
   background-color: #ffffff;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
+  bottom: 0;
 }
