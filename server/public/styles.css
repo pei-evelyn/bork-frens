@@ -1,10 +1,9 @@
-
 footer {
   bottom: 0;
   width: 100%;
 
 .bg-container {
-  background: linear-gradient(#69b0ab,#ffffff);
+  background: linear-gradient(#69b0ab, #ffffff);
   height: 100vh;
 }
 
