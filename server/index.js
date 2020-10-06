@@ -30,10 +30,13 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
 
   const sql = `
     select "u"."dogName" as "requesterName",
-           "u"."imageUrl" as "requesterImage"
+           "u"."imageUrl" as "requesterImage",
+           "fr"."requestId",
+           "fr"."isAccepted"
       from "frenRequests" as "fr"
       join "users" as "u" on "u"."userId" = "fr"."senderId"
-     where "fr"."recipientId" = $1
+     where "fr"."recipientId" = $1 and
+           "fr"."isAccepted" = false;
   `;
 
   const params = [recipientId];
