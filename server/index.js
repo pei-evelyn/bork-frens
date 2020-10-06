@@ -13,7 +13,7 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/users', (req, res, next) => {
+app.get('/api/messages/users', (req, res, next) => {
 
   const sql = `
   select "dogName",
