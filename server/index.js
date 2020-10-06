@@ -42,10 +42,12 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
       } else {
         res.status(200).json(result.rows);
       }
-
+    })
+    .catch(error => next(error));
+});
 // User can log in to account
 
-app.get('/api/users', (req, res, next) => {
+app.get('/api/login', (req, res, next) => {
   db.query('select "userName", "userId" from "users"')
     .then(result => {
       res.status(200).json(result.rows);
