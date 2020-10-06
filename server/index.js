@@ -19,6 +19,23 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/users/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+
+  const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
+  const params = [userId];
+  db.query(query, params)
+    .then(result => {
+      if (!result) {
+        return next(new ClientError(`Cannot find product with id of ${result}`, 404));
+      } else {
+        res.json(result.rows);
+      }
+    })
+    .catch(err => console.error(err));
+  next();
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
