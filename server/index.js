@@ -16,7 +16,12 @@ app.use(express.json());
 app.get('/api/users', (req, res, next) => {
 
   const sql = `
-  select "dogName"
+  select "dogName",
+  "messageContent",
+  "recipientId",
+  "senderId",
+  "imageUrl",
+  "sentAt"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
   `;

@@ -10,7 +10,6 @@ export default class Message extends React.Component {
   }
 
   getInfo() {
-
     fetch('/api/users')
       .then(response => response.json())
       .then(data => this.setState({ dog: this.state.dog.concat(data) }));
@@ -22,7 +21,9 @@ export default class Message extends React.Component {
 
   render() {
     return (
-      null
+      <div className="container">
+
+      </div>
     );
   }
 }
