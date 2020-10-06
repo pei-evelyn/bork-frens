@@ -11,25 +11,26 @@ export default class App extends React.Component {
       message: null,
       isLoading: true,
       view: {
-        name: name,
+        name: 'login',
         params: {}
       }
     };
-    this.getUserNames = this.getUserNames.bind(this);
+    this.setView = this.setView.bind(this);
   }
 
-  componentDidMount() {
-    this.getUserNames();
-  }
-
-  getUserNames() {
-    this.setState({ view: { name: 'login', params: {} } });
+  setView(name, params) {
+    this.setState({
+      view: {
+        name: name,
+        params: {}
+      }
+    });
   }
 
   render() {
     if (this.state.view.name === 'login') {
       return (
-        <LoginPage />
+        <LoginPage setView={this.setView} />
       );
     } else {
       return (
