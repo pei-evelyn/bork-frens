@@ -53,6 +53,22 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/users/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  const params = [userId];
+  const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
+
+  db.query(query, params)
+    .then(result => {
+      if (!result) {
+        return next(new ClientError('No frens yet. Let\'s find some!', 404));
+      } else {
+        return res.status(200).json(result.rows);
+      }
+    })
+    .catch(err => console.error(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
