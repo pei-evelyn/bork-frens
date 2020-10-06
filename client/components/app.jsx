@@ -3,6 +3,7 @@ import Header from './header';
 // import Background from './background';
 import Footer from './footer';
 import Messages from './message';
+import FrensList from './fren-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     return (
       <>
         <Header />
+        <FrensList />
         <Messages />
         <Footer />
       </>

@@ -105,10 +105,18 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/users/:userId', (req, res, next) => {
+app.get('/api/frens/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const params = [userId];
-  const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
+  const query = `select "u"."dogName" as "frenName",
+    "u"."imageUrl" as "frenImage",
+    "fr"."isAccepted",
+    "u". "userId"
+    from "frenRequests" as "fr"
+    join "users" as "u" on "u"."userId" = "fr"."senderId"
+    where "fr"."recipientId" = $1 and
+    "fr"."isAccepted" = true;  `;
+  // const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
 
   db.query(query, params)
     .then(result => {
@@ -122,7 +130,7 @@ app.get('/api/users/:userId', (req, res, next) => {
 });
 
 app.use('/api', (req, res, next) => {
-  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl} `, 404));
 });
 
 app.use((err, req, res, next) => {
