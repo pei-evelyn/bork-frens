@@ -1,25 +1,27 @@
 import React from 'react';
 import Header from './header';
-// import Background from './background';
-import Footer from './footer';
-import Messages from './message';
+import FrenRequestList from './fren-request-list';
+// import Footer from './footer';
+// import Messages from './message';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: [],
-      isLoading: true
+      view: 'frenRequestList',
+      params: {}
     };
   }
 
   render() {
-    return (
-      <>
-        <Header />
-        <Messages />
-        <Footer />
-      </>
-    );
+    if (this.state.view === 'frenRequestList') {
+      return (
+        <>
+          <Header />
+          <FrenRequestList userId='6'/>
+        </>
+      );
+    }
+
   }
 }
