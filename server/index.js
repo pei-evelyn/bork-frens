@@ -24,13 +24,13 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
 
   const sql = `
     select "u"."dogName" as "requesterName",
-           "u"."imageUrl" as "requesterImage",
-           "fr"."requestId",
-           "fr"."isAccepted"
+          "u"."imageUrl" as "requesterImage",
+          "fr"."requestId",
+          "fr"."isAccepted"
       from "frenRequests" as "fr"
       join "users" as "u" on "u"."userId" = "fr"."senderId"
-     where "fr"."recipientId" = $1 and
-           "fr"."isAccepted" = false;
+    where "fr"."recipientId" = $1 and
+          "fr"."isAccepted" = false;
   `;
 
   const params = [recipientId];
@@ -42,8 +42,8 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
       } else {
         res.status(200).json(result.rows);
       }
-
-// User can log in to account
+    });
+});
 
 app.get('/api/users', (req, res, next) => {
   db.query('select "userName", "userId" from "users"')
