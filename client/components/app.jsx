@@ -7,17 +7,21 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null,
+      message: [],
       isLoading: true
     };
+    this.getInfo = this.getInfo.bind(this);
+  }
+
+  getInfo() {
+
+    fetch('/api/users')
+      .then(response => response.json())
+      .then(data => this.setState({ message: this.state.message.concat(data) }));
   }
 
   componentDidMount() {
-    fetch('/api/health-check')
-      .then(res => res.json())
-      .then(data => this.setState({ message: data.message || data.error }))
-      .catch(err => this.setState({ message: err.message }))
-      .finally(() => this.setState({ isLoading: false }));
+    this.getInfo();
   }
 
   render() {
