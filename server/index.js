@@ -21,19 +21,19 @@ app.get('/api/health-check', (req, res, next) => {
 
 app.get('/api/users/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-
-  const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
   const params = [userId];
+  const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
+
   db.query(query, params)
     .then(result => {
       if (!result) {
-        return next(new ClientError(`Cannot find product with id of ${result}`, 404));
+        return next(new ClientError('No frens yet. Let\'s find some!', 404));
+        // return res.status(404).send({ error: 'Cannot find note with id ' + req.params.id });
       } else {
-        res.json(result.rows);
+        return res.status(200).json(result.rows);
       }
     })
     .catch(err => console.error(err));
-  next();
 });
 
 app.use('/api', (req, res, next) => {
