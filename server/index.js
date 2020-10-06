@@ -28,7 +28,6 @@ app.get('/api/users/:userId', (req, res, next) => {
     .then(result => {
       if (!result) {
         return next(new ClientError('No frens yet. Let\'s find some!', 404));
-        // return res.status(404).send({ error: 'Cannot find note with id ' + req.params.id });
       } else {
         return res.status(200).json(result.rows);
       }
