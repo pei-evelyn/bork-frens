@@ -53,7 +53,7 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/users', (req, res, next) => {
+app.get('/api/users/find-frens/list', (req, res, next) => {
   const location = req.body.location;
   const userId = req.body.userId;
   const users = `
@@ -63,6 +63,16 @@ app.get('/api/users', (req, res, next) => {
             "dogName"
             from "users"
       where "location" = $1 and "userId" != $2
+      union
+      select count(*)
+            "userName",
+            "location",
+            "imageUrl",
+            "dogName"
+        from "users"
+      group by "imageUrl",
+              "location",
+              "dogName"
   `;
   const params = [location, userId];
   db.query(users, params)
@@ -70,7 +80,7 @@ app.get('/api/users', (req, res, next) => {
       const totalUsers = `
     select count(*) from "users"`;
       return db.query(totalUsers).then(total => {
-        if (total.rows[0].count === 1) {
+        if (total.rows[0].count === 0) {
           res.status(404).json({
             error: 'No Doggos Nearby'
           });
