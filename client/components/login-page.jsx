@@ -26,18 +26,20 @@ class LoginPage extends React.Component {
   render() {
     return (
       <>
-        <div className="login-background pt-5 text-white col-12">
+        <div className="login-background pt-5 text-white col">
           <i className="d-flex justify-content-center fas fa-bone fa-3x"></i>
           <h2 className="d-flex justify-content-center mb-5">borkfrens</h2>
-          <select onChange={() => this.props.setView('homePage', {})}
-            className="form-control form-control-lg col-10 mx-4">
-            <option key={this.state.userId} className="col-9">Select User</option>
-            {this.state.userName.map(user => {
-              return (
-                <option key={this.state.userId} className="col-9">{user}</option>
-              );
-            })}
-          </select>
+          <div className="d-flex justify-content-center">
+            <select onChange={() => this.props.setView('homePage', {})}
+              className="form-control-lg col-11">
+              <option key={this.state.userId} className="col-9">Select User</option>
+              {this.state.userName.map(user => {
+                return (
+                  <option key={this.state.userId} className="col-9">{user}</option>
+                );
+              })}
+            </select>
+          </div>
         </div>
       </>
     );
