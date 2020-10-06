@@ -17,7 +17,7 @@ export default class App extends React.Component {
     if (this.state.view === 'frenRequestList') {
       return (
         <>
-          <Header />
+          <Header text='Fren Requests'/>
           <FrenRequestList userId='6'/>
         </>
       );

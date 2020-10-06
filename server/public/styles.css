@@ -17,6 +17,8 @@ footer {
 }
 
 .fren-request-img {
-  height: 3rem;
-  width: 3rem;
+  height: 4.3rem;
+  width: 4.3rem;
+  object-fit: cover;
+  border-radius: 50%;
 }

@@ -28,7 +28,7 @@ class FrenRequestList extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row d-flex align-items-end">
+        <div className="row no-gutters d-flex align-items-end">
           <div className="col content-container mx-3 mt-4">
             <FrenRequests frenReq={this.state.requests}/>
           </div>
