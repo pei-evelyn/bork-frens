@@ -63,37 +63,25 @@ app.get('/api/users/find-frens/list', (req, res, next) => {
             "dogName"
             from "users"
       where "location" = $1 and "userId" != $2
-      union
-      select count(*)
-            "userName",
-            "location",
-            "imageUrl",
-            "dogName"
-        from "users"
-      group by "imageUrl",
-              "location",
-              "dogName"
   `;
   const params = [location, userId];
   db.query(users, params)
     .then(userInfo => {
       const totalUsers = `
-    select count(*) from "users"`;
+    select count(*) as "numberOfUsers"
+      from "users"
+      where "userId" != ${userId}`;
       return db.query(totalUsers).then(total => {
-        if (total.rows[0].count === 0) {
+        const userInt = parseInt(total.rows[0].numberOfUsers);
+        if (userInt < 1) {
           res.status(404).json({
             error: 'No Doggos Nearby'
           });
-        } else {
-          const allData = {
-            userName: userInfo.rows[0].userName,
-            dogName: userInfo.rows[0].dogName,
-            imageUrl: userInfo.rows[0].imageUrl,
-            location: userInfo.rows[0].location,
-            totalUsers: total.rows[0].count
-          };
-          return allData;
+          return;
         }
+        const allData = userInfo.rows[0];
+        allData.totalUsers = total.rows[0].numberOfUsers;
+        return allData;
       });
 
     })
