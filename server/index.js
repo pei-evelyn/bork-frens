@@ -19,19 +19,19 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.use('/api', (req, res, next) => {
-  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
-});
-
 app.get('/api/users', (req, res, next) => {
+  const location = req.body.location;
+  const userId = req.body.userId;
   const users = `
     select "userName",
-          "imageUrl",
-          "location",
-          "dogName"
-    from "users"
+            "imageUrl",
+            "location",
+            "dogName"
+            from "users"
+      where "location" = $1 and "userId" != $2
   `;
-  db.query(users)
+  const params = [location, userId];
+  db.query(users, params)
     .then(userInfo => {
       const totalUsers = `
     select count(*) from "users"`;
@@ -51,9 +51,14 @@ app.get('/api/users', (req, res, next) => {
           return allData;
         }
       });
+
     })
     .then(result => res.json(result))
     .catch(err => next(err));
+});
+
+app.use('/api', (req, res, next) => {
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
 
 app.use((err, req, res, next) => {
