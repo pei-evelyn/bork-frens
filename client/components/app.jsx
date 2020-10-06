@@ -13,9 +13,15 @@ export default class App extends React.Component {
       view: {
         name: 'login',
         params: {}
-      }
+      },
+      user: ''
     };
     this.setView = this.setView.bind(this);
+    this.addUser = this.addUser.bind(this);
+  }
+
+  addUser(userName) {
+    this.setState({ user: userName.user });
   }
 
   setView(name, params) {
@@ -30,7 +36,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.view.name === 'login') {
       return (
-        <LoginPage setView={this.setView} />
+        <LoginPage addUser={this.addUser} setView={this.setView}/>
       );
     } else {
       return (
