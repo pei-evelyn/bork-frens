@@ -1,7 +1,8 @@
 import React from 'react';
 import Header from './header';
-import Background from './background';
+// import Background from './background';
 import Footer from './footer';
+import Messages from './message';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,25 +11,13 @@ export default class App extends React.Component {
       message: [],
       isLoading: true
     };
-    this.getInfo = this.getInfo.bind(this);
-  }
-
-  getInfo() {
-
-    fetch('/api/users')
-      .then(response => response.json())
-      .then(data => this.setState({ message: this.state.message.concat(data) }));
-  }
-
-  componentDidMount() {
-    this.getInfo();
   }
 
   render() {
     return (
       <>
         <Header />
-        <Background />
+        <Messages />
         <Footer />
       </>
     );
