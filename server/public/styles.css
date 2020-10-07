@@ -20,3 +20,12 @@ footer {
   border-top-right-radius: 0.8rem;
   bottom: 0;
 }
+
+.fren-request-img {
+  height: 5rem;
+  width: 5rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

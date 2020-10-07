@@ -3,15 +3,14 @@ import Header from './header';
 import Background from './background';
 import Footer from './footer';
 import LoginPage from './login-page';
+import NearbyFrensList from './nearby-frens-list';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null,
-      isLoading: true,
       view: {
-        name: 'login',
+        name: 'logins',
         params: {}
       }
     };
@@ -28,7 +27,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state.view.name === 'login') {
+    if (this.state.view.name !== 'login') {
+      return (
+        <>
+          <Header />
+          <NearbyFrensList setView={this.setView} />
+        </>
+      );
+    } else if (this.state.view.name === 'login') {
       return (
         <LoginPage setView={this.setView} />
       );
