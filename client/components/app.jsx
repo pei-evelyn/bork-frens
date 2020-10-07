@@ -12,9 +12,20 @@ export default class App extends React.Component {
       view: {
         name: 'login',
         params: {}
-      }
+      },
+      user: {}
     };
     this.setView = this.setView.bind(this);
+    this.addUser = this.addUser.bind(this);
+  }
+
+  addUser(userName) {
+    this.setState({
+      user: {
+        user: userName.user,
+        userId: userName.userId
+      }
+    });
   }
 
   setView(name, params) {
@@ -27,16 +38,17 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state.view.name === 'homepage') {
+    if (this.state.view.name === 'frensNearby') {
       return (
         <>
           <Header />
-          <NearbyFrensList setView={this.setView} />
+          <NearbyFrensList userId={this.state.user.userId} />
+          <Footer />
         </>
       );
     } else if (this.state.view.name === 'login') {
       return (
-        <LoginPage setView={this.setView} />
+        <LoginPage addUser={this.addUser} setView={this.setView} />
       );
     } else {
       return (

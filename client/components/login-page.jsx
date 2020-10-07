@@ -26,7 +26,7 @@ class LoginPage extends React.Component {
   handleChange(event) {
     const index = event.target.selectedIndex;
     const selected = event.target.childNodes[index];
-    const optionId = selected.getAttribute('userId');
+    const optionId = selected.getAttribute('userid');
     this.props.addUser({
       user: event.target.value,
       userId: optionId
@@ -46,7 +46,7 @@ class LoginPage extends React.Component {
               <option className="col-9">Select User</option>
               {this.state.users.map(user => {
                 return (
-                  <option key={user.userId} userId={user.userId} className="col-9">{user.userName}</option>
+                  <option key={user.userId} userid={user.userId} className="col-9">{user.userName}</option>
                 );
               })}
             </select>

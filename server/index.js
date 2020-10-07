@@ -31,7 +31,8 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const location = req.params.location;
   const users = `
-    select "userName",
+    select  "userId",
+            "userName",
             "imageUrl",
             "location",
             "dogName"

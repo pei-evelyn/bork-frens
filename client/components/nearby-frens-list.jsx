@@ -15,11 +15,15 @@ class NearbyFrensList extends React.Component {
   }
 
   getFrens() {
-    fetch('./api/users/find-frens/list/:location/:userId')
+    const userId = parseInt(this.props.userId);
+    const location = this.state.frens[0].location;
+    fetch(`./api/users/find-frens/list/${location}/${userId}`)
       .then(res => res.json())
       .then(allFrens => {
+        const newFrens = [];
+        newFrens.push(allFrens);
         this.setState({
-          frens: allFrens
+          frens: newFrens
         });
       }).catch(err => console.error(err));
   }
@@ -27,10 +31,8 @@ class NearbyFrensList extends React.Component {
   render() {
     return (
       <div className="container col-11">
-        <h6 className="text-white d-flex justify-content-center mb-0">
-           Frens Nearby</h6>
-        <p className="text-white d-flex justify-content-center mb-0">
-        </p>
+        <h6 className="text-white d-flex justify-content-center mb-0">{this.state.frens.totalUsers} Frens Nearby</h6>
+        <p className="text-white d-flex justify-content-center mb-0"></p>
         <div className="row d-flex align-items-end">
           <div className="col content-container mx-3 mt-1">
             {this.state.frens.map(fren => {
