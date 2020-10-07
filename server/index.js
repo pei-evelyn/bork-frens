@@ -159,25 +159,9 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/users/:userId', (req, res, next) => {
+  app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  const params = [userId];
-  const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
-
-  db.query(query, params)
-    .then(result => {
-      if (!result) {
-        return next(new ClientError('No frens yet. Let\'s find some!', 404));
-      } else {
-        return res.status(200).json(result.rows);
-      }
-    })
-    .catch(err => console.error(err));
-});
-
-app.get('/api/users/find-frens/list', (req, res, next) => {
-  const location = req.body.location;
-  const userId = req.body.userId;
+  const userLocation = req.params.location;
   const users = `
     select "userName",
             "imageUrl",
@@ -186,7 +170,7 @@ app.get('/api/users/find-frens/list', (req, res, next) => {
             from "users"
       where "location" = $1 and "userId" != $2
   `;
-  const params = [location, userId];
+  const params = [userLocation, userId];
   db.query(users, params)
     .then(userInfo => {
       const totalUsers = `
