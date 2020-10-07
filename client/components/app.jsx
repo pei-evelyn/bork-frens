@@ -1,22 +1,22 @@
 import React from 'react';
 import Header from './header';
 
-import Chat from './chat';
+// import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import Messages from './message';
 import FrensList from './frens-list';
 
 import Footer from './footer';
-import LoginPage from './login-page';
+// import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
-
+import Homepage from './homepage';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'login',
+        name: 'homepage',
         params: {}
       },
       user: {}
@@ -44,17 +44,16 @@ export default class App extends React.Component {
   }
 
   render() {
-if(this.state.view.name === 'frensList') {
+    if (this.state.view.name === 'frensList') {
       return (
-      <>
-        <Header />
-        <FrensList />
-        <Messages />
-        <Footer />
-      </>
-    );
-}
-
+        <>
+          <Header />
+          <FrensList />
+          <Messages />
+          <Footer />
+        </>
+      );
+    }
 
     if (this.state.view.name === 'frensNearby') {
       return (
@@ -63,8 +62,8 @@ if(this.state.view.name === 'frensList') {
           <NearbyFrensList userId={this.state.user.userId} />
           <Footer />
         </>
-        )
-    } 
+      );
+    }
     if (this.state.view === 'frenRequestList') {
       return (
         <>
@@ -72,9 +71,13 @@ if(this.state.view.name === 'frensList') {
           <FrenRequestList userId='6' />
         </>
       );
-    } else if (this.state.view.name === 'login') {
+    } else if (this.state.view.name === 'homepage') {
       return (
-        <LoginPage addUser={this.addUser} setView={this.setView} />
+        <>
+          <Header />
+          <Homepage />
+          <Footer />
+        </>
       );
     } else {
       return (
@@ -88,3 +91,9 @@ if(this.state.view.name === 'frensList') {
 
   }
 }
+
+// else if (this.state.view.name === 'login') {
+//   return (
+//     <LoginPage addUser={this.addUser} setView={this.setView} />
+//   );
+// }

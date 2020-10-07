@@ -97,7 +97,6 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
     .catch(error => next(error));
 });
 
-
 // User can see other's profile
 
 app.get('/api/others-profile/:userId', (req, res, next) => {
@@ -125,17 +124,17 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
   `;
 
   const params = [userId];
-  
-   db.query(sql, params)
+
+  db.query(sql, params)
     .then(result => {
       if (result.rows.length === 0) {
         next(new ClientError(`User Id ${userId} does not exist`, 404));
-       } else {
+      } else {
         return res.status(200).json(result.rows[0]);
       }
     })
     .catch(err => next(err));
-  
+});
 // User can accept friend request
 
 app.put('/api/fren-requests/:requestId', (req, res, next) => {
@@ -170,7 +169,7 @@ app.post('/api/others-profile', (req, res, next) => {
   const requestInfo = req.body;
 
   if (typeof requestInfo.senderId === 'undefined' ||
-      typeof requestInfo.recipientId === 'undefined') {
+    typeof requestInfo.recipientId === 'undefined') {
     throw (new ClientError('Missing required information', 400));
   }
 
@@ -211,7 +210,7 @@ app.delete('/api/fren-requests/:requestId', (req, res, next) => {
         return res.sendStatus(204);
       }
     })
-  .catch(err => next(err));
+    .catch(err => next(err));
 });
 
 // User can log in to account
@@ -223,7 +222,6 @@ app.get('/api/login', (req, res, next) => {
     })
     .catch(err => next(err));
 });
-
 
 // User Can View All their Frens
 app.get('/api/frens/:userId', (req, res, next) => {
@@ -238,7 +236,7 @@ app.get('/api/frens/:userId', (req, res, next) => {
     join "users" as "u" on "u"."userId" = "fr"."senderId"
     where "fr"."recipientId" = $1 and
     "fr"."isAccepted" = true;  `;
-   db.query(query, params)
+  db.query(query, params)
     .then(result => {
       if (!result) {
         return next(new ClientError('No frens yet. Let\'s find some!', 404));
@@ -253,8 +251,7 @@ app.get('/api/frens/:userId', (req, res, next) => {
 
 app.get('/api/homepage/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  const sql = `SELECT  FROM "users" WHERE "userId" = ${userId}`;
-
+  const sql = `SELECT * FROM "users" WHERE "userId" = ${userId}`;
 
   db.query(sql)
     .then(result => {
@@ -263,59 +260,42 @@ app.get('/api/homepage/:userId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+//   app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
 
-  app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
+//   const userId = parseInt(req.params.userId, 10);
+//   const userLocation = req.params.location;
+//   const users = `
+//     select "userName",
+//             "imageUrl",
+//             "location",
+//             "dogName"
+//             from "users"
+//       where "location" = $1 and "userId" != $2
+//   `;
+//   const params = [userLocation, userId];
+//   db.query(users, params)
+//     .then(userInfo => {
+//       const totalUsers = `
+//     select count(*) as "numberOfUsers"
+//       from "users"
+//       where "userId" != ${userId}`;
+//       return db.query(totalUsers).then(total => {
+//         const userInt = parseInt(total.rows[0].numberOfUsers);
+//         if (userInt < 1) {
+//           res.status(404).json({
+//             error: 'No Doggos Nearby'
+//           });
+//           return;
+//         }
+//         const allData = userInfo.rows[0];
+//         allData.totalUsers = total.rows[0].numberOfUsers;
+//         return allData;
+//       });
 
-  const userId = parseInt(req.params.userId, 10);
-  const userLocation = req.params.location;
-  const users = `
-    select "userName",
-            "imageUrl",
-            "location",
-            "dogName"
-            from "users"
-      where "location" = $1 and "userId" != $2
-  `;
-  const params = [userLocation, userId];
-  db.query(users, params)
-    .then(userInfo => {
-      const totalUsers = `
-    select count(*) as "numberOfUsers"
-      from "users"
-      where "userId" != ${userId}`;
-      return db.query(totalUsers).then(total => {
-        const userInt = parseInt(total.rows[0].numberOfUsers);
-        if (userInt < 1) {
-          res.status(404).json({
-            error: 'No Doggos Nearby'
-          });
-          return;
-        }
-        const allData = userInfo.rows[0];
-        allData.totalUsers = total.rows[0].numberOfUsers;
-        return allData;
-      });
-
-    })
-    .then(result => res.json(result))
-    .catch(err => next(err));
-});
-
-app.get('/api/login', (req, res, next) => {
-  db.query('select "userName", "userId" from "users"')
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/login', (req, res, next) => {
-  db.query('select "userName", "userId" from "users"')
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(err => next(err));
-});
+//     })
+//     .then(result => res.json(result))
+//     .catch(err => next(err));
+// });
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
