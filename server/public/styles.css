@@ -6,6 +6,7 @@ body {
 footer {
   bottom: 0;
   width: 100%;
+
 }
 
 .content-container {
@@ -66,7 +67,7 @@ footer {
 
 .chat-box{
   position: fixed;
-  bottom: 60px;
+  bottom: 20px;
   width: 90%;
 }
 
@@ -75,14 +76,16 @@ textarea{
   border: 0;
 }
 
-.type_msg{
-  resize: none;
-	border:0 !important;
-	color:white !important;
-	height: 60px !important;
-	overflow-y: auto;
+.box-container{
+  height: 70vh;
+  overflow-y:scroll;
 }
 
-.box-container{
-  height: 60vh;
+#scroller * {
+  overflow-anchor: none;
+}
+
+#anchor{
+  overflow-anchor: auto;
+  height: 1px;
 }

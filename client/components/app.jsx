@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './header';
 // import Background from './background';
-import Footer from './footer';
+// import Footer from './footer';
 import Chat from './chat';
 
 export default class App extends React.Component {
@@ -18,7 +18,6 @@ export default class App extends React.Component {
       <>
         <Header />
         <Chat />
-        <Footer />
       </>
     );
   }
