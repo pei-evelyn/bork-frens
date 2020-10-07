@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './header';
+import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import Messages from './message';
 import FrensList from './frens-list';
@@ -55,6 +56,7 @@ export default class App extends React.Component {
           <FrensList />
           <Messages />
           <Footer />
+          <Chat />
         </>
       );
     }
