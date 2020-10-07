@@ -74,13 +74,13 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
 
   const sql = `
     select "u"."dogName" as "requesterName",
-           "u"."imageUrl" as "requesterImage",
-           "fr"."requestId",
-           "fr"."isAccepted"
+          "u"."imageUrl" as "requesterImage",
+          "fr"."requestId",
+          "fr"."isAccepted"
       from "frenRequests" as "fr"
       join "users" as "u" on "u"."userId" = "fr"."senderId"
-     where "fr"."recipientId" = $1 and
-           "fr"."isAccepted" = false;
+    where "fr"."recipientId" = $1 and
+          "fr"."isAccepted" = false;
   `;
 
   const params = [recipientId];
@@ -119,6 +119,42 @@ app.get('/api/users/:userId', (req, res, next) => {
       }
     })
     .catch(err => console.error(err));
+});
+
+app.get('/api/users/find-frens/list', (req, res, next) => {
+  const location = req.body.location;
+  const userId = req.body.userId;
+  const users = `
+    select "userName",
+            "imageUrl",
+            "location",
+            "dogName"
+            from "users"
+      where "location" = $1 and "userId" != $2
+  `;
+  const params = [location, userId];
+  db.query(users, params)
+    .then(userInfo => {
+      const totalUsers = `
+    select count(*) as "numberOfUsers"
+      from "users"
+      where "userId" != ${userId}`;
+      return db.query(totalUsers).then(total => {
+        const userInt = parseInt(total.rows[0].numberOfUsers);
+        if (userInt < 1) {
+          res.status(404).json({
+            error: 'No Doggos Nearby'
+          });
+          return;
+        }
+        const allData = userInfo.rows[0];
+        allData.totalUsers = total.rows[0].numberOfUsers;
+        return allData;
+      });
+
+    })
+    .then(result => res.json(result))
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
