@@ -24,7 +24,13 @@ class LoginPage extends React.Component {
   }
 
   handleChange(event) {
-    this.props.addUser({ user: event.target.value });
+    const index = event.target.selectedIndex;
+    const selected = event.target.childNodes[index];
+    const optionId = selected.getAttribute('userId');
+    this.props.addUser({
+      user: event.target.value,
+      userId: optionId
+    });
     this.props.setView('homepage', {});
   }
 
@@ -40,7 +46,7 @@ class LoginPage extends React.Component {
               <option className="col-9">Select User</option>
               {this.state.users.map(user => {
                 return (
-                  <option key={user.userId} user={this.state.change} className="col-9">{user.userName}</option>
+                  <option key={user.userId} userId={user.userId} className="col-9">{user.userName}</option>
                 );
               })}
             </select>
