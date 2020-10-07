@@ -124,6 +124,31 @@ app.put('/api/fren-requests/:requestId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User can deny friend request
+
+app.delete('/api/fren-requests/:requestId', (req, res, next) => {
+  const requestId = parseInt(req.params.requestId, 10);
+
+  if (requestId < 0 || isNaN(requestId)) {
+    throw (new ClientError(`Request Id ${req.params.requestId} is not valid`, 400));
+  }
+
+  const sql = `
+    delete from "frenRequests"
+    where "requestId" = $1
+  `;
+  const params = [requestId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rowCount === 0) {
+        next(new ClientError(`Request Id ${requestId} does not exist`, 404));
+      } else {
+        return res.sendStatus(204);
+      }
+    });
+});
+
 // User can log in to account
 
 app.get('/api/login', (req, res, next) => {
