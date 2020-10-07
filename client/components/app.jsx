@@ -14,7 +14,7 @@ export default class App extends React.Component {
         name: 'login',
         params: {}
       },
-      user: ''
+      user: {}
     };
     this.setView = this.setView.bind(this);
     this.addUser = this.addUser.bind(this);
