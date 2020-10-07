@@ -96,6 +96,45 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
     .catch(error => next(error));
 });
 
+
+// User can see other's profile
+
+app.get('/api/others-profile/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+
+  if (userId < 0 || isNaN(userId)) {
+    throw (new ClientError(`User Id ${req.params.userId} is not valid`, 400));
+  }
+
+  const sql = `
+    select "u"."userId",
+          "u"."dogName",
+          "u"."location",
+          "u"."userName",
+          "u"."breed",
+          "u"."DOB",
+          "u"."tagline",
+          "u"."imageUrl",
+          "fl"."level",
+          "g"."identity"
+    from "users" as "u"
+    join "frenlinessLevels" as "fl" using ("levelId")
+    join "genders" as "g" using ("genderId")
+    where "userId" = $1
+  `;
+
+  const params = [userId];
+  
+   db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`User Id ${userId} does not exist`, 404));
+       } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+  
 // User can accept friend request
 
 app.put('/api/fren-requests/:requestId', (req, res, next) => {
@@ -124,6 +163,30 @@ app.put('/api/fren-requests/:requestId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User can request connection to other user
+
+app.post('/api/others-profile', (req, res, next) => {
+  const requestInfo = req.body;
+
+  if (typeof requestInfo.senderId === 'undefined' ||
+      typeof requestInfo.recipientId === 'undefined') {
+    throw (new ClientError('Missing required information', 400));
+  }
+
+  const sql = `
+    insert into "frenRequests" ("requestId", "recipientId", "senderId", "isAccepted")
+    values (default, $1, $2, false)
+    returning *
+  `;
+  const params = [parseInt(requestInfo.recipientId), parseInt(requestInfo.senderId)];
+
+  db.query(sql, params)
+    .then(result => {
+      return res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 // User can deny friend request
 
 app.delete('/api/fren-requests/:requestId', (req, res, next) => {
@@ -146,7 +209,8 @@ app.delete('/api/fren-requests/:requestId', (req, res, next) => {
       } else {
         return res.sendStatus(204);
       }
-    });
+    })
+  .catch(err => next(err));
 });
 
 // User can log in to account
