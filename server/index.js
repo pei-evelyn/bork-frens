@@ -159,6 +159,31 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User Can View All their Frens
+
+app.get('/api/frens/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  const params = [userId];
+  const query = `select "u"."dogName" as "name",
+    "u"."imageUrl" as "image",
+    "u"."location" as "location",
+    "fr"."isAccepted",
+    "u". "userId"
+    from "frenRequests" as "fr"
+    join "users" as "u" on "u"."userId" = "fr"."senderId"
+    where "fr"."recipientId" = $1 and
+    "fr"."isAccepted" = true;  `;
+  db.query(query, params)
+    .then(result => {
+      if (!result) {
+        return next(new ClientError('No frens yet. Let\'s find some!', 404));
+      } else {
+        return res.status(200).json(result.rows);
+      }
+    })
+    .catch(err => console.error(err));
+});
+
 // User data from HomePage
 
 app.get('/api/homepage/:userId', (req, res, next) => {
@@ -262,7 +287,7 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
 });
 
 app.use('/api', (req, res, next) => {
-  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl} `, 404));
 });
 
 app.use((err, req, res, next) => {
