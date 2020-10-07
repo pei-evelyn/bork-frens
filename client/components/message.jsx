@@ -6,7 +6,7 @@ const Message = props => {
     <>
       <div className={props.sender === 7 ? 'message-container-left' : 'message-container-right'} >
         <img className={props.sender === 7 ? 'img-left mr-2' : 'img-right ml-2'} src={props.image}></img>
-        {/* <p className="chat-container">{props.message}</p> */}
+        <p className="chat-container">{props.message}</p>
       </div>
     </>
   );

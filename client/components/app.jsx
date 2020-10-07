@@ -7,7 +7,7 @@ import Messages from './message';
 import FrensList from './frens-list';
 
 import Footer from './footer';
-// import LoginPage from './login-page';
+import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
 import Homepage from './homepage';
 
@@ -71,6 +71,10 @@ export default class App extends React.Component {
           <FrenRequestList userId='6' />
         </>
       );
+    } else if (this.state.view.name === 'login') {
+      return (
+        <LoginPage addUser={this.addUser} setView={this.setView} />
+      );
     } else if (this.state.view.name === 'homepage') {
       return (
         <>
@@ -91,9 +95,3 @@ export default class App extends React.Component {
 
   }
 }
-
-// else if (this.state.view.name === 'login') {
-//   return (
-//     <LoginPage addUser={this.addUser} setView={this.setView} />
-//   );
-// }

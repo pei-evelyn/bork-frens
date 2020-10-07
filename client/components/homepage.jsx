@@ -6,7 +6,7 @@ class Homepage extends React.Component {
     this.state = {
       userProfile: [],
       view: {
-        name: 'login',
+        name: 'homepage',
         params: {}
       }
     };
