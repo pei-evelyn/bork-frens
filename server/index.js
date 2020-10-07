@@ -109,8 +109,6 @@ app.get('/api/login', (req, res, next) => {
 
 app.get('/api/homepage/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  // const sql = `SELECT * FROM "users" WHERE "userId" = ${userId}`;
-  // SELECT "userId" FROM "users" LEFT JOIN "frenRequests" ON "users"."userId" = "frenRequests.senderId"
   const sql = `SELECT  FROM "users" WHERE "userId" = ${userId}`;
 
   db.query(sql)
