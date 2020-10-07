@@ -4,9 +4,9 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: ['husky', 'bob'],
-      userId: {}
+      users: []
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -14,13 +14,24 @@ class LoginPage extends React.Component {
   }
 
   getUsers() {
-    fetch('./api/users')
+    fetch('./api/login')
       .then(res => res.json())
-      .then(user => {
+      .then(allUsers => {
         this.setState({
-          user: user
+          users: allUsers
         });
       }).catch(err => console.error(err));
+  }
+
+  handleChange(event) {
+    const index = event.target.selectedIndex;
+    const selected = event.target.childNodes[index];
+    const optionId = selected.getAttribute('userId');
+    this.props.addUser({
+      user: event.target.value,
+      userId: optionId
+    });
+    this.props.setView('frensNearby', {});
   }
 
   render() {
@@ -30,12 +41,12 @@ class LoginPage extends React.Component {
           <i className="d-flex justify-content-center fas fa-bone fa-3x"></i>
           <h2 className="d-flex justify-content-center mb-5">borkfrens</h2>
           <div className="d-flex justify-content-center">
-            <select onChange={() => this.props.setView('homePage', {})}
+            <select onChange={this.handleChange}
               className="form-control-lg col-11">
-              <option key={this.state.userId} className="col-9">Select User</option>
-              {this.state.userName.map(user => {
+              <option className="col-9">Select User</option>
+              {this.state.users.map(user => {
                 return (
-                  <option key={this.state.userId} className="col-9">{user}</option>
+                  <option key={user.userId} userid={user.userId} className="col-9">{user.userName}</option>
                 );
               })}
             </select>
@@ -45,5 +56,4 @@ class LoginPage extends React.Component {
     );
   }
 }
-
 export default LoginPage;

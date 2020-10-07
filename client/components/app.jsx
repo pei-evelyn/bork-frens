@@ -1,15 +1,20 @@
 import React from 'react';
 import Header from './header';
 import OtherProfile from './other-profile';
-import FrenRequestList from './fren-request-list';
 import LoginPage from './login-page';
+import Chat from './chat';
+import FrenRequestList from './fren-request-list';
+import FrensList from './frens-list';
+import Footer from './footer';
+import LoginPage from './login-page';
+import NearbyFrensList from './nearby-frens-list';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'otherProfile',
+        name: 'login',
         params: {}
       },
       user: {}
@@ -39,7 +44,22 @@ export default class App extends React.Component {
 
   changeView(state) {
     switch (state) {
-
+      case 'frensList':
+        return (
+          <>
+            <Header />
+            <FrensList />
+            <Footer />
+          </>
+        );
+      case 'frensNearby':
+        return (
+          <>
+            <Header />
+            <NearbyFrensList userId={this.state.user.userId} />
+            <Footer />
+          </>
+        );
       case 'frenRequestList':
         return (
           <>
@@ -49,9 +69,15 @@ export default class App extends React.Component {
         );
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
-
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+      case 'chat':
+        return (
+          <>
+            <Header user={this.state.user} />
+            <Chat user={this.state.user} />
+          </>
+        );
     }
   }
 
