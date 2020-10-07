@@ -13,7 +13,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'chat',
+        name: 'conversation',
         params: {}
       },
       user: {}
@@ -72,14 +72,19 @@ export default class App extends React.Component {
       return (
         <LoginPage addUser={this.addUser} setView={this.setView} />
       );
-    } else if (this.state.view.name === 'chat') {
+    } if (this.state.view.name === 'chat') {
       return (
         <>
-          <Header user={this.state.user} />
+          <Header text="Pupperino" user={this.state.user} />
           <Chat />
         </>
       );
+    } else if (this.state.view.name === 'conversation') {
+      return (
+        <>
+          <Header />
+        </>
+      );
     }
-
   }
 }

@@ -43,6 +43,20 @@ app.get('/api/messages', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/conversation', (req, res, next) => {
+
+  // const sql = `
+  // SELECT "messageContent",
+  // "dogName",
+  // "imageUrl",
+  // "userId",
+  // "sentAt"
+  // FROM "users"
+  // JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  // `;
+
+});
+
 app.post('/api/messages', (req, res, next) => {
   const sender = req.body.senderId;
   const recipient = req.body.recipientId;
