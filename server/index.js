@@ -108,9 +108,9 @@ app.get('/api/login', (req, res, next) => {
 app.get('/api/frens/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const params = [userId];
-  const query = `select "u"."dogName" as "frenName",
-    "u"."imageUrl" as "frenImage",
-    "u"."location" as "frenLocation",
+  const query = `select "u"."dogName" as "name",
+    "u"."imageUrl" as "image",
+    "u"."location" as "location",
     "fr"."isAccepted",
     "u". "userId"
     from "frenRequests" as "fr"
