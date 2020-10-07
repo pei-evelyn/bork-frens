@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from './header';
+import OtherProfile from './other-profile';
+import LoginPage from './login-page';
 import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
@@ -67,7 +69,8 @@ export default class App extends React.Component {
         );
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
-
+      case 'otherProfile':
+        return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
       case 'chat':
         return (
           <>
