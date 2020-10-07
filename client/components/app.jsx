@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './header';
 import FrenRequestList from './fren-request-list';
-import Footer from './footer';
 import Messages from './message';
+import Footer from './footer';
 import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
 
