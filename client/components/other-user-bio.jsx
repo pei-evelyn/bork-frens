@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Biography(props) {
+function OtherUserBio(props) {
   return (
     <div className="row mx-2">
       <div className="col">
@@ -33,4 +33,4 @@ function Biography(props) {
   );
 }
 
-export default Biography;
+export default OtherUserBio;

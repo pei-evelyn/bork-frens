@@ -1,5 +1,7 @@
 import React from 'react';
-import Biography from './biography';
+import OtherUserBio from './other-user-bio';
+// import OtherUserBasicInfo from './other-user-basic-info';
+import OtherUserButtons from './other-user-buttons';
 
 class OtherProfile extends React.Component {
   constructor(props) {
@@ -14,7 +16,8 @@ class OtherProfile extends React.Component {
       <div className="container">
         <div className="row no-gutters d-flex align-items-end">
           <div className="col content-container mx-3 mt-4">
-            <Biography breed="Alaskan Malamute" gender="Male" age="2 Years" level="One Classy Mother Pupper" />
+            <OtherUserButtons/>
+            <OtherUserBio breed="Alaskan Malamute" gender="Male" age="2 Years" level="One Classy Mother Pupper" />
           </div>
         </div>
       </div>
