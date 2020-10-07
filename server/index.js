@@ -136,6 +136,30 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
 
 });
 
+// User can request connection to other user
+
+app.post('/api/others-profile', (req, res, next) => {
+  const requestInfo = req.body;
+
+  if (typeof requestInfo.senderId === 'undefined' ||
+      typeof requestInfo.recipientId === 'undefined') {
+    throw (new ClientError('Missing required information', 400));
+  }
+
+  const sql = `
+    insert into "frenRequests" ("requestId", "recipientId", "senderId", "isAccepted")
+    values (default, $1, $2, false)
+    returning *
+  `;
+  const params = [parseInt(requestInfo.recipientId), parseInt(requestInfo.senderId)];
+
+  db.query(sql, params)
+    .then(result => {
+      return res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 // User can log in to account
 
 app.get('/api/login', (req, res, next) => {
