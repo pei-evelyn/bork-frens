@@ -117,11 +117,11 @@ app.put('/api/fren-requests/:requestId', (req, res, next) => {
     .then(result => {
       if (result.rows.length === 0) {
         next(new ClientError(`Request Id ${requestId} returned no requests`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
       }
-    });
-
-  // find row in table with same senderId
-  // change the 'isAccepted' column to true
+    })
+    .catch(err => next(err));
 });
 
 // User can log in to account
