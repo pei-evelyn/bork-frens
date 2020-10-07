@@ -21,11 +21,13 @@ footer {
   bottom: 0;
 }
 
-.fren-request-img {
-  height: 5rem;
-  width: 5rem;
-}
-
 .cursor-pointer {
   cursor: pointer;
+} 
+
+.fren-request-img {
+  height: 4.3rem;
+  width: 4.3rem;
+  object-fit: cover;
+  border-radius: 50%;
 }

@@ -26,7 +26,7 @@ class LoginPage extends React.Component {
   handleChange(event) {
     const index = event.target.selectedIndex;
     const selected = event.target.childNodes[index];
-    const optionId = selected.getAttribute('userid');
+    const optionId = selected.getAttribute('userId');
     this.props.addUser({
       user: event.target.value,
       userId: optionId

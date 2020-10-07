@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './header';
-import Background from './background';
+import FrenRequestList from './fren-request-list';
+import Messages from './message';
 import Footer from './footer';
 import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
@@ -45,6 +46,14 @@ export default class App extends React.Component {
           <NearbyFrensList userId={this.state.user.userId} />
           <Footer />
         </>
+        )
+    } 
+    if (this.state.view === 'frenRequestList') {
+      return (
+        <>
+          <Header text='Fren Requests' />
+          <FrenRequestList userId='6' />
+        </>
       );
     } else if (this.state.view.name === 'login') {
       return (
@@ -54,7 +63,7 @@ export default class App extends React.Component {
       return (
         <>
           <Header />
-          <Background />
+          <Messages />
           <Footer />
         </>
       );
