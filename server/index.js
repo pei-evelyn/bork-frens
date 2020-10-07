@@ -55,7 +55,7 @@ app.get('/api/users', (req, res, next) => {
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  const location = req.params.location;
+  const userLocation = req.params.location;
   const users = `
     select "userName",
             "imageUrl",
@@ -64,7 +64,7 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
             from "users"
       where "location" = $1 and "userId" != $2
   `;
-  const params = [location, userId];
+  const params = [userLocation, userId];
   db.query(users, params)
     .then(userInfo => {
       const totalUsers = `
