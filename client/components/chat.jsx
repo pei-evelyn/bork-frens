@@ -38,8 +38,8 @@ export default class Chat extends React.Component {
       body: JSON.stringify(receiver)
     };
     fetch('/api/messages', init)
-      .then(res => res.json());
-
+      .then(res => res.json())
+      .then(data => this.setState({ dog: this.state.dog.concat(data) }));
   }
 
   render() {
