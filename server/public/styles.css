@@ -21,9 +21,16 @@ footer {
   bottom: 0;
 }
 
+
+.fren-name-fren-list {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 .cursor-pointer {
   cursor: pointer;
 } 
+
 
 .fren-request-img {
   height: 4.3rem;
@@ -31,3 +38,9 @@ footer {
   object-fit: cover;
   border-radius: 50%;
 }
+
+
+.fren-list-total {
+  font-size: 2.4rem;
+}
+

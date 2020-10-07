@@ -2,9 +2,13 @@ import React from 'react';
 import Header from './header';
 import FrenRequestList from './fren-request-list';
 import Messages from './message';
+
+import FrensList from './frens-list';
+
 import Footer from './footer';
 import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -39,6 +43,18 @@ export default class App extends React.Component {
   }
 
   render() {
+if(this.state.view.name === 'frensList') {
+      return (
+      <>
+        <Header />
+        <FrensList />
+        <Messages />
+        <Footer />
+      </>
+    );
+}
+
+
     if (this.state.view.name === 'frensNearby') {
       return (
         <>
@@ -68,5 +84,6 @@ export default class App extends React.Component {
         </>
       );
     }
+
   }
 }
