@@ -6,6 +6,7 @@ body {
 footer {
   bottom: 0;
   width: 100%;
+
 }
 
 .login-background {
@@ -19,6 +20,70 @@ footer {
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
   bottom: 0;
+}
+
+.chat-container{
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  display:flex;
+}
+
+.message-container-left {
+  float:left;
+  width: 80%;
+  margin-right: 20px;
+  border-radius: 50%;
+  font-size: 14px;
+  display:flex;
+}
+
+.img-left{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-self: flex-end;
+}
+
+.img-right{
+  width:30px;
+  height: 30px;
+  border-radius: 50%;
+  float:right;
+  align-self:flex-end
+}
+
+.message-container-right{
+  float:right;
+  margin-left:20px;
+  margin-right:0;
+  width: 80%;
+  border-radius: 50%;
+  font-size: 14px;
+  display:flex;
+  flex-direction: row-reverse;
+}
+
+.sender-color{
+  background-color: #69b0ab;
+}
+
+.chat-box{
+  position: fixed;
+  bottom: 20px;
+  width: 90%;
+}
+
+textarea{
+  resize:none;
+  border: 0;
+}
+
+.box-container{
+  height: 70vh;
+  overflow-y:scroll;
 }
 
 
@@ -43,4 +108,5 @@ footer {
 .fren-list-total {
   font-size: 2.4rem;
 }
+
 
