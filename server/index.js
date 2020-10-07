@@ -110,6 +110,7 @@ app.get('/api/frens/:userId', (req, res, next) => {
   const params = [userId];
   const query = `select "u"."dogName" as "frenName",
     "u"."imageUrl" as "frenImage",
+    "u"."location" as "frenLocation",
     "fr"."isAccepted",
     "u". "userId"
     from "frenRequests" as "fr"
