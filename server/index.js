@@ -51,15 +51,30 @@ app.post('/api/messages', (req, res, next) => {
   const sql = `
   insert into "messages" ("recipientId","senderId", "messageContent", "sentAt")
   values($1, $2, $3, $4)
-  returning *
+  returning "messageId"
   `;
 
   const params = [recipient, sender, message, new Date()];
 
   return db.query(sql, params)
     .then(result => {
-      const messageSent = result.rows[0];
-      res.status(201).json(messageSent);
+      const sql = `
+        select "dogName",
+        "messageContent",
+        "recipientId",
+        "senderId",
+        "imageUrl",
+        "sentAt",
+        "messageId"
+        from "users"
+        JOIN "messages" ON "users"."userId" = "messages"."senderId"
+        where "messageId" = $1
+      `;
+      const params = [result.rows[0].messageId];
+      return db.query(sql, params)
+        .then(result => {
+          res.status(201).json(result.rows);
+        });
     })
     .catch(err => next(err));
 });
