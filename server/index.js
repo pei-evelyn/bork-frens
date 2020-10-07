@@ -266,11 +266,11 @@ app.get('/api/frens/:userId', (req, res, next) => {
 
 app.get('/api/homepage/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  const sql = `SELECT  FROM "users" WHERE "userId" = ${userId}`;
-
-  db.query(sql)
+  const params = [userId];
+  const sql = 'SELECT * FROM "users" JOIN "frenlinessLevels" USING("levelId") WHERE "userId" = $1';
+  db.query(sql, params)
     .then(result => {
-      res.status(200).json(result.rows);
+      res.status(200).json(result.rows[0]);
     })
     .catch(err => next(err));
 });
@@ -307,58 +307,6 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
         return allData;
       });
 
-    })
-    .then(result => res.json(result))
-    .catch(err => next(err));
-});
-
-app.get('/api/login', (req, res, next) => {
-  db.query('select "userName", "userId" from "users"')
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/login', (req, res, next) => {
-  db.query('select "userName", "userId" from "users"')
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
-  const userId = parseInt(req.params.userId, 10);
-  const location = req.params.location;
-  const users = `
-    select  "userId",
-            "userName",
-            "imageUrl",
-            "location",
-            "dogName"
-            from "users"
-      where "location" = $1 and "userId" != $2
-  `;
-  const params = [location, userId];
-  db.query(users, params)
-    .then(userInfo => {
-      const totalUsers = `
-    select count(*) as "numberOfUsers"
-      from "users"
-      where "userId" != ${userId}`;
-      return db.query(totalUsers).then(total => {
-        const userInt = parseInt(total.rows[0].numberOfUsers);
-        if (userInt < 1) {
-          res.status(404).json({
-            error: 'No Doggos Nearby'
-          });
-          return;
-        }
-        const allData = userInfo.rows[0];
-        allData.totalUsers = total.rows[0].numberOfUsers;
-        return allData;
-      });
     })
     .then(result => res.json(result))
     .catch(err => next(err));
