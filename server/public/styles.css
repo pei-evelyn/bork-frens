@@ -15,3 +15,10 @@ footer {
   border-top-right-radius: 0.8rem;
   bottom: 0;
 }
+
+.fren-request-img {
+  height: 4.3rem;
+  width: 4.3rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
