@@ -90,7 +90,7 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
       if (result.rows.length === 0) {
         next(new ClientError(`Recipient Id ${recipientId} returned no requests`, 404));
       } else {
-        res.status(200).json(result.rows);
+        return res.status(200).json(result.rows);
       }
     })
     .catch(error => next(error));
