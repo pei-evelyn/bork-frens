@@ -6,7 +6,7 @@ class Homepage extends React.Component {
     this.state = {
       userProfile: [],
       view: {
-        name: 'homepage',
+        name: 'login',
         params: {}
       }
     };
@@ -33,7 +33,6 @@ class Homepage extends React.Component {
     fetch('/api/homepage/7')
       .then(response => response.json())
       .then(userData => {
-        // console.log(userData);
         this.setState({
           userProfile: userData
         });
@@ -43,7 +42,6 @@ class Homepage extends React.Component {
 
   render() {
     const user = this.state.userProfile;
-    // console.log(user);
     if (user === []) {
       return null;
     }
