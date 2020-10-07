@@ -105,6 +105,7 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User Can View All their Frens
 app.get('/api/frens/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const params = [userId];
@@ -117,7 +118,6 @@ app.get('/api/frens/:userId', (req, res, next) => {
     join "users" as "u" on "u"."userId" = "fr"."senderId"
     where "fr"."recipientId" = $1 and
     "fr"."isAccepted" = true;  `;
-  // const query = 'SELECT * FROM "users" JOIN "frenRequests" ON "userId" = $1 AND "userId" = "senderId" AND "isAccepted" = true';
 
   db.query(query, params)
     .then(result => {
