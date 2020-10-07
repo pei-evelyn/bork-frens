@@ -51,15 +51,30 @@ app.post('/api/messages', (req, res, next) => {
   const sql = `
   insert into "messages" ("recipientId","senderId", "messageContent", "sentAt")
   values($1, $2, $3, $4)
-  returning *
+  returning "messageId"
   `;
 
   const params = [recipient, sender, message, new Date()];
 
   return db.query(sql, params)
     .then(result => {
-      const messageSent = result.rows[0];
-      res.status(201).json(messageSent);
+      const sql = `
+        select "dogName",
+        "messageContent",
+        "recipientId",
+        "senderId",
+        "imageUrl",
+        "sentAt",
+        "messageId"
+        from "users"
+        JOIN "messages" ON "users"."userId" = "messages"."senderId"
+        where "messageId" = $1
+      `;
+      const params = [result.rows[0].messageId];
+      return db.query(sql, params)
+        .then(result => {
+          res.status(201).json(result.rows);
+        });
     })
     .catch(err => next(err));
 });
@@ -134,35 +149,34 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
       }
     })
     .catch(err => next(err));
-})
-
+});
 // User can accept friend request
 
-  .app.put('/api/fren-requests/:requestId', (req, res, next) => {
-    const requestId = parseInt(req.params.requestId, 10);
+app.put('/api/fren-requests/:requestId', (req, res, next) => {
+  const requestId = parseInt(req.params.requestId, 10);
 
-    if (requestId < 0 || isNaN(requestId)) {
-      throw (new ClientError(`Request Id ${req.params.requestId} is not valid`, 400));
-    }
+  if (requestId < 0 || isNaN(requestId)) {
+    throw (new ClientError(`Request Id ${req.params.requestId} is not valid`, 400));
+  }
 
-    const sql = `
+  const sql = `
     update "frenRequests"
     set "isAccepted" = true
     where "requestId" = $1
     returning *
   `;
-    const params = [requestId];
+  const params = [requestId];
 
-    db.query(sql, params)
-      .then(result => {
-        if (result.rows.length === 0) {
-          next(new ClientError(`Request Id ${requestId} returned no requests`, 404));
-        } else {
-          return res.status(200).json(result.rows[0]);
-        }
-      })
-      .catch(err => next(err));
-  });
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`Request Id ${requestId} returned no requests`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+});
 
 // User can request connection to other user
 
@@ -170,7 +184,7 @@ app.post('/api/others-profile', (req, res, next) => {
   const requestInfo = req.body;
 
   if (typeof requestInfo.senderId === 'undefined' ||
-      typeof requestInfo.recipientId === 'undefined') {
+    typeof requestInfo.recipientId === 'undefined') {
     throw (new ClientError('Missing required information', 400));
   }
 
