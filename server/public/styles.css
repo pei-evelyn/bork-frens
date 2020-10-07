@@ -8,6 +8,10 @@ footer {
   width: 100%;
 }
 
+.login-background {
+  background-color: #69b0ab;
+  height: 100vh
+}
 
 .content-container {
   height: 80vh;
@@ -15,4 +19,15 @@ footer {
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
   bottom: 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+} 
+
+.fren-request-img {
+  height: 4.3rem;
+  width: 4.3rem;
+  object-fit: cover;
+  border-radius: 50%;
 }
