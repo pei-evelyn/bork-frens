@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './header';
 // import Background from './background';
 import Footer from './footer';
-import Messages from './message';
+import Chat from './chat';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class App extends React.Component {
     return (
       <>
         <Header />
-        <Messages />
+        <Chat />
         <Footer />
       </>
     );
