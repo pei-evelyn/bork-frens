@@ -8,6 +8,11 @@ footer {
   width: 100%;
 }
 
+.login-background {
+  background-color: #69b0ab;
+  height: 100vh
+}
+
 .content-container {
   height: 80vh;
   background-color: #ffffff;
