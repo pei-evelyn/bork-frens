@@ -53,9 +53,9 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/users/find-frens/list', (req, res, next) => {
-  const location = req.body.location;
-  const userId = req.body.userId;
+app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  const location = req.params.location;
   const users = `
     select "userName",
             "imageUrl",
