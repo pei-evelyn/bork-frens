@@ -2,7 +2,7 @@ import React from 'react';
 
 function OtherUserBio(props) {
   return (
-    <div className="row mx-2">
+    <div className="row mx-2 my-4">
       <div className="col">
         <form>
           <div className="form-row">

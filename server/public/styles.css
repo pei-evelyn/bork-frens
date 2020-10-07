@@ -22,3 +22,18 @@ footer {
   object-fit: cover;
   border-radius: 50%;
 }
+
+
+.other-user-profile-img {
+  height: 7rem;
+  width: 7rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.other-profile-info {
+  z-index: 1;
+  left: 20%;
+  right: 20%;
+  top: 11%;
+}

@@ -11,9 +11,17 @@ class OtherUserButtons extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col">
-          <button type="button" className="btn btn-info">CONNECT</button>
-          <button type="button" className="btn btn-secondary">MESSAGE</button>
+        <div className="col d-flex justify-content-center">
+          <button
+            type="button"
+            className="btn btn-info mr-2"
+            onClick={() => this.props.handleFrenReq()}
+          >CONNECT</button>
+          <button
+            type="button"
+            className="btn btn-secondary ml-2"
+            onClick={() => this.props.handleMessageReq()}
+          >MESSAGE</button>
         </div>
       </div>
     );
