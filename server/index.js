@@ -69,7 +69,7 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
   const recipientId = parseInt(req.params.recipientId, 10);
 
   if (recipientId < 0 || isNaN(recipientId)) {
-    throw (new ClientError('Recipient ID must be valid', 400));
+    throw (new ClientError(`Recipient ID ${req.params.recipientId} is not valid`, 400));
   }
 
   const sql = `
@@ -88,13 +88,42 @@ app.get('/api/fren-requests/:recipientId', (req, res, next) => {
   db.query(sql, params)
     .then(result => {
       if (result.rows.length === 0) {
-        next(new ClientError(`Id ${recipientId} returned no messages`, 404));
+        next(new ClientError(`Recipient Id ${recipientId} returned no requests`, 404));
       } else {
         res.status(200).json(result.rows);
       }
     })
     .catch(error => next(error));
 });
+
+// User can accept friend request
+
+app.put('/api/fren-requests/:requestId', (req, res, next) => {
+  const requestId = parseInt(req.params.requestId, 10);
+
+  if (requestId < 0 || isNaN(requestId)) {
+    throw (new ClientError(`Request Id ${req.params.requestId} is not valid`, 400));
+  }
+
+  const sql = `
+    update "frenRequests"
+    set "isAccepted" = true
+    where "requestId" = $1
+    returning *
+  `;
+  const params = [requestId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`Request Id ${requestId} returned no requests`, 404));
+      }
+    });
+
+  // find row in table with same senderId
+  // change the 'isAccepted' column to true
+});
+
 // User can log in to account
 
 app.get('/api/login', (req, res, next) => {
