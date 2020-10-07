@@ -159,7 +159,23 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+
+// User data from HomePage
+
+app.get('/api/homepage/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  const sql = `SELECT  FROM "users" WHERE "userId" = ${userId}`;
+
+  db.query(sql)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+
   app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
+
   const userId = parseInt(req.params.userId, 10);
   const userLocation = req.params.location;
   const users = `
