@@ -10,7 +10,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'logins',
+        name: 'login',
         params: {}
       }
     };
@@ -27,7 +27,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state.view.name !== 'login') {
+    if (this.state.view.name === 'homepage') {
       return (
         <>
           <Header />
