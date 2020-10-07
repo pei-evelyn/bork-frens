@@ -10,7 +10,6 @@ import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
-import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
 import Homepage from './homepage';
 
@@ -21,6 +20,7 @@ export default class App extends React.Component {
     this.state = {
       view: {
         name: 'homepage',
+
         params: {}
       },
       user: {}
