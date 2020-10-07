@@ -6,12 +6,11 @@ body {
 footer {
   bottom: 0;
   width: 100%;
-
 }
 
 .login-background {
   background-color: #69b0ab;
-  height: 100vh
+  height: 100vh;
 }
 
 .content-container {
@@ -22,70 +21,69 @@ footer {
   bottom: 0;
 }
 
-.chat-container{
+.chat-container {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
-  display:flex;
+  display: flex;
 }
 
 .message-container-left {
-  float:left;
+  float: left;
   width: 80%;
   margin-right: 20px;
   border-radius: 50%;
   font-size: 14px;
-  display:flex;
+  display: flex;
 }
 
-.img-left{
+.img-left {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   align-self: flex-end;
 }
 
-.img-right{
-  width:30px;
+.img-right {
+  width: 30px;
   height: 30px;
   border-radius: 50%;
-  float:right;
-  align-self:flex-end
+  float: right;
+  align-self: flex-end;
 }
 
-.message-container-right{
-  float:right;
-  margin-left:20px;
-  margin-right:0;
+.message-container-right {
+  float: right;
+  margin-left: 20px;
+  margin-right: 0;
   width: 80%;
   border-radius: 50%;
   font-size: 14px;
-  display:flex;
+  display: flex;
   flex-direction: row-reverse;
 }
 
-.sender-color{
+.sender-color {
   background-color: #69b0ab;
 }
 
-.chat-box{
+.chat-box {
   position: fixed;
   bottom: 20px;
   width: 90%;
 }
 
-textarea{
-  resize:none;
+textarea {
+  resize: none;
   border: 0;
 }
 
-.box-container{
+.box-container {
   height: 70vh;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
-
 
 .fren-name-fren-list {
   font-size: 1.2rem;
@@ -94,8 +92,7 @@ textarea{
 
 .cursor-pointer {
   cursor: pointer;
-} 
-
+}
 
 .fren-request-img {
   height: 4.3rem;
@@ -104,9 +101,26 @@ textarea{
   border-radius: 50%;
 }
 
-
 .fren-list-total {
   font-size: 2.4rem;
 }
 
+.homepage-profile-img {
+  height: 4.3rem;
+  width: 4.3rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
 
+.homepage-btn {
+  outline: 0;
+  font-size: 1.3rem;
+}
+
+.green-btn {
+  background-color: #006a71;
+}
+
+.grey-btn {
+  background-color: #656565;
+}
