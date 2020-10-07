@@ -6,7 +6,6 @@ import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
-import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
 
 export default class App extends React.Component {
@@ -14,7 +13,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'login',
+        name: 'otherProfile',
         params: {}
       },
       user: {}
