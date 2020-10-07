@@ -4,7 +4,9 @@ export default class ChatBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageContent: ''
+      messageContent: '',
+      senderId: 6,
+      recipientId: 7
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,7 +17,7 @@ export default class ChatBox extends React.Component {
   }
 
   handleSubmit(event) {
-    this.props.postMessage(6, 7, this.state.messageContent);
+    this.props.postMessage(this.state.recipientId, this.state.senderId, this.state.messageContent);
     this.setState({ message: '' });
     event.preventDefault();
   }

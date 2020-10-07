@@ -75,9 +75,8 @@ export default class App extends React.Component {
     } else if (this.state.view.name === 'chat') {
       return (
         <>
-          <Header />
+          <Header user={this.state.user} />
           <Chat />
-          <Messages />
         </>
       );
     }
