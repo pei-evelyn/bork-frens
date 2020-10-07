@@ -263,7 +263,6 @@ app.get('/api/homepage/:userId', (req, res, next) => {
 });
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
-
   const userId = parseInt(req.params.userId, 10);
   const userLocation = req.params.location;
   const users = `
