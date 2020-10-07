@@ -5,7 +5,6 @@ function Background(props) {
     <div className="container">
       <div className="row d-flex align-items-end">
         <div className="col content-container mx-3 mt-4">
-
         </div>
       </div>
     </div>
