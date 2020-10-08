@@ -150,6 +150,7 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
 // User can accept friend request
 
 app.put('/api/fren-requests/:requestId', (req, res, next) => {
@@ -274,6 +275,35 @@ app.get('/api/homepage/:userId', (req, res, next) => {
       res.status(200).json(result.rows[0]);
     })
     .catch(err => next(err));
+});
+
+// Num of Fren Reqs for Homepage
+
+app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
+  const recipientId = parseInt(req.params.userId);
+
+  if (recipientId < 0 || isNaN(recipientId)) {
+    throw (new ClientError(`Recipient Id ${req.params.userId} is not valid`, 400));
+  }
+
+  const sql = `
+    select count(*) as "totalFrenRequests"
+    from "frenRequests"
+    where "recipientId" = $1
+    and "isAccepted" = false
+  `;
+  const params = [recipientId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`Recipient Id ${recipientId} does not exist`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+
 });
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
