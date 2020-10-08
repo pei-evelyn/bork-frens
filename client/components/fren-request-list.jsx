@@ -6,13 +6,34 @@ class FrenRequestList extends React.Component {
     super(props);
     this.state = {
       recipientId: '',
-      requests: []
+      requests: [],
+      requestText: ' wants to be your fren!'
     };
     this.listFrenRequests = this.listFrenRequests.bind(this);
+    this.handleAcceptRequest = this.handleAcceptRequest.bind(this);
+    this.handleRejectRequest = this.handleRejectRequest.bind(this);
   }
 
   componentDidMount() {
     this.listFrenRequests();
+  }
+
+  handleAcceptRequest(reqId) {
+    fetch(`/api/fren-requests/${reqId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => this.setState({
+        requestText: ' is now your fren!'
+      }))
+      .catch(err => console.error(err));
+  }
+
+  handleRejectRequest() {
+    // eslint-disable-next-line no-console
+    console.log('rejected!!');
   }
 
   listFrenRequests() {
@@ -22,7 +43,8 @@ class FrenRequestList extends React.Component {
       .then(userFrens => this.setState({
         recipientId: userId,
         requests: userFrens
-      }));
+      }))
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -30,7 +52,12 @@ class FrenRequestList extends React.Component {
       <div className="container">
         <div className="row no-gutters d-flex align-items-end">
           <div className="col content-container mx-3 mt-4">
-            <FrenRequests frenReq={this.state.requests}/>
+            <FrenRequests
+              frenReq={this.state.requests}
+              requestText={this.state.requestText}
+              handleAccept={this.handleAcceptRequest}
+              handleReject={this.handleRejectRequest}
+            />
           </div>
         </div>
       </div>
