@@ -147,3 +147,11 @@ textarea {
   font-size: 2.4rem;
 }
 
+.icon-accept:active {
+  cursor: pointer;
+  color: #00e932;
+}
+
+.icon-deny:active {
+  color: #ff0000;
+}
