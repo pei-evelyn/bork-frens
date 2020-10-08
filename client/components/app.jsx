@@ -8,8 +8,10 @@ import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
+import EditUserProfile from './edit-user-profile';
 import ConversationList from './conversation-list';
 import Homepage from './homepage';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -72,13 +74,18 @@ export default class App extends React.Component {
 
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
-
+      case 'editUserProfile':
+        return (
+          <>
+            <Header text="Edit Profile" />
+            <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
+          </>
+        );
       case 'homepage':
         return (
             <Header />
             <Homepage />
         );
-
       case 'chat':
         return (
             <Header user={this.state.user} />

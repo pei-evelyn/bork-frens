@@ -270,6 +270,43 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User can edit profile
+
+app.put('/api/profile/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  if (userId < 0 || isNaN(userId)) {
+    throw new ClientError(`User Id ${req.params.userId} is not valid`, 400);
+  }
+  const location = req.body.location;
+  const breed = req.body.breed;
+  const DOB = req.body.DOB;
+  const levelId = req.body.levelId;
+  const tagline = req.body.tagline;
+  const genderId = req.body.genderId;
+  const updateProfile = `
+        update "users"
+          set  "location" = $1,
+                "breed" = $2,
+                "DOB" = $3,
+                "levelId" = $4,
+                "tagline" = $5,
+                "genderId" = $6
+          where "userId" = $7
+          returning *`;
+  const params = [location, breed, DOB, levelId, tagline, genderId, userId];
+  db.query(updateProfile, params)
+    .then(result => {
+      const update = {};
+      update.location = result.rows[0].location;
+      update.breed = result.rows[0].breed;
+      update.levelId = result.rows[0].levelId;
+      update.gender = result.rows[0].genderId;
+      update.image = result.rows[0].imageUrl;
+      res.status(200).json(update);
+    })
+    .catch(err => next(err));
+});
+
 // User Can View All their Frens
 
 app.get('/api/frens/:userId', (req, res, next) => {
@@ -336,6 +373,8 @@ app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
     .catch(err => next(err));
 
 });
+
+// Find all friends in the same city
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
