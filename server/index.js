@@ -239,6 +239,7 @@ app.get('/api/login', (req, res, next) => {
 });
 
 // User Can View All their Frens
+
 app.get('/api/frens/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const params = [userId];
@@ -276,14 +277,14 @@ app.get('/api/homepage/:userId', (req, res, next) => {
 });
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
-
   const userId = parseInt(req.params.userId, 10);
   const userLocation = req.params.location;
   const users = `
     select "userName",
             "imageUrl",
             "location",
-            "dogName"
+            "dogName",
+            "userId"
             from "users"
       where "location" = $1 and "userId" != $2
   `;
@@ -302,9 +303,8 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
           });
           return;
         }
-        const allData = userInfo.rows[0];
-        allData.totalUsers = total.rows[0].numberOfUsers;
-        return allData;
+        userInfo.rows.push(userInt);
+        return userInfo.rows;
       });
 
     })

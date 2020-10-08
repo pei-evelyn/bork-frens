@@ -2,9 +2,9 @@ import React from 'react';
 
 function NearbyFrensListItem(props) {
   return (
-    <div className="row border-bottom d-flex align-items-center h-25">
+    <div className="row border-bottom d-flex align-items-center h-25" onClick={props.onClick}>
       <div className="col-4">
-        <img className="fren-request-img rounded-circle ml-1" src="https://scx1.b-cdn.net/csz/news/800/2018/2-dog.jpg" alt={props.name} />
+        <img src={props.image} className="fren-request-img rounded-circle ml-1" />
       </div>
       <div className="col-5 mt-2">
         <p className="d-flex flex-column">
