@@ -19,6 +19,7 @@ export default class App extends React.Component {
       },
       user: {}
     };
+
     this.setView = this.setView.bind(this);
     this.addUser = this.addUser.bind(this);
     this.changeView = this.changeView.bind(this);
@@ -37,21 +38,23 @@ export default class App extends React.Component {
     this.setState({
       view: {
         name: name,
-        params: {}
+        params: params
       }
     });
   }
 
   changeView(state) {
     switch (state) {
+
       case 'frensList':
         return (
           <>
             <Header />
-            <FrensList />
+            <FrensList setView={this.setView} />
             <Footer />
           </>
         );
+
       case 'frensNearby':
         return (
           <>
@@ -60,6 +63,7 @@ export default class App extends React.Component {
             <Footer />
           </>
         );
+
       case 'frenRequestList':
         return (
           <>
@@ -67,8 +71,10 @@ export default class App extends React.Component {
             <FrenRequestList userId='6' />
           </>
         );
+
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
+
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
       case 'homepage':
@@ -76,9 +82,9 @@ export default class App extends React.Component {
           <>
             <Header />
             <Homepage />
-            <Footer />
           </>
         );
+
       case 'chat':
         return (
           <>
