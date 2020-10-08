@@ -238,6 +238,39 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User can edit profile
+
+app.put('/api/profile/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  if (userId < 0 || isNaN(userId)) {
+    throw new ClientError(`User Id ${req.params.userId} is not valid`, 400);
+  }
+  const location = req.body.location;
+  const breed = req.body.breed;
+  const genderId = req.body.genderId;
+  const levelId = req.body.levelId;
+  const updateProfile = `
+        update "users"
+          set  "location" = $1,
+                "breed" = $2,
+                "levelId" = $3,
+                "genderId" = $4
+          where "userId" = $5
+          returning *`;
+  const params = [location, breed, levelId, genderId, userId];
+  db.query(updateProfile, params)
+    .then(result => {
+      const update = {};
+      update.location = result.rows[0].location;
+      update.breed = result.rows[0].breed;
+      update.gender = result.rows[0].genderId;
+      update.levelId = result.rows[0].levelId;
+      update.image = result.rows[0].imageUrl;
+      res.status(200).json(update);
+    })
+    .catch(err => next(err));
+});
+
 // User Can View All their Frens
 
 app.get('/api/frens/:userId', (req, res, next) => {

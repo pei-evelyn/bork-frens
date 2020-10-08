@@ -5,26 +5,13 @@ class EditUserProfile extends React.Component {
     super(props);
     this.state = {
       location: '',
-      breed: ''
+      breed: '',
+      levelId: 0,
+      genderId: 0
     };
-    this.getOtherUserInfo = this.getOtherUserInfo.bind(this);
     this.handleChangeInputs = this.handleChangeInputs.bind(this);
     this.handleChangeOptions = this.handleChangeOptions.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.getOtherUserInfo();
-  }
-
-  getOtherUserInfo() {
-    fetch(`/api/others-profile/${this.props.otherUserId}`)
-      .then(res => res.json())
-      .then(userInfo => this.setState({
-        otherUser: userInfo,
-        currentUserId: this.props.currentUserId
-      }))
-      .catch(err => console.error(err));
+    this.updateProfile = this.updateProfile.bind(this);
   }
 
   handleChangeInputs(event) {
@@ -40,32 +27,55 @@ class EditUserProfile extends React.Component {
     const value = event.target.value;
     switch (value) {
       case 'Male':
-        return { genderId: 1 };
+        genderId = 1;
+        break;
       case 'Female':
-        return { genderId: 2 };
+        genderId = 2;
+        break;
       case 'Petential':
-        return { levelId: 1 };
+        levelId = 1;
+        break;
       case 'Looking Quite Fetching':
-        return { levelId: 2 };
-      case 'Pawsitively Pawsome l':
-        return { levelId: 3 };
+        levelId = 2;
+        break;
+      case 'Pawsitively Pawsome':
+        levelId = 3;
+        break;
       case 'One Classy Mother Pupper':
-        return { levelId: 4 };
+        levelId = 4;
+        break;
     }
-    fetch('/api/others-profile', {
+    if (!genderId) {
+      this.setState({
+        levelId: levelId
+      });
+    } else {
+      this.setState({
+        genderId: genderId
+      });
+    }
+  }
+
+  updateProfile(event) {
+    event.preventDefault();
+    const profileData = {
+      location: this.state.location,
+      breed: this.state.breed,
+      levelId: this.state.levelId,
+      genderId: this.state.genderId
+    };
+    fetch('/api/profile/10', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify()
+      body: JSON.stringify(profileData)
     })
       .then(res => res.json())
       .then(data => {
-        if (!data.isAccepted) {
-          this.setState({
-            frenReqText: 'REQUESTED'
-          });
-        }
+        this.setState({
+          frenReqText: data
+        });
       })
       .catch(err => console.error(err));
   }
@@ -81,7 +91,7 @@ class EditUserProfile extends React.Component {
             <div className="col content-container mx-3 mt-4 d-flex flex-column">
               <div className="row mx-2 my-4">
                 <div className="col">
-                  <form className="mt-5" onSubmit={this.handleSubmit}>
+                  <form className="mt-5">
                     <div className="form-row">
                       <div className="form-group col">
                         <label >Location</label>
@@ -125,7 +135,8 @@ class EditUserProfile extends React.Component {
                       </div>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <button type="submit" className="btn bg-button text-white w-50">Update</button>
+                      <button type="submit" className="btn bg-button text-white w-50"
+                        onClick={this.updateProfile}>Update</button>
                     </div>
                   </form>
                 </div>
