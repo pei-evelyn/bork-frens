@@ -48,9 +48,11 @@ class Homepage extends React.Component {
 
     return (
       <>
+
         <div className="container">
           <div className="row d-flex align-items-end">
             <div className="col content-container mx-3 mt-4">
+
               <div className="home-page-user-profile-box row m-auto justify-content-center position-relative">
                 <img className="homepage-user-profile-img" src={user.imageUrl} alt={`Image of ${user.dogName}`} />
               </div>
@@ -62,6 +64,7 @@ class Homepage extends React.Component {
                 <button className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
                 <button className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">Find New Frens</button>
                 <button className="homepage-btn green-btn font-weight-light text-white col-10 rounded mb-4 py-2">View My Frens</button>
+                <button className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">New Fren Requests</button>
               </div>
             </div>
           </div>
