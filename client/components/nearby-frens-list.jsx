@@ -5,7 +5,8 @@ class NearbyFrensList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      frens: []
+      frens: [],
+      numberOfUsers: 0
     };
     this.getFrens = this.getFrens.bind(this);
   }
@@ -16,14 +17,12 @@ class NearbyFrensList extends React.Component {
 
   getFrens() {
     const userId = parseInt(this.props.userId);
-    const location = this.state.frens[0].location;
+    const location = 'Irvine';
     fetch(`./api/users/find-frens/list/${location}/${userId}`)
       .then(res => res.json())
       .then(allFrens => {
-        const newFrens = [];
-        newFrens.push(allFrens);
         this.setState({
-          frens: newFrens
+          frens: allFrens
         });
       }).catch(err => console.error(err));
   }
@@ -31,17 +30,18 @@ class NearbyFrensList extends React.Component {
   render() {
     return (
       <div className="container col-11">
-        <h6 className="text-white d-flex justify-content-center mb-0">{this.state.frens.totalUsers} Frens Nearby</h6>
+        <h6 className="text-white d-flex justify-content-center mb-0 pr-3">{} Frens Nearby</h6>
         <p className="text-white d-flex justify-content-center mb-0"></p>
         <div className="row d-flex align-items-end">
           <div className="col content-container mx-3 mt-1">
             {this.state.frens.map(fren => {
               return (
                 <NearbyFrensListItem
-                  key={fren.userId}
+                  key={fren.userId} onClick={() => this.props.setView('otherProfile', { userId: fren.userId })}
                   image={fren.imageUrl}
                   name={fren.dogName}
                   location={fren.location}
+                  userId={fren.userId}
                 />
               );
             })}

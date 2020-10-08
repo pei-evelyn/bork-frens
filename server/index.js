@@ -181,6 +181,7 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
 // User can accept friend request
 
 app.put('/api/fren-requests/:requestId', (req, res, next) => {
@@ -270,6 +271,7 @@ app.get('/api/login', (req, res, next) => {
 });
 
 // User Can View All their Frens
+
 app.get('/api/frens/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const params = [userId];
@@ -297,24 +299,53 @@ app.get('/api/frens/:userId', (req, res, next) => {
 
 app.get('/api/homepage/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  const sql = `SELECT  FROM "users" WHERE "userId" = ${userId}`;
-
-  db.query(sql)
+  const params = [userId];
+  const sql = 'SELECT * FROM "users" JOIN "frenlinessLevels" USING("levelId") WHERE "userId" = $1';
+  db.query(sql, params)
     .then(result => {
-      res.status(200).json(result.rows);
+      res.status(200).json(result.rows[0]);
     })
     .catch(err => next(err));
 });
 
-app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
+// Num of Fren Reqs for Homepage
 
+app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
+  const recipientId = parseInt(req.params.userId);
+
+  if (recipientId < 0 || isNaN(recipientId)) {
+    throw (new ClientError(`Recipient Id ${req.params.userId} is not valid`, 400));
+  }
+
+  const sql = `
+    select count(*) as "totalFrenRequests"
+    from "frenRequests"
+    where "recipientId" = $1
+    and "isAccepted" = false
+  `;
+  const params = [recipientId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`Recipient Id ${recipientId} does not exist`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+
+});
+
+app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const userLocation = req.params.location;
   const users = `
     select "userName",
             "imageUrl",
             "location",
-            "dogName"
+            "dogName",
+            "userId"
             from "users"
       where "location" = $1 and "userId" != $2
   `;
@@ -333,63 +364,10 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
           });
           return;
         }
-        const allData = userInfo.rows[0];
-        allData.totalUsers = total.rows[0].numberOfUsers;
-        return allData;
+        userInfo.rows.push(userInt);
+        return userInfo.rows;
       });
 
-    })
-    .then(result => res.json(result))
-    .catch(err => next(err));
-});
-
-app.get('/api/login', (req, res, next) => {
-  db.query('select "userName", "userId" from "users"')
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/login', (req, res, next) => {
-  db.query('select "userName", "userId" from "users"')
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(err => next(err));
-});
-
-app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
-  const userId = parseInt(req.params.userId, 10);
-  const location = req.params.location;
-  const users = `
-    select  "userId",
-            "userName",
-            "imageUrl",
-            "location",
-            "dogName"
-            from "users"
-      where "location" = $1 and "userId" != $2
-  `;
-  const params = [location, userId];
-  db.query(users, params)
-    .then(userInfo => {
-      const totalUsers = `
-    select count(*) as "numberOfUsers"
-      from "users"
-      where "userId" != ${userId}`;
-      return db.query(totalUsers).then(total => {
-        const userInt = parseInt(total.rows[0].numberOfUsers);
-        if (userInt < 1) {
-          res.status(404).json({
-            error: 'No Doggos Nearby'
-          });
-          return;
-        }
-        const allData = userInfo.rows[0];
-        allData.totalUsers = total.rows[0].numberOfUsers;
-        return allData;
-      });
     })
     .then(result => res.json(result))
     .catch(err => next(err));

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -279,7 +279,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN "userId" SET DEFAULT nextval('public.
 --
 
 COPY public."frenRequests" ("requestId", "senderId", "recipientId", "isAccepted") FROM stdin;
-2	6	7	f
+9	6	8	f
+10	6	10	f
+4	9	6	f
+3	8	6	f
+6	11	6	f
+14	10	6	f
+2	6	7	t
 \.
 
 
@@ -319,8 +325,12 @@ COPY public.messages ("messageId", "messageContent", "senderId", "recipientId", 
 --
 
 COPY public.users ("userId", "dogName", location, "userName", breed, "DOB", "levelId", tagline, "imageUrl", "genderId") FROM stdin;
-6	Kaydo	Irvine	kaydoborkz	husky	1978-10-23	4	happy all the time	www.url.com	1
-7	Pupperino	Tustin	pupps54	cyberBorks	1979-01-15	4	machines rule	www.url.com	1
+6	Kaydo	Los Angeles, CA	kaydoborkz	husky	1978-10-23	4	happy all the time	/images/userId6.jpg	1
+8	Mimi	Los Angeles, CA	floofyMimi	Pomeranian	2018-05-10	4	Cutest litto floof in town	/images/userId8.jpg	2
+9	Heckin	Los Angeles, CA	givinMeDaHeck	Shiba Inu	2017-02-10	3	Stop givin me da h*ck	/images/userId9.jpg	1
+10	Sir Doggyton	Pasadena, CA	sirDoggytonDaThird	German Shepard	2016-09-20	4	I come from doggo royalty	/images/userId10.jpg	1
+11	Ponyo	Glendale, CA	ponyoPuppers	Chiweenie	2018-11-20	3	Cha-cha-cha-chiweenie!	/images/userId11.jpg	2
+7	Pupperino	Tustin, CA	pupps54	cyberBorks	1979-01-15	4	machines rule	/images/userId7.jpg	1
 \.
 
 
@@ -328,7 +338,7 @@ COPY public.users ("userId", "dogName", location, "userName", breed, "DOB", "lev
 -- Name: frenRequests_requestId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."frenRequests_requestId_seq"', 2, true);
+SELECT pg_catalog.setval('public."frenRequests_requestId_seq"', 14, true);
 
 
 --
@@ -356,7 +366,7 @@ SELECT pg_catalog.setval('public."messages_messageId_seq"', 2, true);
 -- Name: users_userId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."users_userId_seq"', 7, true);
+SELECT pg_catalog.setval('public."users_userId_seq"', 11, true);
 
 
 --
