@@ -247,24 +247,28 @@ app.put('/api/profile/:userId', (req, res, next) => {
   }
   const location = req.body.location;
   const breed = req.body.breed;
-  const genderId = req.body.genderId;
+  const DOB = req.body.DOB;
   const levelId = req.body.levelId;
+  const tagline = req.body.tagline;
+  const genderId = req.body.genderId;
   const updateProfile = `
         update "users"
           set  "location" = $1,
                 "breed" = $2,
-                "levelId" = $3,
-                "genderId" = $4
-          where "userId" = $5
+                "DOB" = $3,
+                "levelId" = $4,
+                "tagline" = $5,
+                "genderId" = $6
+          where "userId" = $7
           returning *`;
-  const params = [location, breed, levelId, genderId, userId];
+  const params = [location, breed, DOB, levelId, tagline, genderId, userId];
   db.query(updateProfile, params)
     .then(result => {
       const update = {};
       update.location = result.rows[0].location;
       update.breed = result.rows[0].breed;
-      update.gender = result.rows[0].genderId;
       update.levelId = result.rows[0].levelId;
+      update.gender = result.rows[0].genderId;
       update.image = result.rows[0].imageUrl;
       res.status(200).json(update);
     })
