@@ -16,7 +16,11 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
+
         name: 'homepage',
+
+
+
         params: {}
       },
       user: {}
@@ -60,8 +64,8 @@ export default class App extends React.Component {
       case 'frensNearby':
         return (
           <>
-            <Header />
-            <NearbyFrensList userId={this.state.user.userId} />
+            <Header text='Frens Nearby' />
+            <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
             <Footer />
           </>
         );
@@ -80,11 +84,14 @@ export default class App extends React.Component {
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
 
+
+
       case 'homepage':
         return (
           <>
             <Header />
             <Homepage />
+
           </>
         );
 

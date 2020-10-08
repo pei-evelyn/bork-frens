@@ -101,6 +101,10 @@ textarea {
   border-radius: 50%;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .fren-list-total {
   font-size: 2.4rem;
 }
@@ -127,6 +131,7 @@ textarea {
 
 .other-user-profile-img,
 .homepage-user-profile-img {
+
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -143,6 +148,7 @@ textarea {
 .fren-list-total {
   font-size: 2.4rem;
 }
+
 
 .homepage-user-profile-img {
   height: 8rem;
@@ -165,3 +171,14 @@ textarea {
   border: 0;
   outline: 0;
 }
+
+
+.icon-accept:active {
+  cursor: pointer;
+  color: #00e932;
+}
+
+.icon-deny:active {
+  color: #ff0000;
+}
+
