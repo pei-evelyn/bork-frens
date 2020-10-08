@@ -147,3 +147,8 @@ textarea {
   font-size: 2.4rem;
 }
 
+
+.bg-white {
+  background-color: #ffffff;
+  height: 100vh;
+}
