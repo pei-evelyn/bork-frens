@@ -1,6 +1,5 @@
 require('dotenv/config');
 const express = require('express');
-
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
@@ -25,11 +24,14 @@ app.get('/api/messages/users', (req, res, next) => {
   "messageId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "messageId" < 8
+  order by "messageId" asc
   `;
 
   db.query(sql)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
+
 });
 
 app.get('/api/messages', (req, res, next) => {
@@ -42,6 +44,35 @@ app.get('/api/messages', (req, res, next) => {
     .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
+
+app.get('/api/conversation/:recipientId', (req, res, next) => {
+  const currentUserConvo = parseInt(req.params.recipientId, 10);
+
+  const sql = `
+  SELECT "messageContent",
+  "dogName",
+  "imageUrl",
+  "userId",
+  "sentAt"
+  FROM "users"
+  JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "recipientId" = $1
+  `;
+
+  const params = [currentUserConvo];
+
+  return db.query(sql, params)
+    .then(result => {
+      const message = result.rows;
+      const unique = [];
+      message.map(message => unique.filter(a => a.userId === message.userId).length > 0 ? null : unique.push(message));
+      return unique;
+    })
+    .then(unique => res.status(200).json(unique))
+    .catch(err => next(err));
+});
+
+//
 
 app.post('/api/messages', (req, res, next) => {
   const sender = req.body.senderId;
@@ -150,6 +181,7 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
 // User can accept friend request
 
 app.put('/api/fren-requests/:requestId', (req, res, next) => {
@@ -304,13 +336,42 @@ app.get('/api/frens/:userId', (req, res, next) => {
 
 app.get('/api/homepage/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
-  const sql = `SELECT  FROM "users" WHERE "userId" = ${userId}`;
-
-  db.query(sql)
+  const params = [userId];
+  const sql = 'SELECT * FROM "users" JOIN "frenlinessLevels" USING("levelId") WHERE "userId" = $1';
+  db.query(sql, params)
     .then(result => {
-      res.status(200).json(result.rows);
+      res.status(200).json(result.rows[0]);
     })
     .catch(err => next(err));
+});
+
+// Num of Fren Reqs for Homepage
+
+app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
+  const recipientId = parseInt(req.params.userId);
+
+  if (recipientId < 0 || isNaN(recipientId)) {
+    throw (new ClientError(`Recipient Id ${req.params.userId} is not valid`, 400));
+  }
+
+  const sql = `
+    select count(*) as "totalFrenRequests"
+    from "frenRequests"
+    where "recipientId" = $1
+    and "isAccepted" = false
+  `;
+  const params = [recipientId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`Recipient Id ${recipientId} does not exist`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+
 });
 
 // Find all friends in the same city

@@ -6,12 +6,11 @@ body {
 footer {
   bottom: 0;
   width: 100%;
-
 }
 
 .login-background {
   background-color: #69b0ab;
-  height: 100vh
+  height: 100vh;
 }
 
 .content-container {
@@ -22,70 +21,69 @@ footer {
   bottom: 0;
 }
 
-.chat-container{
+.chat-container {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
-  display:flex;
+  display: flex;
 }
 
 .message-container-left {
-  float:left;
+  float: left;
   width: 80%;
   margin-right: 20px;
   border-radius: 50%;
   font-size: 14px;
-  display:flex;
+  display: flex;
 }
 
-.img-left{
+.img-left {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   align-self: flex-end;
 }
 
-.img-right{
-  width:30px;
+.img-right {
+  width: 30px;
   height: 30px;
   border-radius: 50%;
-  float:right;
-  align-self:flex-end
+  float: right;
+  align-self: flex-end;
 }
 
-.message-container-right{
-  float:right;
-  margin-left:20px;
-  margin-right:0;
+.message-container-right {
+  float: right;
+  margin-left: 20px;
+  margin-right: 0;
   width: 80%;
   border-radius: 50%;
   font-size: 14px;
-  display:flex;
+  display: flex;
   flex-direction: row-reverse;
 }
 
-.sender-color{
+.sender-color {
   background-color: #69b0ab;
 }
 
-.chat-box{
+.chat-box {
   position: fixed;
   bottom: 20px;
   width: 90%;
 }
 
-textarea{
-  resize:none;
+textarea {
+  resize: none;
   border: 0;
 }
 
-.box-container{
+.box-container {
   height: 70vh;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
-
 
 .fren-name-fren-list {
   font-size: 1.2rem;
@@ -96,19 +94,33 @@ textarea{
   cursor: pointer;
 }
 
+.fren-list-total {
+  font-size: 2.4rem;
+}
 
-.fren-request-img {
+.fren-request-img,
+.homepage-profile-img {
   height: 4.3rem;
   width: 4.3rem;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+.homepage-btn {
+  outline: 0;
+  font-size: 1.3rem;
 }
 
-.other-user-profile-img {
+.green-btn {
+  background-color: #006a71;
+}
+
+.grey-btn {
+  background-color: #656565;
+}
+
+.other-user-profile-img,
+.homepage-user-profile-img {
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -126,7 +138,6 @@ textarea{
   font-size: 2.4rem;
 }
 
-
 .position {
   position: absolute;
   z-index: 1;
@@ -138,3 +149,51 @@ textarea{
 .bg-button {
   background-color: rgba(0, 106, 113, 1);
 }
+
+.conversation-img{
+  height: 3rem;
+  width: 3rem;
+  object-fit:cover;
+  border-radius: 50%;
+}
+
+.conversation-text{
+  font-size: 12px;
+}
+
+
+.time{
+  margin-left: 90px;
+}
+
+.homepage-user-profile-img {
+  height: 8rem;
+  width: 8rem;
+}
+
+.home-page-user-profile-box {
+  bottom: 11%;
+}
+
+.location-box {
+  bottom: 10%;
+}
+
+.profile-btn-box {
+  bottom: 10%;
+}
+
+.no-btn-outline {
+  border: 0;
+  outline: 0;
+}
+
+.icon-accept:active {
+  cursor: pointer;
+  color: #00e932;
+}
+
+.icon-deny:active {
+  color: #ff0000;
+}
+
