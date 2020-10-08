@@ -7,6 +7,7 @@ import FrensList from './frens-list';
 import Footer from './footer';
 import LoginPage from './login-page';
 import NearbyFrensList from './nearby-frens-list';
+import ConversationList from './conversation-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -83,6 +84,7 @@ export default class App extends React.Component {
       return (
         <>
           <Header />
+          <ConversationList />
         </>
       );
     }

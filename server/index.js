@@ -54,13 +54,14 @@ app.get('/api/conversation/:recipientId', (req, res, next) => {
   "sentAt"
   FROM "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
-  where "senderId" = $1
+  where "recipientId" = $1
   `;
 
   const params = [currentUserConvo];
 
   return db.query(sql, params)
-    .then(result => res.status(200).json(result.rows))
+    .then(result =>
+      res.status(200).json(result.rows))
     .catch(err => next(err));
 });
 
