@@ -55,10 +55,7 @@ class OtherProfile extends React.Component {
   }
 
   handleMessageReqClick() {
-    this.props.setView({
-      name: 'chat',
-      params: this.state.otherUser
-    });
+    this.props.setView('chat', this.state.otherUser);
   }
 
   render() {

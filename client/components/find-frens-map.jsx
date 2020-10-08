@@ -39,31 +39,88 @@ function GoogleMaps(props) {
   );
 }
 
+function NumOfFrensNearby(props) {
+  return (
+    <div className="col-7 d-flex">
+      <h4 className="align-self-center">
+        <span className="badge badge-info mr-2">{props.totalNum}</span>
+        frens nearby!
+      </h4>
+    </div>
+  );
+}
+
+function ListButton(props) {
+  return (
+    <div className="col-5 d-flex justify-content-end">
+      <button
+        type="button"
+        className="btn btn-lg btn-info"
+        onClick={() => props.setView('frensNearby', {})}>View List</button>
+    </div>
+  );
+}
+
 class FindFrensMapped extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      numOfFrens: 0,
+      userLocation: undefined
     };
   }
 
+  componentDidMount() {
+    const userLocation = this.props.location.replaceAll(' ', '%20');
+    fetch(`/api/find-frens/${userLocation}`)
+      .then(res => res.json())
+      .then(numOfFrensNearby => this.setState({
+        numOfFrens: parseInt(numOfFrensNearby.numOfFrensNearby, 10),
+        userLocation: this.props.location
+      }))
+      .catch(err => console.error(err));
+  }
+
   render() {
-    return (
-      <>
-        <div className="bg-white container-fluid">
-          <div className="header row pt-3 mb-4">
-            <div className="col-12 d-flex flex-wrap
+    if (typeof this.state.userLocation === 'undefined') {
+      return (
+        <>
+          <div className="bg-white container-fluid">
+            <div className="header row pt-3 mb-4">
+              <div className="col-12 d-flex flex-wrap
             justify-content-between">
-              <i className="fas fa-angle-left fa-2x"></i>
-              <h5 className="mt-1">{this.props.text}</h5>
-              <i className="fa fa-bars fa-2x" ></i>
+                <i className="fas fa-angle-left fa-2x"></i>
+                <h5 className="mt-1">{this.props.text}</h5>
+                <i className="fa fa-bars fa-2x" ></i>
+              </div>
+            </div>
+            <TitleAndLocation />
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="bg-white container-fluid">
+            <div className="header row pt-3 mb-4">
+              <div className="col-12 d-flex flex-wrap
+            justify-content-between">
+                <i className="fas fa-angle-left fa-2x"></i>
+                <h5 className="mt-1">{this.props.text}</h5>
+                <i className="fa fa-bars fa-2x"></i>
+              </div>
+            </div>
+            <TitleAndLocation />
+            <GoogleMaps />
+            <div className="row mt-4">
+              <NumOfFrensNearby totalNum={this.state.numOfFrens} />
+              <ListButton setView={this.props.setView} />
             </div>
           </div>
-          <TitleAndLocation />
-          <GoogleMaps/>
-        </div>
-      </>
-    );
+        </>
+      );
+    }
+
   }
 }
 
