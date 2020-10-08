@@ -283,7 +283,8 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
     select "userName",
             "imageUrl",
             "location",
-            "dogName"
+            "dogName",
+            "userId"
             from "users"
       where "location" = $1 and "userId" != $2
   `;
@@ -302,9 +303,8 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
           });
           return;
         }
-        const allData = userInfo.rows[0];
-        allData.totalUsers = total.rows[0].numberOfUsers;
-        return allData;
+        userInfo.rows.push(userInt);
+        return userInfo.rows;
       });
 
     })

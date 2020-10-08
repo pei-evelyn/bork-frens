@@ -54,8 +54,8 @@ export default class App extends React.Component {
       case 'frensNearby':
         return (
           <>
-            <Header />
-            <NearbyFrensList userId={this.state.user.userId} />
+            <Header text='Frens Nearby' />
+            <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
             <Footer />
           </>
         );
