@@ -12,9 +12,7 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/messages/users/:senderId', (req, res, next) => {
-  const sender = parseInt(req.params.senderId, 10);
-  const messages = (sender <= 7 ? 30 : 31);
+app.get('/api/messages/users', (req, res, next) => {
 
   const sql = `
   select "dogName",
@@ -23,16 +21,14 @@ app.get('/api/messages/users/:senderId', (req, res, next) => {
   "senderId",
   "imageUrl",
   "sentAt",
-  "messageId",
-  "userId"
+  "messageId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
-  where "messageId" <= $1
+  where "messageId" < 8
+  order by "messageId" asc
   `;
 
-  const params = [messages];
-
-  db.query(sql, params)
+  db.query(sql)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 
@@ -66,10 +62,17 @@ app.get('/api/conversation/:recipientId', (req, res, next) => {
   const params = [currentUserConvo];
 
   return db.query(sql, params)
-    .then(result =>
-      res.status(200).json(result.rows))
+    .then(result => {
+      const message = result.rows;
+      const unique = [];
+      message.map(message => unique.filter(a => a.userId === message.userId).length > 0 ? null : unique.push(message));
+      return unique;
+    })
+    .then(unique => res.status(200).json(unique))
     .catch(err => next(err));
 });
+
+//
 
 app.post('/api/messages', (req, res, next) => {
   const sender = req.body.senderId;

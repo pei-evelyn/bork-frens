@@ -7,16 +7,15 @@ export default class Chat extends React.Component {
     super(props);
     this.state = {
       dog: [],
-      senderId: 7,
-      recipientId: 6
+      senderId: 6,
+      recipientId: 7
     };
     this.getInfo = this.getInfo.bind(this);
     this.postMessage = this.postMessage.bind(this);
   }
 
   getInfo(sender) {
-
-    fetch(`/api/messages/users/${this.state.senderId}`)
+    fetch('/api/messages/users')
       .then(response => response.json())
       .then(data => this.setState({ dog: this.state.dog.concat(data) }));
   }
