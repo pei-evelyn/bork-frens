@@ -1,26 +1,20 @@
 import React from 'react';
 import Header from './header';
-
-
-
 import OtherProfile from './other-profile';
 import LoginPage from './login-page';
 import Chat from './chat';
-
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import Homepage from './homepage';
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'homepage',
-
+        name: 'login',
         params: {}
       },
       user: {}
@@ -77,14 +71,14 @@ export default class App extends React.Component {
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
-      case 'homepage': 
+      case 'homepage':
         return (
-        <>
-          <Header />
-          <Homepage />
-          <Footer />
-        </>
-      );
+          <>
+            <Header />
+            <Homepage />
+            <Footer />
+          </>
+        );
       case 'chat':
         return (
           <>
@@ -96,8 +90,8 @@ export default class App extends React.Component {
   }
 
   render() {
-    
-  return (
+
+    return (
       <>
         { this.changeView(this.state.view.name)}
       </>
