@@ -4,7 +4,7 @@ function TitleAndLocation(props) {
   return (
     <div className="row mb-5">
       <div className="col-12">
-        <h2>Let&apos;s find new frens!</h2>
+        <h2 className="mb-4">Let&apos;s find new frens!</h2>
         <div className="input-group">
           <div className="input-group-prepend">
             <div className="input-group-text">
@@ -15,6 +15,12 @@ function TitleAndLocation(props) {
         </div>
       </div>
     </div>
+  );
+}
+
+function GoogleMaps(props) {
+  return (
+    <h1>hello</h1>
   );
 }
 
@@ -29,7 +35,7 @@ class FindFrensMapped extends React.Component {
   render() {
     return (
       <>
-        <div className="bg-white container">
+        <div className="bg-white container-fluid">
           <div className="header row pt-3 mb-4">
             <div className="col-12 d-flex flex-wrap
             justify-content-between">
@@ -39,7 +45,7 @@ class FindFrensMapped extends React.Component {
             </div>
           </div>
           <TitleAndLocation />
-
+          <GoogleMaps/>
         </div>
       </>
     );
