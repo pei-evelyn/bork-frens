@@ -4,11 +4,11 @@ import Header from './header';
 import OtherProfile from './other-profile';
 import LoginPage from './login-page';
 import Chat from './chat';
-
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
+import ConversationList from './conversation-list';
 import Homepage from './homepage';
 
 export default class App extends React.Component {
@@ -16,11 +16,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-
         name: 'homepage',
-
-
-
         params: {}
       },
       user: {}
@@ -51,31 +47,24 @@ export default class App extends React.Component {
 
   changeView(state) {
     switch (state) {
-
       case 'frensList':
         return (
-          <>
             <Header />
             <FrensList setView={this.setView} />
             <Footer />
-          </>
         );
 
       case 'frensNearby':
         return (
-          <>
             <Header text='Frens Nearby' />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
             <Footer />
-          </>
         );
 
       case 'frenRequestList':
         return (
-          <>
             <Header text='Fren Requests' />
             <FrenRequestList userId='6' />
-          </>
         );
 
       case 'login':
@@ -84,23 +73,16 @@ export default class App extends React.Component {
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
 
-
-
       case 'homepage':
         return (
-          <>
             <Header />
             <Homepage />
-
-          </>
         );
 
       case 'chat':
         return (
-          <>
             <Header user={this.state.user} />
             <Chat user={this.state.user} />
-          </>
         );
     }
   }
@@ -112,6 +94,5 @@ export default class App extends React.Component {
         { this.changeView(this.state.view.name)}
       </>
     );
-
   }
 }

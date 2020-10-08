@@ -149,6 +149,21 @@ textarea {
   font-size: 2.4rem;
 }
 
+.conversation-img{
+  height: 3rem;
+  width: 3rem;
+  object-fit:cover;
+  border-radius: 50%;
+}
+
+.conversation-text{
+  font-size: 12px;
+}
+
+
+.time{
+  margin-left: 90px;
+}
 
 .homepage-user-profile-img {
   height: 8rem;
@@ -172,7 +187,6 @@ textarea {
   outline: 0;
 }
 
-
 .icon-accept:active {
   cursor: pointer;
   color: #00e932;
@@ -181,4 +195,5 @@ textarea {
 .icon-deny:active {
   color: #ff0000;
 }
+
 

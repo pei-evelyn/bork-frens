@@ -1,6 +1,5 @@
 require('dotenv/config');
 const express = require('express');
-
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
@@ -25,11 +24,14 @@ app.get('/api/messages/users', (req, res, next) => {
   "messageId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "messageId" < 8
+  order by "messageId" asc
   `;
 
   db.query(sql)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
+
 });
 
 app.get('/api/messages', (req, res, next) => {
@@ -42,6 +44,35 @@ app.get('/api/messages', (req, res, next) => {
     .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
+
+app.get('/api/conversation/:recipientId', (req, res, next) => {
+  const currentUserConvo = parseInt(req.params.recipientId, 10);
+
+  const sql = `
+  SELECT "messageContent",
+  "dogName",
+  "imageUrl",
+  "userId",
+  "sentAt"
+  FROM "users"
+  JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "recipientId" = $1
+  `;
+
+  const params = [currentUserConvo];
+
+  return db.query(sql, params)
+    .then(result => {
+      const message = result.rows;
+      const unique = [];
+      message.map(message => unique.filter(a => a.userId === message.userId).length > 0 ? null : unique.push(message));
+      return unique;
+    })
+    .then(unique => res.status(200).json(unique))
+    .catch(err => next(err));
+});
+
+//
 
 app.post('/api/messages', (req, res, next) => {
   const sender = req.body.senderId;
