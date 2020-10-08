@@ -129,7 +129,6 @@ textarea {
   background-color: #656565;
 }
 
-
 .other-user-profile-img {
   height: 7rem;
   width: 7rem;
@@ -148,7 +147,6 @@ textarea {
   font-size: 2.4rem;
 }
 
-
 .icon-accept:active {
   cursor: pointer;
   color: #00e932;
@@ -156,4 +154,52 @@ textarea {
 
 .icon-deny:active {
   color: #ff0000;
+}
+
+.side-menu {
+  top: 0;
+  height: 100vh;
+  width: 0;
+  z-index: 1;
+  border-right: 2px solid black;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: white;
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  right: 0;
+}
+
+.show {
+  /* width: 250px; */
+  width: 60%;
+}
+
+.link {
+  color: black;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  width: 15rem;
+}
+
+.show-modal {
+  height: 100vh;
+}
+
+.modal-overlay {
+  /* width: 100vw;
+  height: 100vh; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.fa-bars {
+  right: 1rem;
 }

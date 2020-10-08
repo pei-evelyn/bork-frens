@@ -16,7 +16,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'frenRequestList',
+        name: 'homepage',
         params: {}
       },
       user: {}
@@ -58,7 +58,7 @@ export default class App extends React.Component {
         return (
           <>
             <Header text='Frens Nearby' />
-            <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
+            <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
             <Footer />
           </>
         );
