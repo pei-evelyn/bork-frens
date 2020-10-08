@@ -125,7 +125,8 @@ textarea {
   background-color: #656565;
 }
 
-.other-user-profile-img {
+.other-user-profile-img,
+.homepage-user-profile-img {
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -143,3 +144,24 @@ textarea {
   font-size: 2.4rem;
 }
 
+.homepage-user-profile-img {
+  height: 9rem;
+  width: 9rem;
+}
+
+.home-page-user-profile-box {
+  bottom: 13%;
+}
+
+.location-box {
+  bottom: 12%;
+}
+
+.profile-btn-box {
+  bottom: 10%;
+}
+
+.no-btn-outline {
+  border: 0;
+  outline: 0;
+}

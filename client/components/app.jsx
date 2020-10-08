@@ -16,11 +16,12 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'frensList',
+        name: 'homepage',
         params: {}
       },
       user: {}
     };
+
     this.setView = this.setView.bind(this);
     this.addUser = this.addUser.bind(this);
     this.changeView = this.changeView.bind(this);
