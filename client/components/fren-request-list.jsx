@@ -6,8 +6,7 @@ class FrenRequestList extends React.Component {
     super(props);
     this.state = {
       recipientId: '',
-      requests: [],
-      requestText: ' wants to be your fren!'
+      requests: []
     };
     this.listFrenRequests = this.listFrenRequests.bind(this);
     this.handleAcceptRequest = this.handleAcceptRequest.bind(this);
@@ -25,15 +24,19 @@ class FrenRequestList extends React.Component {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => this.setState({
-        requestText: ' is now your fren!'
-      }))
+      .then(res => setTimeout(this.listFrenRequests, 1000))
       .catch(err => console.error(err));
   }
 
-  handleRejectRequest() {
-    // eslint-disable-next-line no-console
-    console.log('rejected!!');
+  handleRejectRequest(reqId) {
+    fetch(`/api/fren-requests/${reqId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => this.listFrenRequests())
+      .catch(err => console.error(err));
   }
 
   listFrenRequests() {

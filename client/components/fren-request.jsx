@@ -9,12 +9,12 @@ function Request(props) {
       <div className="col-6 d-flex align-items-center">
         <p className="mb-0 pr-1">
           <span>{props.name} </span>
-          {props.reqText}
+          wants to be your fren!
         </p>
       </div>
       <div className="col d-flex justify-content-around align-items-center">
-        <i className="fas fa-check fa-lg icons" onClick={() => props.handleAccept(props.requestId)}></i>
-        <i className="fas fa-times fa-lg icons" onClick={() => props.handleReject()}></i>
+        <i className="fas fa-check fa-lg icon-accept" onClick={() => props.handleAccept(props.requestId)}></i>
+        <i className="fas fa-times fa-lg icon-deny" onClick={() => props.handleReject(props.requestId)}></i>
       </div>
     </div>
   );
