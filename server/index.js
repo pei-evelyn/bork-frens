@@ -12,7 +12,10 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/messages/users', (req, res, next) => {
+app.get('/api/messages/users/:senderId/:recipientId', (req, res, next) => {
+
+  const sender = parseInt(req.params.senderId, 10);
+  const recipient = parseInt(req.params.recipientId, 10);
 
   const sql = `
   select "dogName",
@@ -24,15 +27,43 @@ app.get('/api/messages/users', (req, res, next) => {
   "messageId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
-  where "messageId" < 8
-  order by "messageId" asc
+  where "senderId" = $1 and "recipientId" = $2
+
   `;
 
-  db.query(sql)
-    .then(result => res.status(200).json(result.rows))
-    .catch(err => next(err));
+  const params = [sender, recipient];
+  db.query(sql, params)
+    .then(result => {
 
+      const sql = `
+        select "dogName",
+       "messageContent",
+        "recipientId",
+        "senderId",
+        "imageUrl",
+        "sentAt",
+        "messageId"
+        from "users"
+        JOIN "messages" ON "users"."userId" = "messages"."senderId"
+        where "senderId" = $1 and "recipientId" = $2
+
+  `;
+
+      const params = [recipient, sender];
+      db.query(sql, params)
+        .then(data => {
+          // order data by messageId
+          const messagesList = result.rows.concat(data.rows);
+          const messagesOrder = messagesList.sort((prevMsg, afterMsg) =>
+            (prevMsg.messageId > afterMsg.messageId) ? 1 : -1);
+          return messagesOrder;
+        })
+        .then(order => res.status(200).json(order))
+        .catch(err => next(err));
+    });
 });
+
+// .then(result =>
 
 app.get('/api/messages', (req, res, next) => {
   const sql = `

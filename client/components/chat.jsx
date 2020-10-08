@@ -14,14 +14,14 @@ export default class Chat extends React.Component {
     this.postMessage = this.postMessage.bind(this);
   }
 
-  getInfo(sender) {
-    fetch('/api/messages/users')
+  getInfo() {
+    fetch(`/api/messages/users/${this.state.senderId}/${this.state.recipientId}`)
       .then(response => response.json())
       .then(data => this.setState({ dog: this.state.dog.concat(data) }));
   }
 
   componentDidMount() {
-    this.getInfo(this.state.senderId);
+    this.getInfo();
   }
 
   postMessage(recipient, sender, message) {
