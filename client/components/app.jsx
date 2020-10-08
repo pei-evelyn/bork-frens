@@ -9,16 +9,14 @@ import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
-import ConversationList from './conversation-list';
 import Homepage from './homepage';
-
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'homepage',
+        name: 'chat',
         params: {}
       },
       user: {}
@@ -51,22 +49,28 @@ export default class App extends React.Component {
     switch (state) {
       case 'frensList':
         return (
+          <>
             <Header />
             <FrensList setView={this.setView} />
             <Footer />
+          </>
         );
 
       case 'frensNearby':
         return (
+          <>
             <Header text='Frens Nearby' />
-            <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
+            <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
             <Footer />
+          </>
         );
 
       case 'frenRequestList':
         return (
+          <>
             <Header text='Fren Requests' />
             <FrenRequestList userId='6' />
+          </>
         );
 
       case 'login':
@@ -83,13 +87,16 @@ export default class App extends React.Component {
         );
       case 'homepage':
         return (
+          <>
             <Header />
             <Homepage />
+          </>
         );
       case 'chat':
         return (
-            <Header user={this.state.user} />
+          <>
             <Chat user={this.state.user} />
+          </>
         );
     }
   }
