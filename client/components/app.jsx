@@ -7,13 +7,14 @@ import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
+import EditUserProfile from './edit-user-profile';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'login',
+        name: 'editUserProfile',
         params: {}
       },
       user: {}
@@ -70,6 +71,13 @@ export default class App extends React.Component {
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+      case 'editUserProfile':
+        return (
+          <>
+            <Header text="Edit Profile" />
+            <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
+          </>
+        );
       case 'chat':
         return (
           <>
