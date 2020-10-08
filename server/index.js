@@ -1,6 +1,5 @@
 require('dotenv/config');
 const express = require('express');
-
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
@@ -25,11 +24,14 @@ app.get('/api/messages/users', (req, res, next) => {
   "messageId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "messageId" < 8
+  order by "messageId" asc
   `;
 
   db.query(sql)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
+
 });
 
 app.get('/api/messages', (req, res, next) => {
@@ -42,6 +44,35 @@ app.get('/api/messages', (req, res, next) => {
     .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
+
+app.get('/api/conversation/:recipientId', (req, res, next) => {
+  const currentUserConvo = parseInt(req.params.recipientId, 10);
+
+  const sql = `
+  SELECT "messageContent",
+  "dogName",
+  "imageUrl",
+  "userId",
+  "sentAt"
+  FROM "users"
+  JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "recipientId" = $1
+  `;
+
+  const params = [currentUserConvo];
+
+  return db.query(sql, params)
+    .then(result => {
+      const message = result.rows;
+      const unique = [];
+      message.map(message => unique.filter(a => a.userId === message.userId).length > 0 ? null : unique.push(message));
+      return unique;
+    })
+    .then(unique => res.status(200).json(unique))
+    .catch(err => next(err));
+});
+
+//
 
 app.post('/api/messages', (req, res, next) => {
   const sender = req.body.senderId;
@@ -239,6 +270,43 @@ app.get('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User can edit profile
+
+app.put('/api/profile/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId, 10);
+  if (userId < 0 || isNaN(userId)) {
+    throw new ClientError(`User Id ${req.params.userId} is not valid`, 400);
+  }
+  const location = req.body.location;
+  const breed = req.body.breed;
+  const DOB = req.body.DOB;
+  const levelId = req.body.levelId;
+  const tagline = req.body.tagline;
+  const genderId = req.body.genderId;
+  const updateProfile = `
+        update "users"
+          set  "location" = $1,
+                "breed" = $2,
+                "DOB" = $3,
+                "levelId" = $4,
+                "tagline" = $5,
+                "genderId" = $6
+          where "userId" = $7
+          returning *`;
+  const params = [location, breed, DOB, levelId, tagline, genderId, userId];
+  db.query(updateProfile, params)
+    .then(result => {
+      const update = {};
+      update.location = result.rows[0].location;
+      update.breed = result.rows[0].breed;
+      update.levelId = result.rows[0].levelId;
+      update.gender = result.rows[0].genderId;
+      update.image = result.rows[0].imageUrl;
+      res.status(200).json(update);
+    })
+    .catch(err => next(err));
+});
+
 // User Can View All their Frens
 
 app.get('/api/frens/:userId', (req, res, next) => {
@@ -305,6 +373,8 @@ app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
     .catch(err => next(err));
 
 });
+
+// Find all friends in the same city
 
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);

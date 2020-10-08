@@ -7,6 +7,7 @@ import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
+import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
 
 export default class App extends React.Component {
@@ -45,7 +46,6 @@ export default class App extends React.Component {
 
   changeView(state) {
     switch (state) {
-
       case 'frensList':
         return (
           <>
@@ -77,6 +77,13 @@ export default class App extends React.Component {
 
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+      case 'editUserProfile':
+        return (
+          <>
+            <Header text="Edit Profile" />
+            <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
+          </>
+        );
       case 'homepage':
         return (
           <>
@@ -84,7 +91,6 @@ export default class App extends React.Component {
             <Homepage />
           </>
         );
-
       case 'chat':
         return (
           <>
@@ -102,6 +108,5 @@ export default class App extends React.Component {
         { this.changeView(this.state.view.name)}
       </>
     );
-
   }
 }
