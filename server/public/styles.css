@@ -129,8 +129,9 @@ textarea {
   background-color: #656565;
 }
 
+.other-user-profile-img,
+.homepage-user-profile-img {
 
-.other-user-profile-img {
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -149,6 +150,29 @@ textarea {
 }
 
 
+.homepage-user-profile-img {
+  height: 8rem;
+  width: 8rem;
+}
+
+.home-page-user-profile-box {
+  bottom: 11%;
+}
+
+.location-box {
+  bottom: 10%;
+}
+
+.profile-btn-box {
+  bottom: 10%;
+}
+
+.no-btn-outline {
+  border: 0;
+  outline: 0;
+}
+
+
 .icon-accept:active {
   cursor: pointer;
   color: #00e932;
@@ -157,3 +181,4 @@ textarea {
 .icon-deny:active {
   color: #ff0000;
 }
+

@@ -1,5 +1,5 @@
 import React from 'react';
-import Frens from './frens';
+import FrenListItem from './fren-list-item';
 
 class FrensList extends React.Component {
   constructor(props) {
@@ -31,7 +31,16 @@ class FrensList extends React.Component {
         <h2 className="text-white text-center font-weight-normal fren-list-total">{this.state.frens.length} Frens</h2>
         <div className="row no-gutters d-flex align-items-end">
           <div className="col content-container mx-3 mt-4">
-            <Frens fren={this.state.frens} />
+            {this.state.frens.map(fren => {
+              return <FrenListItem
+                key={fren.userId}
+                image={fren.image}
+                location={fren.location}
+                name={fren.name}
+                userId={fren.userId}
+                setView={this.props.setView}
+              />;
+            })}
           </div>
         </div>
       </div>
