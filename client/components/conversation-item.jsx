@@ -9,17 +9,22 @@ function ConversationData(props) {
           <img className="conversation-img ml-3" src={props.image} alt="Image of Fren" />
         </div>
 
-        <div className="col-9 d-flex align-items-start flex-column">
-          <div className="row ml-3">
+        <div className="col-9 d-flex flex-column">
+          <div className="row d-flex justify-content-between ml-3">
             <p className="fren-name-fren-list conversation-text font-weight-bold mb-1">{props.name} </p>
-            <p className="conversation-text time font-weight-light">10:00pm</p>
+            <p className="conversation-text mr-3 font-weight-light">{convertTime(props)}</p>
           </div>
           <p className="pb-0 font-weight-light conversation-text ml-3">{props.message}</p>
         </div>
-
       </div>
     </>
   );
+}
+
+function convertTime(props) {
+  const convertedTime = props.time.slice(11, 16);
+  const pst = convertedTime;
+  return pst;
 }
 
 function Conversations(props) {
@@ -31,6 +36,7 @@ function Conversations(props) {
         image={req.imageUrl}
         message={req.messageContent}
         name={req.dogName}
+        time={req.sentAt}
       />
     );
   });

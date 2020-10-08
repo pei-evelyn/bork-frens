@@ -8,6 +8,7 @@ export default class ConversationList extends React.Component {
       conversations: []
     };
     this.getConversations = this.getConversations.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -24,9 +25,13 @@ export default class ConversationList extends React.Component {
       }));
   }
 
+  handleClick() {
+    this.props.setView('chat', {});
+  }
+
   render() {
     return (
-      <div className="container" >
+      <div onClick={this.handleClick} className="container" >
         <h4 className="text-white text-center font-weight-normal">Conversations</h4>
         <div className="row no-gutters d-flex align-items-end">
           <div className="col content-container mx-3 mt-4">

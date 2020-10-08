@@ -1,6 +1,5 @@
 require('dotenv/config');
 const express = require('express');
-
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
@@ -13,7 +12,9 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/messages/users', (req, res, next) => {
+app.get('/api/messages/users/:senderId', (req, res, next) => {
+  const sender = parseInt(req.params.senderId, 10);
+  const messages = (sender <= 7 ? 30 : 31);
 
   const sql = `
   select "dogName",
@@ -22,14 +23,19 @@ app.get('/api/messages/users', (req, res, next) => {
   "senderId",
   "imageUrl",
   "sentAt",
-  "messageId"
+  "messageId",
+  "userId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
+  where "messageId" <= $1
   `;
 
-  db.query(sql)
+  const params = [messages];
+
+  db.query(sql, params)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
+
 });
 
 app.get('/api/messages', (req, res, next) => {

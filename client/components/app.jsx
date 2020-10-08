@@ -14,7 +14,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'chat',
+        name: 'conversation',
         params: {}
       },
       user: {}
@@ -84,7 +84,7 @@ export default class App extends React.Component {
       return (
         <>
           <Header />
-          <ConversationList />
+          <ConversationList setView={this.setView} />
         </>
       );
     }
