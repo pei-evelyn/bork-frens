@@ -312,6 +312,10 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// app.get('/api/find-frens', (req, res, next) => {
+
+// })
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl} `, 404));
 });

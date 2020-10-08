@@ -129,7 +129,6 @@ textarea {
   background-color: #656565;
 }
 
-
 .other-user-profile-img {
   height: 7rem;
   width: 7rem;
@@ -148,8 +147,11 @@ textarea {
   font-size: 2.4rem;
 }
 
-
 .bg-white {
   background-color: #ffffff;
   height: 100vh;
+}
+
+#map {
+  height: 50%;
 }
