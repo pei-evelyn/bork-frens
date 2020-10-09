@@ -46,7 +46,7 @@ export default class Chat extends React.Component {
         <div className="header col-12 d-flex flex-wrap
         justify-content-between container pt-3 mb-5">
           <i className="fas fa-angle-left fa-2x"></i>
-          <h5 className="mt-1">{this.props.other.dogName}</h5>
+          <h5 className="mt-1 m-auto">{this.props.other.name}</h5>
           <SideNav setView={this.props.setView} />
         </div>
         <div className="box-container mx-3">
