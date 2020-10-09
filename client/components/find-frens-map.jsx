@@ -1,4 +1,6 @@
 import React from 'react';
+import SideNav from './side-nav';
+// import SideNav from './side-nav';
 
 function TitleAndLocation(props) {
   return (
@@ -107,9 +109,9 @@ class FindFrensMapped extends React.Component {
             <div className="header row pt-3 mb-4">
               <div className="col-12 d-flex flex-wrap
             justify-content-between">
-                <i className="fas fa-angle-left fa-2x"></i>
-                <h5 className="mt-1">{this.props.text}</h5>
-                <i className="fa fa-bars fa-2x"></i>
+                <i className="fas fa-angle-left fa-2x" ></i>
+                <h5 className="mt-1 mx-auto">{this.props.text}</h5>
+                <SideNav setView={this.props.setView} />
               </div>
             </div>
             <TitleAndLocation />

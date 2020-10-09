@@ -19,12 +19,14 @@ export default class App extends React.Component {
         name: 'login',
         params: {}
       },
-      user: {}
+      user: {},
+      history: []
     };
 
     this.setView = this.setView.bind(this);
     this.addUser = this.addUser.bind(this);
     this.changeView = this.changeView.bind(this);
+    this.switchViewBack = this.switchViewBack.bind(this);
   }
 
   addUser(userName) {
@@ -33,62 +35,70 @@ export default class App extends React.Component {
     });
   }
 
+  switchViewBack(name, params, oldHistory) {
+    this.setState(state => {
+      return ({
+        view: {
+          name: name,
+          params: params
+        },
+        history: oldHistory
+      });
+    });
+  }
+
   setView(name, params) {
-    this.setState({
-      view: {
-        name: name,
-        params: params
-      }
+    this.setState(state => {
+      const previousView = Object.assign({}, state.view);
+      const newHistory = state.history.concat(previousView);
+      return ({
+        view: {
+          name: name,
+          params: params
+        },
+        history: newHistory
+      });
     });
   }
 
   changeView(state) {
     switch (state) {
-
       case 'frensList':
         return (
           <>
-
-            <Header setView={this.setView} />
+            <Header setView={this.setView} history={this.state.history} switchViewBack={this.switchViewBack}/>
             <FrensList setView={this.setView} userId={this.state.user.userId}/>
-
           </>
         );
-
       case 'frensNearby':
         return (
           <>
-            <Header text='Frens Nearby' setView={this.setView} />
+            <Header text='Frens Nearby' setView={this.setView} history={this.state.history} switchViewBack={this.switchViewBack}/>
             <NearbyFrensList location={this.state.user.location} userId={this.state.user.userId} setView={this.setView} />
           </>
         );
-
       case 'frenRequestList':
         return (
           <>
-            <Header text='Fren Requests' setView={this.setView} />
+            <Header text='Fren Requests' setView={this.setView} history={this.state.history} switchViewBack={this.switchViewBack}/>
             <FrenRequestList userId='6' />
           </>
         );
-
       case 'login':
-        return <LoginPage addUser={this.addUser} setView={this.setView} />;
+        return <LoginPage addUser={this.addUser} setView={this.setView} switchViewBack={this.switchViewBack}/>;
       case 'editUserProfile':
-        return <EditUserProfile setView={this.setView} />;
+        return <EditUserProfile setView={this.setView} switchViewBack={this.switchViewBack}/>;
       case 'otherProfile':
-        return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} />;
+        return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} switchViewBack={this.switchViewBack}/>;
       case 'homepage':
         return (
           <>
-            <Header setView={this.setView} />
+            <Header setView={this.setView} history={this.state.history} switchViewBack={this.switchViewBack}/>
             <Homepage userId={this.state.user.userId} setView={this.setView} addUser={this.addUser} user={this.state.user}/>
-
           </>
         );
-
       case 'chat':
-        return <Chat user={this.state.user} other={this.state.view.params} />;
-
+        return <Chat user={this.state.user} other={this.state.view.params} switchViewBack={this.switchViewBack}/>;
       case 'findFrensMap':
         return (
           <FindFrensMapped
@@ -96,6 +106,7 @@ export default class App extends React.Component {
             location={this.state.user.location}
             userId={this.state.user.userId}
             setView={this.setView}
+            switchViewBack={this.switchViewBack}
           />
         );
       case 'conversation':
@@ -106,7 +117,6 @@ export default class App extends React.Component {
   }
 
   render() {
-
     return (
       <>
         { this.changeView(this.state.view.name)}
