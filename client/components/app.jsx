@@ -93,11 +93,8 @@ export default class App extends React.Component {
           </>
         );
       case 'chat':
-        return (
-          <>
-            <Chat user={this.state.user} />
-          </>
-        );
+        return <Chat user={this.state.user} other={this.state.view.params} />;
+        
       case 'findFrensMap':
         return (
           <FindFrensMapped

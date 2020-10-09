@@ -7,21 +7,21 @@ export default class Chat extends React.Component {
     super(props);
     this.state = {
       dog: [],
-      senderId: 6,
-      recipientId: 7
+      senderId: 9,
+      recipientId: 6
     };
     this.getInfo = this.getInfo.bind(this);
     this.postMessage = this.postMessage.bind(this);
   }
 
-  getInfo(sender) {
-    fetch('/api/messages/users')
+  getInfo() {
+    fetch(`/api/messages/users/${this.state.senderId}/${this.state.recipientId}`)
       .then(response => response.json())
       .then(data => this.setState({ dog: this.state.dog.concat(data) }));
   }
 
   componentDidMount() {
-    this.getInfo(this.state.senderId);
+    this.getInfo(this.props.user, this.props.other);
   }
 
   postMessage(recipient, sender, message) {
@@ -47,7 +47,7 @@ export default class Chat extends React.Component {
         <div className="header col-12 d-flex flex-wrap
         justify-content-between container pt-3 mb-3">
           <i className="fas fa-angle-left fa-2x"></i>
-          <h5 className="mt-1">Pupperino</h5>
+          <h5 className="mt-1">Message</h5>
           <i className="fa fa-bars fa-2x" ></i>
         </div>
         <div className="box-container mx-3">
