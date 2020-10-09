@@ -33,7 +33,7 @@ class LoginPage extends React.Component {
       user: event.target.value,
       userId: optionId
     });
-    this.props.setView('frensNearby', {});
+    this.props.setView('homepage', {});
   }
 
   render() {

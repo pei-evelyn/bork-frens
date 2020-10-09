@@ -44,7 +44,6 @@ export default class App extends React.Component {
 
   changeView(state) {
     switch (state) {
-
       case 'frensList':
         return (
           <>
@@ -72,7 +71,7 @@ export default class App extends React.Component {
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
       case 'editUserProfile':
-        return <EditUserProfile setView={this.setView} />;
+        return <EditUserProfile setView={this.setView} currentUserId={this.state.view.params}/>;
       case 'otherProfile':
         return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} />;
       case 'homepage':
