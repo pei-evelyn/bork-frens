@@ -7,7 +7,6 @@ import Chat from './chat';
 
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
-import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import Homepage from './homepage';
 
@@ -52,7 +51,6 @@ export default class App extends React.Component {
           <>
             <Header setView={this.setView} />
             <FrensList />
-            <Footer />
           </>
         );
 
@@ -61,7 +59,6 @@ export default class App extends React.Component {
           <>
             <Header text='Frens Nearby' setView={this.setView} />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
-            <Footer />
           </>
         );
 
