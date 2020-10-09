@@ -20,9 +20,12 @@ class Homepage extends React.Component {
     fetch(`/api/homepage/${this.props.userId}`)
       .then(response => response.json())
       .then(userData =>
-        this.setState({
-          userProfile: userData
-        })
+        this.setState(state => {
+          this.props.addUser(userData);
+          return ({ userProfile: userData });
+        }
+
+        )
       )
       .catch(err => console.error(err));
   }
@@ -52,11 +55,11 @@ class Homepage extends React.Component {
             <div className="col content-container mx-3 mt-4">
 
               <div className="home-page-user-profile-box row m-auto justify-content-center position-relative">
-                <img className="homepage-user-profile-img" src={this.props.user.imageUrl} alt={`Image of ${this.props.user.dogName}`} />
+                <img className="homepage-user-profile-img" src={this.state.userProfile.imageUrl} alt={`Image of ${this.state.userProfile.dogName}`} />
               </div>
               <div className=" location-box row justify-content-start flex-column align-items-center position-relative">
-                <h3 className="font-weight-normal">{this.props.user.dogName}</h3>
-                <h6 className="text-secondary">{this.props.user.location}</h6>
+                <h3 className="font-weight-normal">{this.state.userProfile.dogName}</h3>
+                <h6 className="text-secondary">{this.state.userProfile.location}</h6>
               </div>
               <div className="profile-btn-box d-flex flex-column align-items-center position-relative no-btn-outline">
                 <button onClick={ this.handleChange } className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
