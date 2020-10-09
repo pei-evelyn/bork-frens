@@ -6,24 +6,22 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dog: []
+      dog: [],
+      senderId: 6,
+      recipientId: 7
     };
     this.getInfo = this.getInfo.bind(this);
     this.postMessage = this.postMessage.bind(this);
   }
 
-  // current recipient
-  // current sender
-  // store in state
-
-  getInfo() {
+  getInfo(sender) {
     fetch('/api/messages/users')
       .then(response => response.json())
       .then(data => this.setState({ dog: this.state.dog.concat(data) }));
   }
 
   componentDidMount() {
-    this.getInfo();
+    this.getInfo(this.state.senderId);
   }
 
   postMessage(recipient, sender, message) {
@@ -45,17 +43,26 @@ export default class Chat extends React.Component {
   render() {
     const dogMessage = this.state.dog;
     return (
-      <div className="box-container mx-3">
-        {dogMessage.map((message, index) => (
-          <Message
-            key={index}
-            message={message.messageContent}
-            image={message.imageUrl}
-            sender={message.senderId}
-            recipient={message.recipientId}
-          />
-        ))}
-        <ChatBox postMessage={this.postMessage} dogInfo={this.state.dog} />
+      <div className="bg-white container-fluid">
+        <div className="header col-12 d-flex flex-wrap
+        justify-content-between container pt-3 mb-3">
+          <i className="fas fa-angle-left fa-2x"></i>
+          <h5 className="mt-1">Pupperino</h5>
+          <i className="fa fa-bars fa-2x" ></i>
+        </div>
+        <div className="box-container mx-3">
+          {dogMessage.map((message, index) => (
+            <Message
+              key={index}
+              message={message.messageContent}
+              image={message.imageUrl}
+              sender={message.senderId}
+              recipient={message.recipientId}
+              user={message.userId}
+            />
+          ))}
+          <ChatBox postMessage={this.postMessage} dogInfo={this.state.dog} />
+        </div>
       </div>
     );
   }
