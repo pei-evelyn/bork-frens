@@ -8,7 +8,6 @@ import FrensList from './frens-list';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
-import EditUserProfile from './edit-user-profile';
 import FindFrensMapped from './find-frens-map';
 
 export default class App extends React.Component {
@@ -60,7 +59,7 @@ export default class App extends React.Component {
 
       case 'frensNearby':
         return (
-         <>
+          <>
             <Header text='Frens Nearby' setView={this.setView} />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
           </>
@@ -79,12 +78,12 @@ export default class App extends React.Component {
       case 'editUserProfile':
         return <EditUserProfile setView={this.setView} />;
       case 'otherProfile':
-        return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />
+        return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
       case 'homepage':
         return (
-       <>
-           <Header setView={this.setView} />
-           <Homepage userId={this.state.user.userId} setView={this.setView} />
+          <>
+            <Header setView={this.setView} />
+            <Homepage userId={this.state.user.userId} setView={this.setView} />
 
           </>
         );
@@ -100,7 +99,6 @@ export default class App extends React.Component {
             userId={6}
             setView={this.setView}
           />
-
         );
     }
   }
