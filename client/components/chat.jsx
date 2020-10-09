@@ -21,7 +21,7 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.getInfo();
+    this.getInfo(this.props.user, this.props.other);
   }
 
   postMessage(recipient, sender, message) {

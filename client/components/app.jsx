@@ -16,7 +16,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'chat',
+        name: 'otherProfile',
         params: {}
       },
       user: {}
@@ -93,11 +93,7 @@ export default class App extends React.Component {
           </>
         );
       case 'chat':
-        return (
-          <>
-            <Chat user={this.state.user} />
-          </>
-        );
+        return <Chat user={this.state.user} other={this.state.view.params} />;
     }
   }
 
