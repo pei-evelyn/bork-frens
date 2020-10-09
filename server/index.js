@@ -412,6 +412,34 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Get total num of frens for map page
+
+app.get('/api/find-frens/:location', (req, res, next) => {
+  const location = req.params.location;
+
+  if (typeof location === 'undefined') {
+    throw (new ClientError(`${req.params.location} is required`, 400));
+  }
+
+  const sql = `
+    select count(*) as "numOfFrensNearby"
+    from "users"
+    where "location" = $1
+  `;
+
+  const params = [location];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`${location} returned no users`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl} `, 404));
 });

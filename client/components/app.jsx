@@ -9,6 +9,7 @@ import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
+import FindFrensMapped from './find-frens-map';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -77,7 +78,6 @@ export default class App extends React.Component {
 
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
-
       case 'editUserProfile':
         return (
           <>
@@ -97,6 +97,14 @@ export default class App extends React.Component {
           <>
             <Chat user={this.state.user} />
           </>
+        );
+      case 'findFrensMap':
+        return (
+          <FindFrensMapped
+            text="Find Frens"
+            location="Los Angeles, CA"
+            setView={this.setView}
+          />
         );
     }
   }
