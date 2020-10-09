@@ -3,11 +3,11 @@ import Header from './header';
 import OtherProfile from './other-profile';
 import LoginPage from './login-page';
 import Chat from './chat';
-
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
 import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
+import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
 import FindFrensMapped from './find-frens-map';
 
@@ -16,12 +16,12 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'findFrensMap',
-
+        name: 'login',
         params: {}
       },
       user: {}
     };
+
     this.setView = this.setView.bind(this);
     this.addUser = this.addUser.bind(this);
     this.changeView = this.changeView.bind(this);
@@ -51,18 +51,20 @@ export default class App extends React.Component {
         return (
           <>
             <Header />
-            <FrensList />
+            <FrensList setView={this.setView} />
             <Footer />
           </>
         );
+
       case 'frensNearby':
         return (
           <>
             <Header text='Frens Nearby' />
-            <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
+            <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
             <Footer />
           </>
         );
+
       case 'frenRequestList':
         return (
           <>
@@ -70,22 +72,29 @@ export default class App extends React.Component {
             <FrenRequestList userId='6' />
           </>
         );
+
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
+
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+      case 'editUserProfile':
+        return (
+          <>
+            <Header text="Edit Profile" />
+            <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
+          </>
+        );
       case 'homepage':
         return (
           <>
             <Header />
             <Homepage />
-            <Footer />
           </>
         );
       case 'chat':
         return (
           <>
-            <Header user={this.state.user} />
             <Chat user={this.state.user} />
           </>
         );
@@ -107,6 +116,5 @@ export default class App extends React.Component {
         { this.changeView(this.state.view.name)}
       </>
     );
-
   }
 }

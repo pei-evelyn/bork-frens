@@ -4,7 +4,8 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      userName: '',
+      userId: 0
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -18,7 +19,8 @@ class LoginPage extends React.Component {
       .then(res => res.json())
       .then(allUsers => {
         this.setState({
-          users: allUsers
+          userName: allUsers[0].userName,
+          userId: allUsers[0].userId
         });
       }).catch(err => console.error(err));
   }
@@ -31,7 +33,7 @@ class LoginPage extends React.Component {
       user: event.target.value,
       userId: optionId
     });
-    this.props.setView('frensNearby', {});
+    this.props.setView('homepage', {});
   }
 
   render() {
@@ -44,11 +46,8 @@ class LoginPage extends React.Component {
             <select onChange={this.handleChange}
               className="form-control-lg col-11">
               <option className="col-9">Select User</option>
-              {this.state.users.map(user => {
-                return (
-                  <option key={user.userId} userid={user.userId} className="col-9">{user.userName}</option>
-                );
-              })}
+              <option key={this.state.userId} userid={this.state.userId}
+                className="col-9">{this.state.userName}</option>
             </select>
           </div>
         </div>

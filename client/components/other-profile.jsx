@@ -63,10 +63,10 @@ class OtherProfile extends React.Component {
       <>
         <Header text='floofyMimi'/>
         <OtherUserBasicInfo
-          image='/images/userId8.jpg'
-          name='Mimi'
-          tagLine='"Cutest litto floof in town!"'
-          location="Los Angeles, CA"
+          image={this.state.otherUser.imageUrl}
+          name={this.state.otherUser.dogName}
+          tagLine={this.state.otherUser.tagline}
+          location={this.state.otherUser.location}
         />
         <div className="container">
           <div className="row no-gutters d-flex align-items-end">
@@ -77,10 +77,11 @@ class OtherProfile extends React.Component {
                 frenReqText={this.state.frenReqText}
               />
               <OtherUserBio
-                breed="Pomeranian"
-                gender="Female"
-                age="2 Years"
-                level="One Classy Mother Pupper" />
+                breed={this.state.otherUser.breed}
+                gender={this.state.otherUser.identity}
+                age={this.state.otherUser.DOB}
+                level={this.state.otherUser.level}
+              />
             </div>
           </div>
         </div>

@@ -72,7 +72,7 @@ footer {
 .chat-box {
   position: fixed;
   bottom: 20px;
-  width: 90%;
+  width: 85%;
 }
 
 textarea {
@@ -109,6 +109,7 @@ textarea {
   font-size: 2.4rem;
 }
 
+.fren-request-img,
 .homepage-profile-img {
   height: 4.3rem;
   width: 4.3rem;
@@ -129,7 +130,8 @@ textarea {
   background-color: #656565;
 }
 
-.other-user-profile-img {
+.other-user-profile-img,
+.homepage-user-profile-img {
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -147,6 +149,7 @@ textarea {
   font-size: 2.4rem;
 }
 
+
 .bg-white {
   background-color: #ffffff;
   height: 100vh;
@@ -155,3 +158,62 @@ textarea {
 #map {
   height: 50%;
 }
+
+.position {
+  position: absolute;
+  z-index: 1;
+  left: 20%;
+  right: 20%;
+  top: 11%;
+}
+
+.bg-button {
+  background-color: rgba(0, 106, 113, 1);
+}
+
+.conversation-img{
+  height: 3rem;
+  width: 3rem;
+  object-fit:cover;
+  border-radius: 50%;
+}
+
+.conversation-text{
+  font-size: 12px;
+}
+
+.time{
+  margin-left: 90px;
+}
+
+.homepage-user-profile-img {
+  height: 8rem;
+  width: 8rem;
+}
+
+.home-page-user-profile-box {
+  bottom: 11%;
+}
+
+.location-box {
+  bottom: 10%;
+}
+
+.profile-btn-box {
+  bottom: 10%;
+}
+
+.no-btn-outline {
+  border: 0;
+  outline: 0;
+}
+
+.icon-accept:active {
+  cursor: pointer;
+  color: #00e932;
+}
+
+.icon-deny:active {
+  color: #ff0000;
+}
+
