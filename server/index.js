@@ -306,7 +306,7 @@ app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
 
 });
 
-app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
+app.get('/api/users/find-frens/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const userLocation = req.params.location;
   const users = `
@@ -321,19 +321,17 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const params = [userLocation, userId];
   db.query(users, params)
     .then(userInfo => {
+      if (userInfo.rows.length === 0) {
+        res.status(404).json({
+          error: 'No Doggos Nearby'
+        });
+        return;
+      }
       const totalUsers = `
-    select count(*) as "numberOfUsers"
+    select count(DISTINCT location) as "numberOfUsers"
       from "users"
-      where "userId" != ${userId}`;
+      `;
       return db.query(totalUsers).then(total => {
-        const userInt = parseInt(total.rows[0].numberOfUsers);
-        if (userInt < 1) {
-          res.status(404).json({
-            error: 'No Doggos Nearby'
-          });
-          return;
-        }
-        userInfo.rows.push(userInt);
         return userInfo.rows;
       });
 

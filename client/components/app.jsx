@@ -5,9 +5,9 @@ import LoginPage from './login-page';
 import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
-import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import Homepage from './homepage';
+import EditUserProfile from './edit-user-profile';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -49,46 +49,45 @@ export default class App extends React.Component {
       case 'frensList':
         return (
           <>
-            <Header />
+            <Header view={this.state.view.name} setView={this.setView} />
             <FrensList setView={this.setView} />
-            <Footer />
           </>
         );
 
       case 'frensNearby':
         return (
           <>
-            <Header text='Frens Nearby' />
+            <Header text='Frens Nearby' view={this.state.view.name} setView={this.setView} />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
-            <Footer />
           </>
         );
 
       case 'frenRequestList':
         return (
           <>
-            <Header text='Fren Requests' />
+            <Header text='Fren Requests' view={this.state.view.name} setView={this.setView} />
             <FrenRequestList userId='6' />
           </>
         );
 
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
-
+      case 'editUserProfile':
+        return <EditUserProfile setView={this.setView} />;
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
       case 'homepage':
         return (
           <>
-            <Header />
-            <Homepage />
+            <Header view={this.state.view.name} setView={this.setView} />
+            <Homepage userId={this.state.user.userId} setView={this.setView} />
           </>
         );
 
       case 'chat':
         return (
           <>
-            <Header user={this.state.user} />
+            <Header user={this.state.user} view={this.state.view.name} setView={this.setView} />
             <Chat user={this.state.user} />
           </>
         );

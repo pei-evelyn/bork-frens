@@ -30,7 +30,7 @@ class Homepage extends React.Component {
 
   getUserProfileData() {
     // `/api/homepage/${this.state.userProfile.userId}`
-    fetch('/api/homepage/7')
+    fetch(`/api/homepage/${this.props.userId}`)
       .then(response => response.json())
       .then(userData => {
         this.setState({
@@ -61,10 +61,14 @@ class Homepage extends React.Component {
                 <h6 className="text-secondary">{user.location}, CA</h6>
               </div>
               <div className="profile-btn-box d-flex flex-column align-items-center position-relative no-btn-outline">
-                <button className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
-                <button className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">Find New Frens</button>
-                <button className="homepage-btn green-btn font-weight-light text-white col-10 rounded mb-4 py-2">View My Frens</button>
-                <button className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">New Fren Requests</button>
+                <button className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2"
+                  onClick={() => this.props.setView('editUserProfile', {})}>Edit Profile</button>
+                <button className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2"
+                  onClick={() => this.props.setView('frensNearby', {})}>Find New Frens</button>
+                <button className="homepage-btn green-btn font-weight-light text-white col-10 rounded mb-4 py-2"
+                  onClick={() => this.props.setView('frensList', {})}>View My Frens</button>
+                <button className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2"
+                  onClick={() => this.props.setView('frenRequestList', {})}>New Fren Requests</button>
               </div>
             </div>
           </div>
