@@ -10,13 +10,14 @@ import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
 import EditUserProfile from './edit-user-profile';
 import FindFrensMapped from './find-frens-map';
+import ConversationList from './conversation-list';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'chat',
+        name: 'conversationList',
         params: {}
       },
       user: {}
@@ -101,6 +102,10 @@ export default class App extends React.Component {
             setView={this.setView}
           />
 
+        );
+      case 'conversation':
+        return (
+          <ConversationList user={this.state.user} />
         );
     }
   }
