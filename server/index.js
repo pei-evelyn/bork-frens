@@ -24,7 +24,8 @@ app.get('/api/messages/users/:senderId/:recipientId', (req, res, next) => {
   "senderId",
   "imageUrl",
   "sentAt",
-  "messageId"
+  "messageId",
+  "userId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
   where "senderId" = $1 and "recipientId" = $2
