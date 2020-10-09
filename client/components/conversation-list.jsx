@@ -16,8 +16,8 @@ export default class ConversationList extends React.Component {
   }
 
   getConversations() {
-    const userId = parseInt(this.props.userId);
-    fetch('/api/conversation/7')
+    const userId = parseInt(this.props.user);
+    fetch(`/api/conversation/${userId}`)
       .then(res => res.json())
       .then(data => this.setState({
         userId: userId,
