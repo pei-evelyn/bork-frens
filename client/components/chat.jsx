@@ -57,6 +57,7 @@ export default class Chat extends React.Component {
               sender={message.senderId}
               recipient={message.recipientId}
               user={message.userId}
+              current={this.props.user}
             />
           ))}
           <ChatBox
