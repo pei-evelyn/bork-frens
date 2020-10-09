@@ -16,10 +16,11 @@ class NearbyFrensList extends React.Component {
   }
 
   getFrens() {
+    // debugger;
     const userId = parseInt(this.props.userId);
-    // const finalLocation = this.props.location.replaceAll(' ', '%20');
-    const finalLocation = 'Los%20Angeles,%20CA';
-    fetch(`./api/users/find-frens/${finalLocation}/${userId}`)
+    const finalLocation = this.props.location.replaceAll(' ', '%20');
+
+    fetch(`./api/users/find-frens/list/${finalLocation}/${userId}`)
       .then(res => res.json())
       .then(allFrens => {
         this.setState({
