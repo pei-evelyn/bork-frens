@@ -16,8 +16,7 @@ class Homepage extends React.Component {
   }
 
   getUserProfileData() {
-
-    fetch('/api/homepage/6')
+    fetch(`/api/homepage/${this.props.userId}`)
       .then(response => response.json())
       .then(userData => {
         this.setState({
@@ -48,14 +47,13 @@ class Homepage extends React.Component {
                 <h6 className="text-secondary">{user.location}</h6>
               </div>
               <div className="profile-btn-box d-flex flex-column align-items-center position-relative no-btn-outline">
+                <button onClick={() => this.props.setView('editUserProfile', {})} className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
 
-                <button onClick={() => this.props.setView('editUserProfile', 6)} className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
+                <button onClick={() => this.props.setView('frensNearby', {})} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">Find New Frens</button>
 
-                <button onClick={() => this.props.setView('frensNearby', 6)} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">Find New Frens</button>
+                <button onClick={() => this.props.setView('frensList', {})} className="homepage-btn green-btn font-weight-light text-white col-10 rounded mb-4 py-2">View My Frens</button>
 
-                <button onClick={() => this.props.setView('frens', 6)} className="homepage-btn green-btn font-weight-light text-white col-10 rounded mb-4 py-2">View My Frens</button>
-
-                <button onClick={() => this.props.setView('frenRequests', 6)} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">New Fren Requests</button>
+                <button onClick={() => this.props.setView('frenRequestsList', {})} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">New Fren Requests</button>
               </div>
             </div>
           </div>

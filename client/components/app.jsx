@@ -8,6 +8,7 @@ import FrensList from './frens-list';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
+import EditUserProfile from './edit-user-profile';
 import FindFrensMapped from './find-frens-map';
 
 export default class App extends React.Component {
@@ -50,14 +51,16 @@ export default class App extends React.Component {
       case 'frensList':
         return (
           <>
+
             <Header setView={this.setView} />
-            <FrensList />
+            <FrensList setView={this.setView}/>
+
           </>
         );
 
       case 'frensNearby':
         return (
-          <>
+         <>
             <Header text='Frens Nearby' setView={this.setView} />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
           </>
@@ -73,23 +76,15 @@ export default class App extends React.Component {
 
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
-
-      case 'otherProfile':
-        return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
-
       case 'editUserProfile':
-        return (
-          <>
-            <Header text="Edit Profile" />
-            <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
-          </>
-        );
-
+        return <EditUserProfile setView={this.setView} />;
+      case 'otherProfile':
+        return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />
       case 'homepage':
         return (
-          <>
-            <Header setView={this.setView} />
-            <Homepage hideMenu={this.hideMenu} setView={this.setView} />
+       <>
+           <Header setView={this.setView} />
+           <Homepage userId={this.state.user.userId} setView={this.setView} />
 
           </>
         );
