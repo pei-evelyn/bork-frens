@@ -51,6 +51,7 @@ class FrenRequestList extends React.Component {
   }
 
   render() {
+
     return (
       <div className="container">
         <div className="row no-gutters d-flex align-items-end">
@@ -65,6 +66,7 @@ class FrenRequestList extends React.Component {
         </div>
       </div>
     );
+
   }
 }
 
