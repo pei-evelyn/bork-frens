@@ -5,10 +5,11 @@ class Homepage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userProfile: []
+      userProfile: {}
     };
 
     this.getUserProfileData = this.getUserProfileData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -19,12 +20,22 @@ class Homepage extends React.Component {
     fetch(`/api/homepage/${this.props.userId}`)
       .then(response => response.json())
       .then(userData =>
-        this.props.addUser(userData)
-        // this.setState({
-        //   userProfile: userData
-        // });
+        this.setState({
+          userProfile: userData
+        })
       )
       .catch(err => console.error(err));
+  }
+
+  handleChange() {
+    const dateFormat = this.state.userProfile.DOB;
+    const format = dateFormat.substr(0, 10);
+    const insert = this.state.userProfile;
+    insert.DOB = format;
+    this.props.setView(
+      'editUserProfile',
+      this.state.userProfile
+    );
   }
 
   render() {
@@ -48,7 +59,7 @@ class Homepage extends React.Component {
                 <h6 className="text-secondary">{this.props.user.location}</h6>
               </div>
               <div className="profile-btn-box d-flex flex-column align-items-center position-relative no-btn-outline">
-                <button onClick={() => this.props.setView('editUserProfile', {})} className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
+                <button onClick={ this.handleChange } className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
 
                 <button onClick={() => this.props.setView('findFrensMap', {})} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">Find New Frens</button>
 
