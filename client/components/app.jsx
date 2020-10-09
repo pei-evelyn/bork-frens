@@ -47,7 +47,7 @@ export default class App extends React.Component {
       case 'frensList':
         return (
           <>
-            <Header setView={this.setView} />
+            <Header text='Frens List' setView={this.setView} />
             <FrensList setView={this.setView} userId={this.state.user.userId}/>
           </>
         );
@@ -63,7 +63,7 @@ export default class App extends React.Component {
       case 'frenRequestList':
         return (
           <>
-            <Header text='Fren Requests' />
+            <Header text='Fren Requests' setView={this.setView}/>
             <FrenRequestList userId='6' />
           </>
         );
@@ -71,7 +71,12 @@ export default class App extends React.Component {
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
       case 'editUserProfile':
-        return <EditUserProfile setView={this.setView} currentUserId={this.state.view.params}/>;
+        return (
+          <>
+            <Header text='Edit Profile'/>
+            <EditUserProfile setView={this.setView} currentUserId={this.state.view.params} />;
+          </>
+        );
       case 'otherProfile':
         return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} />;
       case 'homepage':
