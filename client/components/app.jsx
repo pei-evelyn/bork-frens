@@ -5,7 +5,6 @@ import LoginPage from './login-page';
 import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
-import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
@@ -47,28 +46,27 @@ export default class App extends React.Component {
 
   changeView(state) {
     switch (state) {
+
       case 'frensList':
         return (
           <>
-            <Header />
-            <FrensList setView={this.setView} />
-            <Footer />
+            <Header setView={this.setView} />
+            <FrensList />
           </>
         );
 
       case 'frensNearby':
         return (
           <>
-            <Header text='Frens Nearby' />
+            <Header text='Frens Nearby' setView={this.setView} />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
-            <Footer />
           </>
         );
 
       case 'frenRequestList':
         return (
           <>
-            <Header text='Fren Requests' />
+            <Header text='Fren Requests' setView={this.setView} />
             <FrenRequestList userId='6' />
           </>
         );
@@ -78,6 +76,7 @@ export default class App extends React.Component {
 
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+
       case 'editUserProfile':
         return (
           <>
@@ -85,15 +84,19 @@ export default class App extends React.Component {
             <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
           </>
         );
+
       case 'homepage':
         return (
           <>
-            <Header />
-            <Homepage />
+            <Header setView={this.setView} />
+            <Homepage hideMenu={this.hideMenu} setView={this.setView} />
+
           </>
         );
+
       case 'chat':
         return <Chat user={this.state.user} other={this.state.view.params} />;
+
       case 'findFrensMap':
         return (
           <FindFrensMapped
@@ -102,6 +105,7 @@ export default class App extends React.Component {
             userId={6}
             setView={this.setView}
           />
+
         );
     }
   }
