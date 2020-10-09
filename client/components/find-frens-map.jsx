@@ -72,7 +72,8 @@ class FindFrensMapped extends React.Component {
 
   componentDidMount() {
     const userLocation = this.props.location.replaceAll(' ', '%20');
-    fetch(`/api/find-frens/${userLocation}`)
+    const userId = this.props.userId;
+    fetch(`/api/find-frens/${userLocation}/${userId}`)
       .then(res => res.json())
       .then(numOfFrensNearby => this.setState({
         numOfFrens: parseInt(numOfFrensNearby.numOfFrensNearby, 10),
