@@ -14,7 +14,7 @@ footer {
 }
 
 .content-container {
-  height: 80vh;
+  height: 70vh;
   background-color: #ffffff;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
@@ -72,7 +72,7 @@ footer {
 .chat-box {
   position: fixed;
   bottom: 20px;
-  width: 90%;
+  width: 85%;
 }
 
 textarea {
@@ -109,6 +109,7 @@ textarea {
   font-size: 2.4rem;
 }
 
+.fren-request-img,
 .homepage-profile-img {
   height: 4.3rem;
   width: 4.3rem;
@@ -131,7 +132,6 @@ textarea {
 
 .other-user-profile-img,
 .homepage-user-profile-img {
-
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -144,11 +144,6 @@ textarea {
   right: 20%;
   top: 11%;
 }
-
-.fren-list-total {
-  font-size: 2.4rem;
-}
-
 
 .homepage-user-profile-img {
   height: 8rem;
@@ -172,6 +167,67 @@ textarea {
   outline: 0;
 }
 
+.fren-list-total {
+  font-size: 2.4rem;
+}
+
+.bg-white {
+  background-color: #ffffff;
+  height: 100vh;
+}
+
+#map {
+  height: 50%;
+}
+
+.position {
+  position: absolute;
+  z-index: 1;
+  left: 20%;
+  right: 20%;
+  top: 11%;
+}
+
+.bg-button {
+  background-color: rgba(0, 106, 113, 1);
+}
+
+.conversation-img {
+  height: 3rem;
+  width: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.conversation-text {
+  font-size: 12px;
+}
+
+.time {
+  margin-left: 90px;
+}
+
+.homepage-user-profile-img {
+  height: 8rem;
+  width: 8rem;
+}
+
+.home-page-user-profile-box {
+  bottom: 11%;
+}
+
+.location-box {
+  bottom: 10%;
+}
+
+.profile-btn-box {
+  bottom: 10%;
+}
+
+.no-btn-outline {
+  border: 0;
+  outline: 0;
+}
 
 .icon-accept:active {
   cursor: pointer;
@@ -182,3 +238,53 @@ textarea {
   color: #ff0000;
 }
 
+.side-menu {
+  top: 0;
+  height: 100vh;
+  width: 0;
+  z-index: 1;
+  border-right: 2px solid black;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: white;
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  right: 0;
+  z-index: 4;
+}
+
+.show {
+  width: 60%;
+}
+
+.link {
+  color: black;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  width: 15rem;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.fa-bars {
+  right: 1rem;
+}
+
+.block {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
