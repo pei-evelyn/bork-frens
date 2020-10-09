@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './header';
-
 import OtherProfile from './other-profile';
 import LoginPage from './login-page';
 import Chat from './chat';
@@ -16,7 +15,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'chat',
+        name: 'login',
         params: {}
       },
       user: {}
@@ -78,6 +77,7 @@ export default class App extends React.Component {
 
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+
       case 'editUserProfile':
         return (
           <>
