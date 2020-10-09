@@ -71,6 +71,7 @@ class FindFrensMapped extends React.Component {
       numOfFrens: 0,
       userLocation: undefined
     };
+    this.switchBackViewHistory = this.switchBackViewHistory.bind(this);
   }
 
   componentDidMount() {
@@ -83,6 +84,14 @@ class FindFrensMapped extends React.Component {
         userLocation: this.props.location
       }))
       .catch(err => console.error(err));
+  }
+
+  switchBackViewHistory() {
+    let history = this.props.history;
+    if (history.length > 0) {
+      history = history.pop();
+    }
+    this.props.switchViewBack(history.name, history.params, this.props.history);
   }
 
   render() {
@@ -109,7 +118,7 @@ class FindFrensMapped extends React.Component {
             <div className="header row pt-3 mb-4">
               <div className="col-12 d-flex flex-wrap
             justify-content-between">
-                <i className="fas fa-angle-left fa-2x" ></i>
+                <i className="fas fa-angle-left fa-2x" onClick={() => this.switchBackViewHistory()}></i>
                 <h5 className="mt-1 mx-auto">{this.props.text}</h5>
                 <SideNav setView={this.props.setView} />
               </div>

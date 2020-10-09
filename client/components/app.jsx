@@ -87,7 +87,7 @@ export default class App extends React.Component {
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} switchViewBack={this.switchViewBack}/>;
       case 'editUserProfile':
-        return <EditUserProfile setView={this.setView} switchViewBack={this.switchViewBack}/>;
+        return <EditUserProfile setView={this.setView} switchViewBack={this.switchViewBack} history={this.state.history}/>;
       case 'otherProfile':
         return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} switchViewBack={this.switchViewBack}/>;
       case 'homepage':
@@ -98,7 +98,7 @@ export default class App extends React.Component {
           </>
         );
       case 'chat':
-        return <Chat user={this.state.user} other={this.state.view.params} switchViewBack={this.switchViewBack}/>;
+        return <Chat user={this.state.user} other={this.state.view.params} switchViewBack={this.switchViewBack} history={this.state.history}/>;
       case 'findFrensMap':
         return (
           <FindFrensMapped
@@ -107,6 +107,7 @@ export default class App extends React.Component {
             userId={this.state.user.userId}
             setView={this.setView}
             switchViewBack={this.switchViewBack}
+            history={this.state.history}
           />
         );
       case 'conversation':

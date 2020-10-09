@@ -6,10 +6,10 @@ class Header extends React.Component {
     this.state = {
       header: ''
     };
-    this.switchBackView = this.switchBackView.bind(this);
+    this.switchBackViewHistory = this.switchBackViewHistory.bind(this);
   }
 
-  switchBackView() {
+  switchBackViewHistory() {
     let history = this.props.history;
     if (history.length > 0) {
       history = history.pop();
@@ -21,7 +21,7 @@ class Header extends React.Component {
     return (
       <div className="header col-12 text-white d-flex flex-wrap
         justify-content-between container pt-3 mb-5">
-        <i className="fas fa-angle-left fa-2x" onClick={() => this.switchBackView()}></i>
+        <i className="fas fa-angle-left fa-2x" onClick={() => this.switchBackViewHistory()}></i>
         <h5 className="mt-1 mx-auto">{this.props.text}</h5>
         <SideNav setView={this.props.setView} />
       </div>
