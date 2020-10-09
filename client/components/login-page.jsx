@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
     const optionId = selected.getAttribute('userId');
     this.props.addUser({
       user: event.target.value,
-      userId: optionId
+      userId: parseInt(optionId)
     });
     this.props.setView('homepage', {});
   }
