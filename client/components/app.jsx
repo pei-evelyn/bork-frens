@@ -5,10 +5,10 @@ import LoginPage from './login-page';
 import Chat from './chat';
 import FrenRequestList from './fren-request-list';
 import FrensList from './frens-list';
-import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
+import FindFrensMapped from './find-frens-map';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -46,21 +46,20 @@ export default class App extends React.Component {
 
   changeView(state) {
     switch (state) {
+
       case 'frensList':
         return (
           <>
             <Header />
-            <FrensList setView={this.setView} />
-            <Footer />
+            <FrensList setView={this.setView}/>
           </>
         );
 
       case 'frensNearby':
         return (
           <>
-            <Header text='Frens Nearby' />
-            <NearbyFrensList userId={this.state.user.userId} setView={this.setView}/>
-            <Footer />
+            <Header text='Frens Nearby' setView={this.setView} />
+            <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
           </>
         );
 
@@ -74,28 +73,30 @@ export default class App extends React.Component {
 
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
-
+      case 'editUserProfile':
+        return <EditUserProfile setView={this.setView} />;
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
-      case 'editUserProfile':
-        return (
-          <>
-            <Header text="Edit Profile" />
-            <EditUserProfile currentUserId={6} otherUserId={8} setView={this.setView} />
-          </>
-        );
       case 'homepage':
         return (
           <>
-            <Header />
-            <Homepage />
+            <Header setView={this.setView} />
+            <Homepage userId={this.state.user.userId} setView={this.setView} />
           </>
         );
+
       case 'chat':
+        return <Chat user={this.state.user} other={this.state.view.params} />;
+
+      case 'findFrensMap':
         return (
           <>
-            <Header user={this.state.user} />
-            <Chat user={this.state.user} />
+            <FindFrensMapped
+              text="Find Frens"
+              location="Los Angeles, CA"
+              userId={6}
+              setView={this.setView}
+            />
           </>
         );
     }

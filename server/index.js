@@ -12,7 +12,10 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/messages/users', (req, res, next) => {
+app.get('/api/messages/users/:senderId/:recipientId', (req, res, next) => {
+
+  const sender = parseInt(req.params.senderId, 10);
+  const recipient = parseInt(req.params.recipientId, 10);
 
   const sql = `
   select "dogName",
@@ -21,18 +24,47 @@ app.get('/api/messages/users', (req, res, next) => {
   "senderId",
   "imageUrl",
   "sentAt",
-  "messageId"
+  "messageId",
+  "userId"
   from "users"
   JOIN "messages" ON "users"."userId" = "messages"."senderId"
-  where "messageId" < 8
-  order by "messageId" asc
+  where "senderId" = $1 and "recipientId" = $2
+
   `;
 
-  db.query(sql)
-    .then(result => res.status(200).json(result.rows))
-    .catch(err => next(err));
+  const params = [sender, recipient];
+  db.query(sql, params)
+    .then(result => {
 
+      const sql = `
+        select "dogName",
+       "messageContent",
+        "recipientId",
+        "senderId",
+        "imageUrl",
+        "sentAt",
+        "messageId"
+        from "users"
+        JOIN "messages" ON "users"."userId" = "messages"."senderId"
+        where "senderId" = $1 and "recipientId" = $2
+
+  `;
+
+      const params = [recipient, sender];
+      db.query(sql, params)
+        .then(data => {
+          // order data by messageId
+          const messagesList = result.rows.concat(data.rows);
+          const messagesOrder = messagesList.sort((prevMsg, afterMsg) =>
+            (prevMsg.messageId > afterMsg.messageId) ? 1 : -1);
+          return messagesOrder;
+        })
+        .then(order => res.status(200).json(order))
+        .catch(err => next(err));
+    });
 });
+
+// .then(result =>
 
 app.get('/api/messages', (req, res, next) => {
   const sql = `
@@ -374,8 +406,6 @@ app.get('/api/homepage/fren-requests/:userId', (req, res, next) => {
 
 });
 
-// Find all friends in the same city
-
 app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId, 10);
   const userLocation = req.params.location;
@@ -391,24 +421,57 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
   const params = [userLocation, userId];
   db.query(users, params)
     .then(userInfo => {
+      if (userInfo.rows.length === 0) {
+        res.status(404).json({
+          error: 'No Doggos Nearby'
+        });
+        return;
+      }
       const totalUsers = `
-    select count(*) as "numberOfUsers"
+    select count(DISTINCT location) as "numberOfUsers"
       from "users"
-      where "userId" != ${userId}`;
+      `;
       return db.query(totalUsers).then(total => {
-        const userInt = parseInt(total.rows[0].numberOfUsers);
-        if (userInt < 1) {
-          res.status(404).json({
-            error: 'No Doggos Nearby'
-          });
-          return;
-        }
-        userInfo.rows.push(userInt);
         return userInfo.rows;
       });
 
     })
     .then(result => res.json(result))
+    .catch(err => next(err));
+});
+
+// Get total num of frens for map page
+
+app.get('/api/find-frens/:location/:userId', (req, res, next) => {
+
+  const location = req.params.location;
+  const userId = parseInt(req.params.userId, 10);
+
+  if (userId < 0 || isNaN(userId)) {
+    throw (new ClientError(`user Id ${req.params.userId} is not valid`, 400));
+  }
+
+  if (typeof location === 'undefined') {
+    throw (new ClientError(`${req.params.location} is required`, 400));
+  }
+
+  const sql = `
+    select count(*) as "numOfFrensNearby"
+    from "users"
+    where "location" = $1
+    and "userId" != $2
+  `;
+
+  const params = [location, userId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`${location} returned no users`, 404));
+      } else {
+        return res.status(200).json(result.rows[0]);
+      }
+    })
     .catch(err => next(err));
 });
 
