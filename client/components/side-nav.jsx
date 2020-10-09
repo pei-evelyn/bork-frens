@@ -4,11 +4,11 @@ class SideNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isShown: false };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleToggleClick = this.handleToggleClick.bind(this);
     this.hideMenu = this.hideMenu.bind(this);
   }
 
-  handleClick(event) {
+  handleToggleClick(event) {
     this.setState(function (state) {
       if (!this.state.isShown) {
         return { isShown: true };
@@ -25,26 +25,27 @@ class SideNav extends React.Component {
   }
 
   render() {
-    let modalStyles = 'modal-overlay';
+    let modalStyles = 'modal-overlay m-0 p-0';
     let cssClass = 'side-menu';
     if (!this.state.isShown) {
-      cssClass = 'side-menu';
+      modalStyles += ' hide';
+      cssClass = 'side-menu pt-4 ';
     } else {
-      modalStyles += ' show-modal';
-      cssClass += ' show';
+      modalStyles += ' block';
+      cssClass += ' show pt-4';
     }
+
     return (
       <>
         <div className={modalStyles} onClick={this.hideMenu}></div>
-        <i className="fa fa-bars fa-2x position-absolute" onClick={this.handleClick}></i>
-        {/* <i className="fas fa-bars mobile-menu-icon" onClick={this.handleClick}></i> */}
+        <i className="fa fa-bars fa-2x position-absolute" onClick={() => this.handleToggleClick()}></i>
         <div className={cssClass}>
-          <p className="menu-title">Menu</p>
-          <p href="#" className="link text-left ml-4" onClick={this.hideMenu}>Home</p>
-          <p href="#" className="link text-left ml-4" onClick={this.hideMenu}>Messages</p>
-          <p href="#" className="link text-left ml-4" onClick={this.hideMenu}>Frens</p>
-          <p href="#" className="link text-left ml-4" onClick={this.hideMenu}>Find Frens</p>
-          <p href="#" className="link text-left ml-4" onClick={this.hideMenu}>My Profile</p>
+          <p className="link text-left ml-4" onClick={() => {
+            this.hideMenu(); this.props.setView('homepage', 6);
+          }}>Home</p>
+          <p className="link text-left ml-4" onClick={() => { this.hideMenu(); this.props.setView('frenRequestList', 6); }}>Fren Requests</p>
+          <p className="link text-left ml-4" onClick={() => { this.hideMenu(); this.props.setView('frensList', 6); }}>Frens</p>
+          <p className="link text-left ml-4" onClick={() => { this.hideMenu(); this.props.setView('frensNearby', 8); }}>Find Frens</p>
         </div>
       </>
     );

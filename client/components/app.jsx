@@ -16,7 +16,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'homepage',
+        name: 'login',
         params: {}
       },
       user: {}
@@ -39,52 +39,59 @@ export default class App extends React.Component {
     this.setState({
       view: {
         name: name,
-        params: {}
+        params: params
       }
     });
   }
 
   changeView(state) {
     switch (state) {
+
       case 'frensList':
         return (
           <>
-            <Header />
+            <Header setView={this.setView} />
             <FrensList />
             <Footer />
           </>
         );
+
       case 'frensNearby':
         return (
           <>
-            <Header text='Frens Nearby' />
+            <Header text='Frens Nearby' setView={this.setView} />
             <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
             <Footer />
           </>
         );
+
       case 'frenRequestList':
         return (
           <>
-            <Header text='Fren Requests' />
+            <Header text='Fren Requests' setView={this.setView} />
             <FrenRequestList userId='6' />
           </>
         );
+
       case 'login':
         return <LoginPage addUser={this.addUser} setView={this.setView} />;
+
       case 'otherProfile':
         return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+
       case 'homepage':
         return (
           <>
-            <Header />
-            <Homepage />
-            <Footer />
+            <Header setView={this.setView} />
+            <Homepage hideMenu={this.hideMenu} setView={this.setView} />
           </>
         );
+
       case 'chat':
         return (
           <>
-            <Header user={this.state.user} />
+            <Header user={this.state.user}
+              setView={this.setView} />
             <Chat user={this.state.user} />
           </>
         );

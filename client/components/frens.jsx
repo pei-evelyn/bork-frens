@@ -14,7 +14,7 @@ function FrenData(props) {
           <p className="pb-0">{props.location}</p>
         </div>
 
-        <div className="col d-flex align-items-center mr-2">
+        <div className="col d-flex align-items-center mr-2" onClick={() => props.setView('chat', props.userId)}>
           <i className="far fa-comment-alt fa-lg mb-4"></i>
         </div>
 

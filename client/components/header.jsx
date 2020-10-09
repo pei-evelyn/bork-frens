@@ -14,8 +14,7 @@ class Header extends React.Component {
         justify-content-between container pt-3 mb-5">
         <i className="fas fa-angle-left fa-2x"></i>
         <h5 className="mt-1">{this.props.text}</h5>
-        <SideNav />
-        {/* <i className="fa fa-bars fa-2x" ></i> */}
+        <SideNav setView={this.props.setView} />
       </div>
     );
   }
