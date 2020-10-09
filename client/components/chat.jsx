@@ -1,6 +1,7 @@
 import React from 'react';
 import Message from './message';
 import ChatBox from './chatBox';
+import SideNav from './side-nav';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -43,10 +44,10 @@ export default class Chat extends React.Component {
     return (
       <div className="bg-white container-fluid">
         <div className="header col-12 d-flex flex-wrap
-        justify-content-between container pt-3 mb-3">
+        justify-content-between container pt-3 mb-5">
           <i className="fas fa-angle-left fa-2x"></i>
           <h5 className="mt-1">{this.props.other.dogName}</h5>
-          <i className="fa fa-bars fa-2x" ></i>
+          <SideNav setView={this.props.setView} />
         </div>
         <div className="box-container mx-3">
           {dogMessage.map((message, index) => (

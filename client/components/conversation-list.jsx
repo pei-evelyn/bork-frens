@@ -1,14 +1,16 @@
 import React from 'react';
 import ConversationItem from './conversation-item';
+import SideNav from './side-nav';
+
 export default class ConversationList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 6,
+      userId: '',
       conversations: []
     };
     this.getConversations = this.getConversations.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.emptyConvo = this.emptyConvo.bind(this);
   }
 
   componentDidMount() {
@@ -25,28 +27,30 @@ export default class ConversationList extends React.Component {
       }));
   }
 
-  handleClick() {
-    this.props.setView('chat', {});
+  emptyConvo() {
+    return <h4 className="text-center">No Messages</h4>;
   }
 
   render() {
+    const empty = this.emptyConvo();
     return (
-      <div onClick={this.handleClick} className="container" >
-        <h4 className="text-white text-center font-weight-normal">Conversations</h4>
-        <div className="row no-gutters d-flex align-items-end">
-          <div className="col content-container mx-3 mt-4">
-            <ConversationItem conversations={this.state.conversations} />
+      <>
+        <div className="header col-12 text-white d-flex flex-wrap
+         container justify-content-between pt-3 mb-5">
+          <i className="fas fa-angle-left fa-2x" onClick={() => this.props.setView('editUserProfile', {})}></i>
+          <h5 className="mt-1 m-auto text-center">My Messages</h5>
+          <SideNav setView={this.props.setView} />
+        </div>
+        <div className="container" >
+          <div className="row no-gutters d-flex align-items-end">
+            <div className="col content-container mx-3 mt-4">
+              {this.state.conversations.length === 0
+                ? <>{empty}</>
+                : <ConversationItem conversations={this.state.conversations} setView={this.props.setView} />}
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
-
-//  const d = new Date(articleData.value[i].datePublished);
-// let minutes = d.getMinutes();
-// let hours = d.getHours();
-// let monthStr = month[d.getMonth()];
-// minutes = minutes > 9 ? minutes : '0' + minutes;
-// hours >= 12 ? minutes += 'PM' : minutes += 'AM'
-// hours = hours > 12 ? hours - 12 : hours;

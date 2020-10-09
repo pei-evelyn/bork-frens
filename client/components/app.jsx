@@ -87,7 +87,11 @@ export default class App extends React.Component {
         );
 
       case 'chat':
-        return <Chat user={this.state.user.userId} other={this.state.view.params} />;
+        return <Chat
+          setView={this.setView}
+          user={this.state.user.userId}
+          other={this.state.view.params}
+        />;
 
       case 'findFrensMap':
         return (
@@ -100,7 +104,7 @@ export default class App extends React.Component {
         );
       case 'conversation':
         return (
-          <ConversationList user={this.state.user} />
+          <ConversationList user={this.state.user.userId} setView={this.setView} />
         );
     }
   }

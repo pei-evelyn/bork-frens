@@ -3,8 +3,12 @@ import React from 'react';
 function ConversationData(props) {
   return (
     <>
-      <div className="row no-gutters border-bottom px-2 py-4">
-
+      <div className="row no-gutters border-bottom px-2 py-4"
+        onClick={() => props.setView('chat',
+          {
+            userId: props.userId,
+            name: props.name
+          })}>
         <div className="col-2 mr-3">
           <img className="conversation-img ml-3" src={props.image} alt="Image of Fren" />
         </div>
@@ -37,6 +41,8 @@ function Conversations(props) {
         message={req.messageContent}
         name={req.dogName}
         time={req.sentAt}
+        user={req.userId}
+        setView={props.setView}
       />
     );
   });
