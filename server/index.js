@@ -43,7 +43,8 @@ app.get('/api/messages/users/:senderId/:recipientId', (req, res, next) => {
         "senderId",
         "imageUrl",
         "sentAt",
-        "messageId"
+        "messageId",
+        "userId"
         from "users"
         JOIN "messages" ON "users"."userId" = "messages"."senderId"
         where "senderId" = $1 and "recipientId" = $2
@@ -53,7 +54,6 @@ app.get('/api/messages/users/:senderId/:recipientId', (req, res, next) => {
       const params = [recipient, sender];
       db.query(sql, params)
         .then(data => {
-          // order data by messageId
           const messagesList = result.rows.concat(data.rows);
           const messagesOrder = messagesList.sort((prevMsg, afterMsg) =>
             (prevMsg.messageId > afterMsg.messageId) ? 1 : -1);
@@ -64,12 +64,11 @@ app.get('/api/messages/users/:senderId/:recipientId', (req, res, next) => {
     });
 });
 
-// .then(result =>
-
 app.get('/api/messages', (req, res, next) => {
   const sql = `
   select *
   from "messages"
+  JOIN "users" ON "messages"."senderId" = "users"."userId"
   `;
 
   db.query(sql)
@@ -103,8 +102,6 @@ app.get('/api/conversation/:recipientId', (req, res, next) => {
     .then(unique => res.status(200).json(unique))
     .catch(err => next(err));
 });
-
-//
 
 app.post('/api/messages', (req, res, next) => {
   const sender = req.body.senderId;

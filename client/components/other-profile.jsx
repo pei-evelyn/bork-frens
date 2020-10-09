@@ -55,13 +55,20 @@ class OtherProfile extends React.Component {
   }
 
   handleMessageReqClick() {
-    this.props.setView('chat', this.state.otherUser);
+    this.props.setView('chat', {
+      name: this.state.otherUser.dogName,
+      userId: this.state.otherUser.userId
+    });
   }
 
   render() {
     return (
       <>
-        <Header text={this.state.otherUser.userName} setView={this.props.setView} switchViewBack={this.props.switchViewBack}/>
+        <Header 
+          text={this.state.otherUser.userName} 
+          setView={this.props.setView} 
+          switchViewBack={this.props.switchViewBack}
+         />
         <OtherUserBasicInfo
           image={this.state.otherUser.imageUrl}
           name={this.state.otherUser.dogName}

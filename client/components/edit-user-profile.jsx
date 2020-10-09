@@ -68,7 +68,8 @@ class EditUserProfile extends React.Component {
       tagline: this.state.tagline,
       genderId: this.state.genderId
     };
-    fetch('/api/profile/11', {
+
+    fetch(`/api/profile/${this.props.currentUserId.userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +90,7 @@ class EditUserProfile extends React.Component {
     return (
       <>
         <div className="d-flex justify-content-center position">
-          <img className="other-user-profile-img" src={'http://cdn.akc.org/content/article-body-image/lab_puppy_dog_pictures.jpg'}></img>
+          <img className="other-user-profile-img" src={this.props.currentUserId.imageUrl}></img>
         </div>
         <div className="container">
           <div className="row no-gutters d-flex align-items-end">
@@ -100,7 +101,7 @@ class EditUserProfile extends React.Component {
                     <div className="form-row">
                       <div className="form-group col">
                         <label className="text-muted mb-0">Location</label>
-                        <input placeholder="Location"
+                        <input placeholder={this.props.currentUserId.location}
                           type="text"
                           className="form-control"
                           name="location"
@@ -112,7 +113,7 @@ class EditUserProfile extends React.Component {
                     <div className="form-row">
                       <div className="form-group col-12">
                         <label className="text-muted mb-0">My Breed</label>
-                        <input placeholder="Breed"
+                        <input placeholder={this.props.currentUserId.breed}
                           type="text"
                           className="form-control"
                           name="breed"
@@ -131,7 +132,7 @@ class EditUserProfile extends React.Component {
                       </div>
                       <div className="form-group col-6">
                         <label className="text-muted mb-0">DOB</label>
-                        <input placeholder="2013-01-15"
+                        <input placeholder={this.props.currentUserId.DOB}
                           type="text"
                           className="form-control"
                           name="DOB"
@@ -154,7 +155,7 @@ class EditUserProfile extends React.Component {
                     <div className="form-row">
                       <div className="form-group col-12">
                         <label className="text-muted mb-0">Tagline</label>
-                        <input placeholder="The loudest borker you’ll ever meet!"
+                        <input placeholder={this.props.currentUserId.tagline}
                           type="text"
                           className="form-control"
                           name="tagline"
