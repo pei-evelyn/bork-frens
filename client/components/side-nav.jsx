@@ -45,8 +45,8 @@ class SideNav extends React.Component {
           <p className="link text-left ml-4" onClick={() => { this.props.setView('homepage', 6); }}>Home</p>
           <p className="link text-left ml-4" onClick={() => { this.props.setView('conversation', 6); }}>Messages</p>
           <p className="link text-left ml-4" onClick={() => { this.props.setView('frenRequestList', 9); }}>Fren Requests</p>
-          <p className="link text-left ml-4" onClick={() => { this.props.setView('frensList', 6); }}>Frens</p>
-          <p className="link text-left ml-4" onClick={() => { this.props.setView('frensNearby', 8); }}>Find Frens</p>
+          <p className="link text-left ml-4" onClick={() => { this.props.setView('frensList', 6); }}>My Frens</p>
+          <p className="link text-left ml-4" onClick={() => { this.props.setView('frensNearby', 8); }}>Find New Frens</p>
         </div>
       </>
     );
