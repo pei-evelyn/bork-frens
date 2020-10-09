@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './header';
-
 import OtherProfile from './other-profile';
 import LoginPage from './login-page';
 import Chat from './chat';
@@ -10,13 +9,14 @@ import Footer from './footer';
 import NearbyFrensList from './nearby-frens-list';
 import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
+import FindFrensMapped from './find-frens-map';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'otherProfile',
+        name: 'login',
         params: {}
       },
       user: {}
@@ -94,6 +94,15 @@ export default class App extends React.Component {
         );
       case 'chat':
         return <Chat user={this.state.user} other={this.state.view.params} />;
+        
+      case 'findFrensMap':
+        return (
+          <FindFrensMapped
+            text="Find Frens"
+            location="Los Angeles, CA"
+            setView={this.setView}
+          />
+        );
     }
   }
 

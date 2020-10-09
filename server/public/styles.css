@@ -94,6 +94,17 @@ textarea {
   cursor: pointer;
 }
 
+.fren-request-img {
+  height: 4.3rem;
+  width: 4.3rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .fren-list-total {
   font-size: 2.4rem;
 }
@@ -138,6 +149,16 @@ textarea {
   font-size: 2.4rem;
 }
 
+
+.bg-white {
+  background-color: #ffffff;
+  height: 100vh;
+}
+
+#map {
+  height: 50%;
+}
+
 .position {
   position: absolute;
   z-index: 1;
@@ -160,7 +181,6 @@ textarea {
 .conversation-text{
   font-size: 12px;
 }
-
 
 .time{
   margin-left: 90px;
@@ -197,7 +217,3 @@ textarea {
   color: #ff0000;
 }
 
-.bg-white{
-  background-color: white;
-  height: 100vh;
-}
