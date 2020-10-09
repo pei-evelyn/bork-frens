@@ -50,7 +50,7 @@ export default class App extends React.Component {
           <>
 
             <Header setView={this.setView} />
-            <FrensList setView={this.setView}/>
+            <FrensList setView={this.setView} userId={this.state.user.userId}/>
 
           </>
         );

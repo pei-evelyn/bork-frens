@@ -54,7 +54,7 @@ class Homepage extends React.Component {
 
                 <button onClick={() => this.props.setView('frensList', {})} className="homepage-btn green-btn font-weight-light text-white col-10 rounded mb-4 py-2">View My Frens</button>
 
-                <button onClick={() => this.props.setView('frenRequestsList', {})} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">New Fren Requests</button>
+                <button onClick={() => this.props.setView('frenRequestList', {})} className="homepage-btn grey-btn font-weight-light text-white col-10 rounded mb-4 py-2">New Fren Requests</button>
               </div>
             </div>
           </div>
