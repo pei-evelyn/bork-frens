@@ -19,12 +19,14 @@ export default class App extends React.Component {
         name: 'login',
         params: {}
       },
-      user: {}
+      user: {},
+      history: []
     };
 
     this.setView = this.setView.bind(this);
     this.addUser = this.addUser.bind(this);
     this.changeView = this.changeView.bind(this);
+    this.switchViewBack = this.switchViewBack.bind(this);
   }
 
   addUser(userName) {
@@ -33,12 +35,29 @@ export default class App extends React.Component {
     });
   }
 
+  switchViewBack(name, params, oldHistory) {
+    this.setState(state => {
+      return ({
+        view: {
+          name: name,
+          params: params
+        },
+        history: oldHistory
+      });
+    });
+  }
+
   setView(name, params) {
-    this.setState({
-      view: {
-        name: name,
-        params: params
-      }
+    this.setState(state => {
+      const previousView = Object.assign({}, state.view);
+      const newHistory = state.history.concat(previousView);
+      return ({
+        view: {
+          name: name,
+          params: params
+        },
+        history: newHistory
+      });
     });
   }
 
@@ -47,54 +66,89 @@ export default class App extends React.Component {
       case 'frensList':
         return (
           <>
-            <Header text='Frens List' setView={this.setView} />
+            <Header 
+              setView={this.setView} 
+              history={this.state.history} 
+              switchViewBack={this.switchViewBack}
+             />
             <FrensList setView={this.setView} userId={this.state.user.userId}/>
           </>
         );
-
       case 'frensNearby':
         return (
           <>
-            <Header text='Frens Nearby' setView={this.setView} />
-            <NearbyFrensList location={this.state.user.location} userId={this.state.user.userId} setView={this.setView} />
+            <Header 
+              text='Frens Nearby' 
+              setView={this.setView} 
+              history={this.state.history} 
+              switchViewBack={this.switchViewBack}
+             />
+            <NearbyFrensList 
+              location={this.state.user.location} 
+              userId={this.state.user.userId} 
+              setView={this.setView} 
+             />
           </>
         );
-
       case 'frenRequestList':
         return (
           <>
-            <Header text='Fren Requests' setView={this.setView}/>
+            <Header 
+              text='Fren Requests' 
+              setView={this.setView} 
+              history={this.state.history} 
+              switchViewBack={this.switchViewBack}
+             />
             <FrenRequestList userId='6' />
           </>
         );
-
       case 'login':
-        return <LoginPage addUser={this.addUser} setView={this.setView} />;
+        return <LoginPage 
+                 addUser={this.addUser} 
+                 setView={this.setView} 
+                 switchViewBack={this.switchViewBack}
+                />;
       case 'editUserProfile':
         return (
           <>
-            <Header text='Edit Profile'/>
+            <Header 
+              text='Edit Profile' 
+              switchViewBack={this.switchViewBack} 
+              history={this.state.history}
+             />
             <EditUserProfile setView={this.setView} currentUserId={this.state.view.params} />;
           </>
         );
       case 'otherProfile':
-        return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} />;
+        return <OtherProfile 
+                 currentUserId={this.state.user.userId} 
+                 otherUserId={this.state.view.params.userId} 
+                 setView={this.setView} 
+                 switchViewBack={this.switchViewBack}
+                />;
       case 'homepage':
         return (
           <>
-            <Header setView={this.setView} />
-            <Homepage userId={this.state.user.userId} setView={this.setView} addUser={this.addUser} user={this.state.user} />
-
+            <Header 
+              setView={this.setView} 
+              history={this.state.history} 
+              switchViewBack={this.switchViewBack}
+             />
+            <Homepage 
+              userId={this.state.user.userId} 
+              setView={this.setView} 
+              addUser={this.addUser} 
+              user={this.state.user}
+             />
           </>
         );
-
       case 'chat':
-        return <Chat
-          setView={this.setView}
-          user={this.state.user.userId}
-          other={this.state.view.params}
-        />;
-
+        return <Chat 
+                 user={this.state.user.userId} 
+                 other={this.state.view.params} 
+                 switchViewBack={this.switchViewBack} 
+                 history={this.state.history}
+                />;
       case 'findFrensMap':
         return (
           <FindFrensMapped
@@ -102,6 +156,8 @@ export default class App extends React.Component {
             location={this.state.user.location}
             userId={this.state.user.userId}
             setView={this.setView}
+            switchViewBack={this.switchViewBack}
+            history={this.state.history}
           />
         );
       case 'conversation':
@@ -115,7 +171,6 @@ export default class App extends React.Component {
   }
 
   render() {
-
     return (
       <>
         { this.changeView(this.state.view.name)}

@@ -22,20 +22,29 @@ function Request(props) {
 
 function FrenRequests(props) {
   const frenRequests = props.frenReq;
-  const frenList = frenRequests.map(req => {
+  let frenList;
+  if (frenRequests.length > 0) {
+    frenList = frenRequests.map(req => {
+      return (
+        <Request
+          key={req.requestId}
+          image={req.requesterImage}
+          name={req.requesterName}
+          handleAccept={props.handleAccept}
+          handleReject={props.handleReject}
+          requestId={req.requestId}
+          reqText={props.requestText}
+        />
+      );
+    });
+  } else {
     return (
-      <Request
-        key={req.requestId}
-        image={req.requesterImage}
-        name={req.requesterName}
-        handleAccept={props.handleAccept}
-        handleReject={props.handleReject}
-        requestId={req.requestId}
-        reqText={props.requestText}
-      />
+      <h3 className="d-flex justify-content-center mt-4">No Fren Requests</h3>
     );
-  });
+  }
+
   return (
+
     <div className="container-fluid p-0 mt-2">
       {frenList}
     </div>
