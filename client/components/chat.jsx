@@ -6,22 +6,20 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dog: [],
-      senderId: 9,
-      recipientId: 6
+      dog: []
     };
     this.getInfo = this.getInfo.bind(this);
     this.postMessage = this.postMessage.bind(this);
   }
 
-  getInfo() {
-    fetch(`/api/messages/users/${this.state.senderId}/${this.state.recipientId}`)
+  getInfo(sender, recipient) {
+    fetch(`/api/messages/users/${sender}/${recipient}`)
       .then(response => response.json())
       .then(data => this.setState({ dog: this.state.dog.concat(data) }));
   }
 
   componentDidMount() {
-    this.getInfo(this.props.user, this.props.other);
+    this.getInfo(this.props.user, this.props.other.userId);
   }
 
   postMessage(recipient, sender, message) {
@@ -47,7 +45,7 @@ export default class Chat extends React.Component {
         <div className="header col-12 d-flex flex-wrap
         justify-content-between container pt-3 mb-3">
           <i className="fas fa-angle-left fa-2x"></i>
-          <h5 className="mt-1">Message</h5>
+          <h5 className="mt-1">{this.props.other.dogName}</h5>
           <i className="fa fa-bars fa-2x" ></i>
         </div>
         <div className="box-container mx-3">
@@ -61,7 +59,12 @@ export default class Chat extends React.Component {
               user={message.userId}
             />
           ))}
-          <ChatBox postMessage={this.postMessage} dogInfo={this.state.dog} />
+          <ChatBox
+            postMessage={this.postMessage}
+            dogInfo={this.state.dog}
+            recipient={this.props.other.userId}
+            user={this.props.user}
+          />
         </div>
       </div>
     );
