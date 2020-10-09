@@ -17,7 +17,7 @@ class FrensList extends React.Component {
 
   getAllFrens() {
     const userId = parseInt(this.props.userId);
-    fetch('/api/frens/10')
+    fetch(`/api/frens/${userId}`)
       .then(res => res.json())
       .then(frens => this.setState({
         userId: userId,

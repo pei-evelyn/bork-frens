@@ -61,7 +61,7 @@ class OtherProfile extends React.Component {
   render() {
     return (
       <>
-        <Header text='floofyMimi'/>
+        <Header text='floofyMimi' setView={this.props.setView}/>
         <OtherUserBasicInfo
           image={this.state.otherUser.imageUrl}
           name={this.state.otherUser.dogName}
