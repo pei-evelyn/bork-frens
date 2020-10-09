@@ -15,7 +15,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'login',
+        name: 'findFrensMap',
         params: {}
       },
       user: {}
@@ -99,17 +99,13 @@ export default class App extends React.Component {
 
       case 'findFrensMap':
         return (
-          <>
-            <FindFrensMapped
-              text="Find Frens"
-              location="Los Angeles, CA"
-              setView={this.setView}
-            />
+          <FindFrensMapped
+            text="Find Frens"
+            location="Los Angeles, CA"
+            userId={6}
+            setView={this.setView}
+          />
 
-            <Header user={this.state.user}
-              setView={this.setView} />
-            <Chat user={this.state.user} />
-          </>
         );
     }
   }

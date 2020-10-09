@@ -445,8 +445,14 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
 
 // Get total num of frens for map page
 
-app.get('/api/find-frens/:location', (req, res, next) => {
+app.get('/api/find-frens/:location/:userId', (req, res, next) => {
+
   const location = req.params.location;
+  const userId = parseInt(req.params.userId, 10);
+
+  if (userId < 0 || isNaN(userId)) {
+    throw (new ClientError(`user Id ${req.params.userId} is not valid`, 400));
+  }
 
   if (typeof location === 'undefined') {
     throw (new ClientError(`${req.params.location} is required`, 400));
@@ -456,9 +462,10 @@ app.get('/api/find-frens/:location', (req, res, next) => {
     select count(*) as "numOfFrensNearby"
     from "users"
     where "location" = $1
+    and "userId" != $2
   `;
 
-  const params = [location];
+  const params = [location, userId];
 
   db.query(sql, params)
     .then(result => {
