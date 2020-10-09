@@ -46,7 +46,11 @@ export default class ConversationList extends React.Component {
             <div className="col content-container mx-3 mt-4">
               {this.state.conversations.length === 0
                 ? <>{empty}</>
-                : <ConversationItem conversations={this.state.conversations} setView={this.props.setView} />}
+                : <ConversationItem
+                  conversations={this.state.conversations}
+                  setView={this.props.setView}
+                  other={this.props.other}
+                />}
             </div>
           </div>
         </div>

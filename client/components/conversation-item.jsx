@@ -6,7 +6,7 @@ function ConversationData(props) {
       <div className="row no-gutters border-bottom px-2 py-4"
         onClick={() => props.setView('chat',
           {
-            userId: props.userId,
+            userId: props.user,
             name: props.name
           })}>
         <div className="col-2 mr-3">

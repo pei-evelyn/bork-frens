@@ -104,7 +104,10 @@ export default class App extends React.Component {
         );
       case 'conversation':
         return (
-          <ConversationList user={this.state.user.userId} setView={this.setView} />
+          <ConversationList
+            user={this.state.user.userId}
+            setView={this.setView}
+            other={this.state.view.params} />
         );
     }
   }
