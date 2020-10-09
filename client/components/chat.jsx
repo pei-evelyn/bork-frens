@@ -62,7 +62,7 @@ export default class Chat extends React.Component {
           <ChatBox
             postMessage={this.postMessage}
             dogInfo={this.state.dog}
-            recipient={this.props.other.userId}
+            recipient={this.props.other}
             user={this.props.user}
           />
         </div>

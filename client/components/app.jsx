@@ -29,10 +29,7 @@ export default class App extends React.Component {
 
   addUser(userName) {
     this.setState({
-      user: {
-        user: userName.user,
-        userId: userName.userId
-      }
+      user: userName
     });
   }
 
@@ -51,8 +48,8 @@ export default class App extends React.Component {
       case 'frensList':
         return (
           <>
-            <Header />
-            <FrensList setView={this.setView}/>
+            <Header setView={this.setView} />
+            <FrensList setView={this.setView} userId={this.state.user.userId}/>
           </>
         );
 
@@ -60,7 +57,7 @@ export default class App extends React.Component {
         return (
           <>
             <Header text='Frens Nearby' setView={this.setView} />
-            <NearbyFrensList userId={this.state.user.userId} setView={this.setView} />
+            <NearbyFrensList location={this.state.user.location} userId={this.state.user.userId} setView={this.setView} />
           </>
         );
 
@@ -77,12 +74,13 @@ export default class App extends React.Component {
       case 'editUserProfile':
         return <EditUserProfile setView={this.setView} />;
       case 'otherProfile':
-        return <OtherProfile currentUserId={6} otherUserId={8} setView={this.setView} />;
+        return <OtherProfile currentUserId={this.state.user.userId} otherUserId={this.state.view.params.userId} setView={this.setView} />;
       case 'homepage':
         return (
           <>
             <Header setView={this.setView} />
-            <Homepage userId={this.state.user.userId} setView={this.setView} />
+            <Homepage userId={this.state.user.userId} setView={this.setView} addUser={this.addUser} user={this.state.user}/>
+
           </>
         );
 
@@ -93,8 +91,8 @@ export default class App extends React.Component {
         return (
           <FindFrensMapped
             text="Find Frens"
-            location="Los Angeles, CA"
-            userId={6}
+            location={this.state.user.location}
+            userId={this.state.user.userId}
             setView={this.setView}
           />
         );
