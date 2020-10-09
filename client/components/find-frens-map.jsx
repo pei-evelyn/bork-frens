@@ -21,8 +21,9 @@ function TitleAndLocation(props) {
 function GoogleMaps(props) {
   let map; // eslint-disable-line
 
-  var script = document.createElement('script');
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBXaGa_0y9f5zPqpMrHkdlVC6CCauE1nl4&callback=initMap';
+  const script = document.createElement('script');
+  const apiKey = process.env.GOOGLE_API_KEY;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}.&callback=initMap`;
   script.defer = true;
 
   window.initMap = function () {
