@@ -6,7 +6,7 @@ function NearbyFrensListItem(props) {
       <div className="col-4">
         <img src={props.image} className="fren-request-img rounded-circle ml-1 cursor-pointer" />
       </div>
-      <div className="col-5 mt-2">
+      <div className="col-8 mt-2">
         <p className="d-flex flex-column">
           <span className="mb-0">{props.name}</span>
           <span>{props.location}</span>
