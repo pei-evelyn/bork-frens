@@ -83,7 +83,7 @@ class EditUserProfile extends React.Component {
         });
       })
       .catch(err => console.error(err));
-    this.props.setView('homepage', { params: this.state });
+    this.props.setView('userProfile', { params: this.state });
   }
 
   render() {
