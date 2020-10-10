@@ -10,6 +10,7 @@ import EditUserProfile from './edit-user-profile';
 import Homepage from './homepage';
 import FindFrensMapped from './find-frens-map';
 import ConversationList from './conversation-list';
+import UserProfile from './user-profile';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -117,7 +118,21 @@ export default class App extends React.Component {
               history={this.state.history}
               setView={this.setView}
             />
-            <EditUserProfile setView={this.setView} currentUserId={this.state.view.params} />;
+            <EditUserProfile
+              setView={this.setView}
+              currentUserId={this.state.view.params} />;
+          </>
+        );
+      case 'userProfile':
+        return (
+          <>
+            <Header
+              text='My Profile'
+              switchViewBack={this.switchViewBack}
+              history={this.state.history}/>
+            <UserProfile
+              setView={this.setView}
+              currentUserId={this.state.view.params} user={this.state.user}/>;
           </>
         );
       case 'otherProfile':
