@@ -1,5 +1,6 @@
 import React from 'react';
 import SideNav from './side-nav';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ class Header extends React.Component {
       <div className="header col-12 text-white d-flex flex-wrap
         justify-content-between container pt-3 mb-5">
         <i className="fas fa-angle-left fa-2x" onClick={() => this.switchBackViewHistory()}></i>
-        <h5 className="mt-1 mx-auto">{this.props.text}</h5>
+        <h5 className="mt-1 pr-4 mx-auto">{this.props.text}</h5>
         <SideNav setView={this.props.setView} />
       </div>
     );

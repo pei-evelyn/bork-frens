@@ -16,7 +16,6 @@ class NearbyFrensList extends React.Component {
   }
 
   getFrens() {
-    // debugger;
     const userId = parseInt(this.props.userId);
     const finalLocation = this.props.location.replaceAll(' ', '%20');
 
@@ -32,7 +31,7 @@ class NearbyFrensList extends React.Component {
   render() {
     return (
       <div className="container col-11">
-        <h6 className="text-white d-flex justify-content-center mb-0 pr-3">{} Frens Nearby</h6>
+        <h2 className="text-white d-flex justify-content-center mb-0 pr-3"></h2>
         <p className="text-white d-flex justify-content-center mb-0"></p>
         <div className="row d-flex align-items-end">
           <div className="col content-container mx-3 mt-1">
