@@ -8,7 +8,7 @@ function OtherUserButtons(props) {
         <button
           type="button"
           className="btn btn-info mr-2"
-          onClick={() => props.handleFrenReq()}>
+          onClick={() => props.handleFrenReq(props.senderId, props.recipientId)}>
           {props.frenReqText}
         </button>
         <button
