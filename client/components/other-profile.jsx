@@ -8,7 +8,7 @@ class OtherProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      otherUser: { name: 'mimi' },
+      otherUser: {},
       currentUserId: '',
       frenReqText: 'CONNECT'
     };
@@ -82,6 +82,8 @@ class OtherProfile extends React.Component {
                 handleFrenReq={this.handleFrenReqClick}
                 handleMessageReq={this.handleMessageReqClick}
                 frenReqText={this.state.frenReqText}
+                senderId={this.state.currentUserId}
+                recipientId={this.state.otherUser.userId}
               />
               <OtherUserBio
                 breed={this.state.otherUser.breed}

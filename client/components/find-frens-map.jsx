@@ -31,7 +31,7 @@ function GoogleMaps(props) {
   window.initMap = function () {
     map = new google.maps.Map(document.getElementById('map'), { // eslint-disable-line
       center: { lat: 34.052, lng: -118.243 },
-      zoom: 8
+      zoom: 10
     });
   };
 
