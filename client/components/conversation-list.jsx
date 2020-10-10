@@ -11,6 +11,7 @@ export default class ConversationList extends React.Component {
     };
     this.getConversations = this.getConversations.bind(this);
     this.emptyConvo = this.emptyConvo.bind(this);
+    this.switchBackViewHistory = this.switchBackViewHistory.bind(this);
   }
 
   componentDidMount() {
@@ -31,13 +32,21 @@ export default class ConversationList extends React.Component {
     return <h4 className="text-center">No Messages</h4>;
   }
 
+  switchBackViewHistory() {
+    let history = this.props.history;
+    if (history.length > 0) {
+      history = history.pop();
+    }
+    this.props.switchViewBack(history.name, history.params, this.props.history);
+  }
+
   render() {
     const empty = this.emptyConvo();
     return (
       <>
         <div className="header col-12 text-white d-flex flex-wrap
          container justify-content-between pt-3 mb-5">
-          <i className="fas fa-angle-left fa-2x" onClick={() => this.props.setView('editUserProfile', {})}></i>
+          <i className="fas fa-angle-left fa-2x" onClick={() => this.switchBackViewHistory()}></i>
           <h5 className="mt-1 m-auto text-center">My Messages</h5>
           <SideNav setView={this.props.setView} />
         </div>

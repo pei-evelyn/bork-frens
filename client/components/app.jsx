@@ -149,6 +149,7 @@ export default class App extends React.Component {
           other={this.state.view.params}
           switchViewBack={this.switchViewBack}
           history={this.state.history}
+          setView={this.setView}
         />;
       case 'findFrensMap':
         return (
@@ -166,7 +167,10 @@ export default class App extends React.Component {
           <ConversationList
             user={this.state.user.userId}
             setView={this.setView}
-            other={this.state.view.params} />
+            other={this.state.view.params}
+            switchViewBack={this.switchViewBack}
+            history={this.state.history}
+          />
         );
     }
   }
