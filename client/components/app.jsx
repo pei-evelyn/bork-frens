@@ -115,6 +115,7 @@ export default class App extends React.Component {
               text='Edit Profile'
               switchViewBack={this.switchViewBack}
               history={this.state.history}
+              setView={this.setView}
             />
             <EditUserProfile setView={this.setView} currentUserId={this.state.view.params} />;
           </>
