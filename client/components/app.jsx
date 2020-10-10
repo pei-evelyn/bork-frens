@@ -72,7 +72,7 @@ export default class App extends React.Component {
               history={this.state.history}
               switchViewBack={this.switchViewBack}
             />
-            <FrensList setView={this.setView} userId={this.state.user.userId}/>
+            <FrensList setView={this.setView} userId={this.state.user.userId} />
           </>
         );
       case 'frensNearby':
@@ -128,10 +128,12 @@ export default class App extends React.Component {
             <Header
               text='My Profile'
               switchViewBack={this.switchViewBack}
-              history={this.state.history}/>
+              history={this.state.history}
+              setView={this.setView}
+            />
             <UserProfile
               setView={this.setView}
-              currentUserId={this.state.view.params} user={this.state.user}/>;
+              currentUserId={this.state.view.params} user={this.state.user} />;
           </>
         );
       case 'otherProfile':
