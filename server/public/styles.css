@@ -288,3 +288,12 @@ textarea {
 .hide {
   display: none;
 }
+
+.container-position {
+  position: relative;
+  top: 2rem;
+}
+
+.box-position {
+  bottom: 3.5rem
+}

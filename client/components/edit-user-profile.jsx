@@ -68,7 +68,7 @@ class EditUserProfile extends React.Component {
       tagline: this.state.tagline,
       genderId: this.state.genderId
     };
-
+    let levelId = '';
     fetch(`/api/profile/${this.props.currentUserId.userId}`, {
       method: 'PUT',
       headers: {
@@ -81,9 +81,25 @@ class EditUserProfile extends React.Component {
         this.setState({
           updatedProfileData: data
         });
+        switch (this.state.levelId) {
+          case 1:
+            levelId = 'Petential';
+            break;
+          case 2:
+            levelId = 'Looking Quite Fetching';
+            break;
+          case 3:
+            levelId = 'Pawsitively Pawsome';
+            break;
+          case 4:
+            levelId = 'One Classy Mother Pupper';
+            break;
+        }
+        const newState = Object.assign({}, this.state);
+        newState.levelId = levelId;
+        this.props.setView('userProfile', { params: newState });
       })
       .catch(err => console.error(err));
-    this.props.setView('userProfile', { params: this.state });
   }
 
   render() {
