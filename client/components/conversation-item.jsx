@@ -27,7 +27,12 @@ function ConversationData(props) {
 
 function convertTime(props) {
   const time = new Date(props);
-  const stringTime = time.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' });
+  const stringTime = time.toLocaleTimeString(
+    'en-us',
+    {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   return stringTime;
 }
 
