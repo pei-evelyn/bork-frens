@@ -16,7 +16,7 @@ export default class ChatBox extends React.Component {
 
   handleSubmit(event) {
     this.props.postMessage(this.props.recipient, this.props.user, this.state.messageContent);
-    this.setState({ message: '' });
+    this.setState({ messageContent: '' });
     event.preventDefault();
   }
 
@@ -25,7 +25,7 @@ export default class ChatBox extends React.Component {
       <form className="chat-box" onSubmit={this.handleSubmit}>
         <div className="input-group">
           <textarea className="form-control"
-            value={this.state.message}
+            value={this.state.messageContent}
             onChange={this.handleChange}
             rows="1"
             placeholder="Type your message"

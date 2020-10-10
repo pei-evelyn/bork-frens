@@ -16,7 +16,7 @@ function ConversationData(props) {
         <div className="col-9 d-flex flex-column">
           <div className="row d-flex justify-content-between ml-3">
             <p className="fren-name-fren-list conversation-text font-weight-bold mb-1">{props.name} </p>
-            <p className="conversation-text mr-3 font-weight-light">{convertTime(props)}</p>
+            <p className="conversation-text mr-3 font-weight-light">{convertTime(props.time)}</p>
           </div>
           <p className="pb-0 font-weight-light conversation-text ml-3">{props.message}</p>
         </div>
@@ -26,9 +26,9 @@ function ConversationData(props) {
 }
 
 function convertTime(props) {
-  const convertedTime = props.time.slice(11, 16);
-  const pst = convertedTime;
-  return pst;
+  const time = new Date(props);
+  const stringTime = time.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' });
+  return stringTime;
 }
 
 function Conversations(props) {
