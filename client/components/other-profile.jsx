@@ -24,9 +24,13 @@ class OtherProfile extends React.Component {
   getOtherUserInfo() {
     fetch(`/api/others-profile/${this.props.otherUserId}`)
       .then(res => res.json())
-      .then(userInfo => this.setState({
-        otherUser: userInfo,
-        currentUserId: this.props.currentUserId
+      .then(userInfo => this.setState(state => {
+        const DOB = userInfo.DOB.split('').slice(0, 10).join('');
+        userInfo.DOB = DOB;
+        return {
+          otherUser: userInfo,
+          currentUserId: this.props.currentUserId
+        };
       }))
       .catch(err => console.error(err));
   }
