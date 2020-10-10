@@ -17,7 +17,7 @@ function UserProfile(props) {
                 <p className="text-secondary">{props.user.tagline}</p>
               </div>
               <div className="profile-btn-box d-flex flex-column align-items-center position-relative no-btn-outline">
-                {/* <button onClick={() => props.setView('editUserProfile', {})} className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button> */}
+                <button onClick={() => props.setView('editUserProfile', {})} className="homepage-btn green-btn font-weight-light text-white col-10 rounded my-4 py-2">Edit Profile</button>
               </div>
               <h5 className="text-secondary text-center">About Me</h5>
               <div className="profile-form">
