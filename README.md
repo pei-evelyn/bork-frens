@@ -23,9 +23,9 @@ Try the application live at https://borkfrens.pkillian.com/
 
 # Features
 ✋ Features I personally worked on.
-User can see dropdown menu of users to login - Back End.
-User can see dropdown menu of users to login - Front End. ✋
-User can navigate to homepage - Back End.
+- User can see dropdown menu of users to login - Back End.
+- User can see dropdown menu of users to login - Front End. ✋
+- User can navigate to homepage - Back End.
 User can navigate to homepage - Front End.
 User can edit own profile page - Back End. ✋
 User can edit own profile page - Front End. ✋
