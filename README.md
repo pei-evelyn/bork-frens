@@ -77,7 +77,7 @@ Try the application live at [https://borkfrens.evelynpei.com/](https://borkfrens
     cd sgt-react
     ```
 
-2. Install all dependencies with NPM.
+2. Install all dependencies with npm.
 
     ```shell
     npm install
