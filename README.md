@@ -3,7 +3,7 @@ A full stack application for dog owners who want a community to find doggy play 
 
 # Technologies Used
 - React
-J- avaScript ES6
+- JavaScript ES6
 - Node.js
 - Express
 - PostgreSQL
