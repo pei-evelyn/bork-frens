@@ -10,7 +10,7 @@ A full stack application for dog owners who want a community to find doggy play 
 - Bootstrap 4
 - CSS3
 - HTML5
-- NPM
+- npm
 - Webpack
 - Babel
 - Pgweb
