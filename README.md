@@ -24,9 +24,9 @@ Try the application live at [https://borkfrens.evelynpei.com/](https://borkfrens
 
 ## Features
 
-#### :raised_hand: Features I personally worked on.
+#### 🐾 Features I personally worked on.
 - User can see dropdown menu of users to login - Back End.
-- User can see dropdown menu of users to login - Front End. :raised_hand:
+- User can see dropdown menu of users to login - Front End. 🐾
 - User can navigate to homepage - Back End.
 - User can navigate to homepage - Front End.
 - User can edit own profile page - Back End.
@@ -37,20 +37,20 @@ Try the application live at [https://borkfrens.evelynpei.com/](https://borkfrens
 - User can view list of conversations - Front End.
 - User can view conversation with other user - Back End.
 - User can view conversation with other user - Front End.
-- User can view list of connection requests - Back End. :raised_hand:
-- User can view list of connection requests - Front End. :raised_hand:
-- User can accept or deny connection request - Back End. :raised_hand:
-- User can accept or deny connection request - Front End. :raised_hand:
-- User can view other user's profile - Back End. :raised_hand:
-- User can view other user's profile - Front End. :raised_hand:
-- User can request connection to other user - Back End. :raised_hand:
-- User can request connection to other user - Front End. :raised_hand:
-- User can see map (static) and number of nearby users - Back End. :raised_hand:
-- User can see map (static) and number of nearby users - Front End. :raised_hand:
+- User can view list of connection requests - Back End. 🐾
+- User can view list of connection requests - Front End. 🐾
+- User can accept or deny connection request - Back End. 🐾
+- User can accept or deny connection request - Front End. 🐾
+- User can view other user's profile - Back End. 🐾
+- User can view other user's profile - Front End. 🐾
+- User can request connection to other user - Back End. 🐾
+- User can request connection to other user - Front End. 🐾
+- User can see map (static) and number of nearby users - Back End. 🐾
+- User can see map (static) and number of nearby users - Front End. 🐾
 - User can see list of nearby users - Back End.
 - User can see list of nearby users - Front End.
 - User can navigate with side navigation menu - Front End.
-- User can navigate with navigation back button - Front End. :raised_hand:
+- User can navigate with navigation back button - Front End. 🐾
 
 ### Stretch Features
 - User can update account settings - Back End.
