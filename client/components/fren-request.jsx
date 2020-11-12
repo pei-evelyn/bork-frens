@@ -44,7 +44,6 @@ function FrenRequests(props) {
   }
 
   return (
-
     <div className="container-fluid p-0 mt-2">
       {frenList}
     </div>
