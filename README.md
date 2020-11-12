@@ -15,7 +15,6 @@ A full stack application for dog owners who want a community to find doggy play 
 - Webpack
 - Babel
 - Pgweb
-- AWS EC2
 - Figma
 - Meistertask
 
