@@ -139,37 +139,43 @@ app.post('/api/messages', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// User can see list of connection requests
+// Get total num of frens for map page
 
-app.get('/api/fren-requests/:recipientId', (req, res, next) => {
-  const recipientId = parseInt(req.params.recipientId, 10);
+app.get('/api/find-frens/:location/:userId', (req, res, next) => {
 
-  if (recipientId < 0 || isNaN(recipientId)) {
-    throw (new ClientError(`Recipient ID ${req.params.recipientId} is not valid`, 400));
+  const location = req.params.location;
+  const userId = parseInt(req.params.userId, 10);
+
+  if (userId < 0 || isNaN(userId)) {
+    throw (new ClientError(`user Id ${req.params.userId} is not valid`, 400));
+  }
+
+  if (typeof location === 'undefined') {
+    throw (new ClientError(`${req.params.location} is required`, 400));
   }
 
   const sql = `
-    select "u"."dogName" as "requesterName",
-          "u"."imageUrl" as "requesterImage",
-          "fr"."requestId",
-          "fr"."isAccepted"
-      from "frenRequests" as "fr"
-      join "users" as "u" on "u"."userId" = "fr"."senderId"
-    where "fr"."recipientId" = $1 and
-          "fr"."isAccepted" = false;
+    select count(*) as "numOfFrensNearby"
+    from "users"
+    where "location" = $1
+    and "userId" != $2
   `;
 
-  const params = [recipientId];
+  const params = [location, userId];
 
   db.query(sql, params)
     .then(result => {
       if (result.rows.length === 0) {
-        next(new ClientError(`Recipient Id ${recipientId} returned no requests`, 404));
+        next(new ClientError(`${location} returned no users`, 404));
       } else {
-        return res.status(200).json(result.rows);
+        return res.status(200).json(result.rows[0]);
       }
     })
-    .catch(error => next(error));
+    .catch(err => next(err));
+});
+
+app.use('/api', (req, res, next) => {
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl} `, 404));
 });
 
 // User can see other's profile
@@ -211,6 +217,63 @@ app.get('/api/others-profile/:userId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// User can request connection to other user
+
+app.post('/api/others-profile', (req, res, next) => {
+  const requestInfo = req.body;
+
+  if (typeof requestInfo.senderId === 'undefined' ||
+    typeof requestInfo.recipientId === 'undefined') {
+    throw (new ClientError('Missing required information', 400));
+  }
+
+  const sql = `
+    insert into "frenRequests" ("requestId", "recipientId", "senderId", "isAccepted")
+    values (default, $1, $2, false)
+    returning *
+  `;
+  const params = [parseInt(requestInfo.recipientId), parseInt(requestInfo.senderId)];
+
+  db.query(sql, params)
+    .then(result => {
+      return res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+// User can see list of connection requests
+
+app.get('/api/fren-requests/:recipientId', (req, res, next) => {
+  const recipientId = parseInt(req.params.recipientId, 10);
+
+  if (recipientId < 0 || isNaN(recipientId)) {
+    throw (new ClientError(`Recipient ID ${req.params.recipientId} is not valid`, 400));
+  }
+
+  const sql = `
+    select "u"."dogName" as "requesterName",
+          "u"."imageUrl" as "requesterImage",
+          "fr"."requestId",
+          "fr"."isAccepted"
+      from "frenRequests" as "fr"
+      join "users" as "u" on "u"."userId" = "fr"."senderId"
+    where "fr"."recipientId" = $1 and
+          "fr"."isAccepted" = false;
+  `;
+
+  const params = [recipientId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next(new ClientError(`Recipient Id ${recipientId} returned no requests`, 404));
+      } else {
+        return res.status(200).json(result.rows);
+      }
+    })
+    .catch(error => next(error));
+});
+
 // User can accept friend request
 
 app.put('/api/fren-requests/:requestId', (req, res, next) => {
@@ -235,30 +298,6 @@ app.put('/api/fren-requests/:requestId', (req, res, next) => {
       } else {
         return res.status(200).json(result.rows[0]);
       }
-    })
-    .catch(err => next(err));
-});
-
-// User can request connection to other user
-
-app.post('/api/others-profile', (req, res, next) => {
-  const requestInfo = req.body;
-
-  if (typeof requestInfo.senderId === 'undefined' ||
-    typeof requestInfo.recipientId === 'undefined') {
-    throw (new ClientError('Missing required information', 400));
-  }
-
-  const sql = `
-    insert into "frenRequests" ("requestId", "recipientId", "senderId", "isAccepted")
-    values (default, $1, $2, false)
-    returning *
-  `;
-  const params = [parseInt(requestInfo.recipientId), parseInt(requestInfo.senderId)];
-
-  db.query(sql, params)
-    .then(result => {
-      return res.status(201).json(result.rows[0]);
     })
     .catch(err => next(err));
 });
@@ -435,45 +474,6 @@ app.get('/api/users/find-frens/list/:location/:userId', (req, res, next) => {
     })
     .then(result => res.json(result))
     .catch(err => next(err));
-});
-
-// Get total num of frens for map page
-
-app.get('/api/find-frens/:location/:userId', (req, res, next) => {
-
-  const location = req.params.location;
-  const userId = parseInt(req.params.userId, 10);
-
-  if (userId < 0 || isNaN(userId)) {
-    throw (new ClientError(`user Id ${req.params.userId} is not valid`, 400));
-  }
-
-  if (typeof location === 'undefined') {
-    throw (new ClientError(`${req.params.location} is required`, 400));
-  }
-
-  const sql = `
-    select count(*) as "numOfFrensNearby"
-    from "users"
-    where "location" = $1
-    and "userId" != $2
-  `;
-
-  const params = [location, userId];
-
-  db.query(sql, params)
-    .then(result => {
-      if (result.rows.length === 0) {
-        next(new ClientError(`${location} returned no users`, 404));
-      } else {
-        return res.status(200).json(result.rows[0]);
-      }
-    })
-    .catch(err => next(err));
-});
-
-app.use('/api', (req, res, next) => {
-  next(new ClientError(`cannot ${req.method} ${req.originalUrl} `, 404));
 });
 
 app.use((err, req, res, next) => {
