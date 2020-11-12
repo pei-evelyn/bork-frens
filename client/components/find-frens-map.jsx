@@ -47,7 +47,7 @@ function NumOfFrensNearby(props) {
     <div className="col-7 d-flex">
       <h4 className="align-self-center">
         <span className="badge badge-info mr-2">{props.totalNum}</span>
-        frens nearby!
+        dogs nearby
       </h4>
     </div>
   );
@@ -58,7 +58,7 @@ function ListButton(props) {
     <div className="col-5 d-flex justify-content-end">
       <button
         type="button"
-        className="btn btn-lg btn-info"
+        className="btn btn-lg green-btn text-white"
         onClick={() => props.setView('frensNearby', {})}>View List</button>
     </div>
   );

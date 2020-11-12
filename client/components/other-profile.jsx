@@ -80,7 +80,7 @@ class OtherProfile extends React.Component {
           location={this.state.otherUser.location}
         />
         <div className="container">
-          <div className="row no-gutters d-flex align-items-end">
+          <div className="row d-flex align-items-end">
             <div className="col content-container mx-3 mt-4 d-flex flex-column justify-content-end">
               <OtherUserButtons
                 handleFrenReq={this.handleFrenReqClick}
