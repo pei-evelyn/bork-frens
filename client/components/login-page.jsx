@@ -38,18 +38,17 @@ class LoginPage extends React.Component {
     return (
       <>
         <div className="login-background pt-5 text-white col">
-          <i className="d-flex justify-content-center fas fa-bone fa-3x"></i>
+          <i className="d-flex justify-content-center fas fa-bone fa-3x mt-5 mb-1"></i>
           <h2 className="d-flex justify-content-center mb-5">borkfrens</h2>
           <div className="d-flex justify-content-center">
             <select onChange={this.handleChange}
-              className="form-control-lg col-11">
+              className="form-control-lg col-11 mt-3">
               <option className="col-9">Select User</option>
               {this.state.users.map(user => {
                 return (
                   <option key={user.userId} userid={user.userId}>{user.userName}</option>
                 );
               })}
-
             </select>
           </div>
         </div>

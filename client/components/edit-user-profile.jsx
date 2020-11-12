@@ -109,7 +109,7 @@ class EditUserProfile extends React.Component {
           <img className="other-user-profile-img" src={this.props.currentUserId.imageUrl}></img>
         </div>
         <div className="container">
-          <div className="row no-gutters d-flex align-items-end">
+          <div className="row d-flex align-items-end">
             <div className="col content-container mx-3 mt-4 d-flex flex-column">
               <div className="row mx-2 my-4">
                 <div className="col">
@@ -146,7 +146,7 @@ class EditUserProfile extends React.Component {
                           </select>
                         </div>
                       </div>
-                      <div className="form-group col-6">
+                      <div className="form-group col">
                         <label className="text-muted mb-0">DOB</label>
                         <input placeholder={this.props.currentUserId.DOB}
                           type="text"
@@ -180,7 +180,7 @@ class EditUserProfile extends React.Component {
                         />
                       </div>
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center mt-2">
                       <button type="submit" className="btn shadow bg-button text-white w-75"
                         onClick={this.updateProfile}>Update</button>
                     </div>

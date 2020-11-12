@@ -1,5 +1,12 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: linear-gradient(#69b0ab, #ffffff);
+  font-family: 'Poppins', sans-serif;
   height: 100vh;
 }
 
@@ -109,8 +116,7 @@ textarea {
   font-size: 2.4rem;
 }
 
-.fren-request-img,
-.homepage-profile-img {
+.fren-request-img, .homepage-profile-img {
   height: 4.3rem;
   width: 4.3rem;
   object-fit: cover;
@@ -118,8 +124,7 @@ textarea {
 }
 
 .homepage-btn {
-  outline: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .green-btn {
@@ -130,8 +135,7 @@ textarea {
   background-color: #656565;
 }
 
-.other-user-profile-img,
-.homepage-user-profile-img {
+.other-user-profile-img {
   height: 7rem;
   width: 7rem;
   object-fit: cover;
@@ -148,6 +152,8 @@ textarea {
 .homepage-user-profile-img {
   height: 8rem;
   width: 8rem;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .home-page-user-profile-box {
@@ -205,28 +211,6 @@ textarea {
 
 .time {
   margin-left: 90px;
-}
-
-.homepage-user-profile-img {
-  height: 8rem;
-  width: 8rem;
-}
-
-.home-page-user-profile-box {
-  bottom: 11%;
-}
-
-.location-box {
-  bottom: 10%;
-}
-
-.profile-btn-box {
-  bottom: 10%;
-}
-
-.no-btn-outline {
-  border: 0;
-  outline: 0;
 }
 
 .icon-accept:active {

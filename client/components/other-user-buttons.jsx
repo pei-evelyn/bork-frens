@@ -7,13 +7,13 @@ function OtherUserButtons(props) {
       <div className="col d-flex justify-content-center">
         <button
           type="button"
-          className="btn btn-info mr-2"
+          className="btn green-btn mr-2"
           onClick={() => props.handleFrenReq(props.senderId, props.recipientId)}>
           {props.frenReqText}
         </button>
         <button
           type="button"
-          className="btn btn-secondary ml-2"
+          className="btn grey-btn ml-2"
           onClick={() => props.handleMessageReq()}
         >MESSAGE</button>
       </div>
