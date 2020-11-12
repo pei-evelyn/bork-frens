@@ -68,6 +68,7 @@ export default class App extends React.Component {
         return (
           <>
             <Header
+              text='My Frens'
               setView={this.setView}
               history={this.state.history}
               switchViewBack={this.switchViewBack}

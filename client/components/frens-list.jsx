@@ -28,9 +28,9 @@ class FrensList extends React.Component {
   render() {
     return (
       <div className="container">
-        <h2 className="text-white text-center font-weight-normal fren-list-total">{this.state.frens.length} Frens</h2>
+        {/* <h2 className="text-white text-center font-weight-normal fren-list-total">{this.state.frens.length} Frens</h2> */}
         <div className="row no-gutters d-flex align-items-end">
-          <div className="col content-container mx-3 mt-4">
+          <div className="col content-container mx-3 mt-2">
             {this.state.frens.map(fren => {
               return <FrenListItem
                 key={fren.userId}

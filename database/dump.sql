@@ -279,13 +279,12 @@ ALTER TABLE ONLY public.users ALTER COLUMN "userId" SET DEFAULT nextval('public.
 --
 
 COPY public."frenRequests" ("requestId", "senderId", "recipientId", "isAccepted") FROM stdin;
-9	6	8	f
-10	6	10	f
-4	9	6	f
-3	8	6	f
-6	11	6	f
-14	10	6	f
-2	6	7	t
+16	9	8	f
+15	10	9	t
+18	8	7	f
+25	10	6	t
+26	8	6	f
+27	7	6	f
 \.
 
 
@@ -316,7 +315,9 @@ COPY public.genders ("genderId", identity) FROM stdin;
 --
 
 COPY public.messages ("messageId", "messageContent", "senderId", "recipientId", "sentAt") FROM stdin;
-2	Borkdrive blep heckin borkdrive, wow very biscit. Porgo fat boi shoob puggo corgo, blop super chub.	6	7	2020-10-03 12:37:15.057653-07
+8	bork bork!	9	6	2020-10-13 17:52:13.79-07
+9	bork bork~!	8	7	2020-10-13 17:54:04.371-07
+10	hiiii	8	6	2020-10-13 17:54:35.297-07
 \.
 
 
@@ -325,12 +326,12 @@ COPY public.messages ("messageId", "messageContent", "senderId", "recipientId", 
 --
 
 COPY public.users ("userId", "dogName", location, "userName", breed, "DOB", "levelId", tagline, "imageUrl", "genderId") FROM stdin;
-6	Kaydo	Los Angeles, CA	kaydoborkz	husky	1978-10-23	4	happy all the time	/images/userId6.jpg	1
 8	Mimi	Los Angeles, CA	floofyMimi	Pomeranian	2018-05-10	4	Cutest litto floof in town	/images/userId8.jpg	2
-9	Heckin	Los Angeles, CA	givinMeDaHeck	Shiba Inu	2017-02-10	3	Stop givin me da h*ck	/images/userId9.jpg	1
-10	Sir Doggyton	Pasadena, CA	sirDoggytonDaThird	German Shepard	2016-09-20	4	I come from doggo royalty	/images/userId10.jpg	1
-11	Ponyo	Glendale, CA	ponyoPuppers	Chiweenie	2018-11-20	3	Cha-cha-cha-chiweenie!	/images/userId11.jpg	2
-7	Pupperino	Tustin, CA	pupps54	cyberBorks	1979-01-15	4	machines rule	/images/userId7.jpg	1
+7	Pupperino	Los Angeles, CA	pupps54	cyberBorks	1979-01-15	4	machines rule	/images/userId7.jpg	1
+9	Heckin	Los Angeles, CA	givinMeDaHeck	Shiba	2015-10-03	4	Bork bork bork	/images/userId9.jpg	1
+11	Ponyo	Los Angeles, CA	ponyoPuppers	Chiweenie	2015-10-03	3	Chaaaaaaweeenie!	/images/userId11.jpg	1
+6	Kaydo	Los Angeles, CA	kaydoborkz	Husky	2015-10-20	3	Bork bork bork	/images/userId6.jpg	1
+10	Sir Doggyton	Pasadena, CA	sirDoggytonDaThird	German Shepard	2015-10-03	3	Bork bork bork	/images/userId10.jpg	1
 \.
 
 
@@ -338,7 +339,7 @@ COPY public.users ("userId", "dogName", location, "userName", breed, "DOB", "lev
 -- Name: frenRequests_requestId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."frenRequests_requestId_seq"', 14, true);
+SELECT pg_catalog.setval('public."frenRequests_requestId_seq"', 27, true);
 
 
 --
@@ -359,7 +360,7 @@ SELECT pg_catalog.setval('public."genders_genderId_seq"', 2, true);
 -- Name: messages_messageId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."messages_messageId_seq"', 2, true);
+SELECT pg_catalog.setval('public."messages_messageId_seq"', 12, true);
 
 
 --
