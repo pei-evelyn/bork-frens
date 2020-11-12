@@ -149,6 +149,13 @@ textarea {
   top: 11%;
 }
 
+.my-profile-info {
+  z-index: 1;
+  left: 20%;
+  right: 20%;
+  top: -10%;
+}
+
 .homepage-user-profile-img {
   height: 8rem;
   width: 8rem;
