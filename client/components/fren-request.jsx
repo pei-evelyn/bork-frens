@@ -23,7 +23,7 @@ function Request(props) {
 function FrenRequests(props) {
   const frenRequests = props.frenReq;
   let frenList;
-  if (frenRequests.length > 0) {
+  if (frenRequests.length) {
     frenList = frenRequests.map(req => {
       return (
         <Request
@@ -44,7 +44,6 @@ function FrenRequests(props) {
   }
 
   return (
-
     <div className="container-fluid p-0 mt-2">
       {frenList}
     </div>
